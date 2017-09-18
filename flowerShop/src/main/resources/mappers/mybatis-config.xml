@@ -5,7 +5,8 @@
 	<typeAliases>
 		<typeAlias alias="join" type="com.flowershop.login.domain.UserVo"/>
 		<typeAlias alias="login" type="com.flowershop.login.domain.UserVo"/>
-		<typeAlias alias="board" type="com.flowershop.board.domain.BoardVo"/>
+		<typeAlias alias="boardVo" type="com.flowershop.board.domain.BoardVo"/>
+		<typeAlias alias="boardList" type="com.flowershop.board.domain.BoardList"/>
 	</typeAliases>
 
 </configuration>

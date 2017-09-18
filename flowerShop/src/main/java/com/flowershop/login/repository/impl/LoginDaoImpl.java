@@ -4,17 +4,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.flowershop.login.domain.UserVo;
-import com.flowershop.login.repository.LoginDao;
-
 @Repository
-public class LoginDaoImpl implements LoginDao{
+public class LoginDaoImpl {
 
-	@Autowired
-	private SqlSession sqlSession;
-	
-	@Override
-	public UserVo login(String user_id) throws Exception {
-		return sqlSession.selectOne("login.userLogin" ,user_id);	
-	}
+   @Autowired
+   private SqlSession sqlSession;
+
 }

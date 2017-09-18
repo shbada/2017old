@@ -26,7 +26,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "/writeOK", method = RequestMethod.POST)
-	private String writeInBoard(@ModelAttribute BoardVo vo) throws Exception {
+	private String writeInBoard(BoardVo vo) throws Exception {
 		boardService.insert(vo);
 		return "board_list";
 	}

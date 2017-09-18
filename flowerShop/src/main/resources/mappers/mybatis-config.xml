@@ -3,8 +3,14 @@
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias alias="board" type="com.flowershop.controller.board.domain.BoardVo"/>
+		<typeAlias alias="join" type="com.flowershop.login.domain.UserVo"/>
+		<typeAlias alias="login" type="com.flowershop.login.domain.UserVo"/>
 	</typeAliases>
+
+ 	<mappers>
+		<mapper resource="mappers/joinMapper.xml" />
+		<mapper resource="mappers/loginMapper.xml" />
+	</mappers>
 </configuration>
 
 	

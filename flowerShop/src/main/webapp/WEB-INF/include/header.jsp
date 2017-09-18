@@ -57,7 +57,8 @@
                             <li><a href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
                             <li><a href="cart.html"><i class="fa fa-user"></i> My Cart</a></li>
                             <li><a href="checkout.html"><i class="fa fa-user"></i> Checkout</a></li>
-                            <li><a href="#"><i class="fa fa-user"></i> Login</a></li>
+                            <li><a href="${pageContext.request.contextPath }/join"><i class="fa fa-user"></i> 회원가입</a></li>
+                            <li><a href="${pageContext.request.contextPath }/login/loginform"><i class="fa fa-user"></i> 로그인</a></li>
                         </ul>
                     </div>
                 </div>

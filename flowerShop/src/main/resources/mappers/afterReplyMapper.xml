@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="afterReply">
+	<select id="afterReplyList" parameterType="int" resultType="com.flowershop.afterReply.domain.AfterReplyVo">	 
+		SELECT
+			P.PRODUCT_NO,
+			P.PRODUCT_NAME,
+			P.PRODUCT_URL,
+			A.AFTER_NO,
+			A.AFTER_LEVEL,
+			A.AFTER_CONTENT
+				FROM PRODUCT P, AFTER_REPLY A
+					WHERE A.PRODUCT_NO = P.PRODUCT_NO
+					AND A.PRODUCT_NO = #{productNo}
+	</select>
+	
+	<insert id="afterReplyWriteSave" parameterType="com.flowershop.afterReply.domain.AfterReplyVo">
+      <![CDATA[
+         INSERT 
+           INTO MEMBER
+                (
+                    PRODUCT_NO,
+					PRODUCT_NAME,
+					AFTER_NO,
+					AFTER_LEVEL,
+					AFTER_CONTENT,
+					USER_ID,
+					USER_NAME
+                ) VALUES (
+                     #{productNo},
+                     #{productName},
+                     #{afterNo},
+                     #{afterLevel},
+                     #{afterContent},
+                     #{userId},
+                     #{userName}
+                )
+          ]]>
+	</insert>
+</mapper>

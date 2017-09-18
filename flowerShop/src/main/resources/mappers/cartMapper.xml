@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cart">
+	<select id="cartList" parameterType="string" resultType="com.flowershop.cart.domain.CartVo">
+		SELECT
+			C.CART_NO,
+			C.USER_ID,
+			P.PRODUCT_NO,
+			P.PRODUCT_NAME,
+			P.PRODUCT_URL,
+			C.PRODUCT_AMOUNT,
+			P.PRODUCT_PRICE,
+			(PRODUCT_PRICE * AMOUNT) MOENY
+				FROM USERS U, PRODUCT P, CART C
+					WHERE U.USER_ID = C.USER_ID
+					AND P.PRODUCT_NO = C.PRODUCT_NO
+					AND C.USER_ID = #{userId}
+					 ORDER BY C.CART_NO
+	</select>
+	
+	<select id="sumMoney" parameterType="string" resultType="int">
+		SELECT NVL(SUM(PRODUCT_PRICE * AMOUNT), 0) MONEY
+			FROM CART C, PRDUCT P
+				WHERE C.PRODUCT_NO = P.PRODUCT_NO
+				AND C.USER_ID = #{userId}
+	</select>
+</mapper>

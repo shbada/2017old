@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="join">
+
+	<insert id="userJoin" parameterType="join">
+		insert INTO USERS (USER_ID,
+		 				   USER_NO,
+						   USER_PW, 
+						   USER_NAME, 
+						   USER_EMAIL, 
+						   USER_PHONE, 
+						   USER_ADDR1, 
+						   USER_ADDR2,
+						   USER_ADDR3,
+						   USER_ADDR4,
+						   USER_GRADE,
+						   USER_REGDATE, 
+						   USER_YN, 
+						   USER_DELDATE,
+						   USER_POINT, 
+  						   SOCIAL_ID, 
+						   SOCIAL_STATE,
+						   ISADMIN)
+		 VALUES( #{user_id}, user_no.NEXTVAL, #{user_pw}, #{user_name}, #{user_email}, #{user_phone},
+		#{user_addr1}, #{user_addr2}, #{user_addr3}, #{user_addr4}, #{social_state}, to_char(SYSDATE, 'YYYY-MM-DD HH24:MM:SS'),
+		 #{user_yn}, #{user_deldate} , #{user_point} , #{social_id}, #{social_state}, #{isadmin})
+	</insert>
+
+	<select id="checkId" parameterType="String" resultType="int">
+	<![CDATA[        
+		select count(*) from users where user_id = #{user_id}
+   ]]>
+	</select>
+</mapper>

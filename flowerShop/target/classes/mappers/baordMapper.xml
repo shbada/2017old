@@ -15,14 +15,12 @@
 		select count (*) from board
 	</select>
 	
-	<select id="list" parameterType="boardList" resultType="ArrayList">
-	<![CDATA[
-		select * from (
-			select rownum rnum, T.* from (
-				select * from board order by board_ref desc, board_seq
-			) T where rownum <= #{endNo}
-		) where rnum >= #{startNo}
-	]]>
+	<select id="getBoardlist" parameterType="java.util.Map" resultType="boardVo">
+		<![CDATA[
+			select * from (
+			select rownum rnum, T.* from (select * from board order by board_ref desc, board_seq) 
+			T where rownum <= #{endNo}) where rnum >= #{startNo}
+		]]>
 </select>
 
 </mapper>

@@ -1,9 +1,11 @@
 package com.flowershop.board.service.impl;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,14 +26,17 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public BoardList viewList(int pageNo) throws Exception {
+	public BoardList getBoardList(int pageNo) throws Exception {
 		int totalCount = boardDao.totalCount();					// 페이지 전체 글의 갯수 가져오기
 
 		BoardList list = new BoardList(pageNo, totalCount); 	// 페이징 작업
 		int startNo = list.getStartNo();
 		int endNo = list.getEndNo();
+		Map<String, Integer> map = new HashedMap();
+		map.put("startNo", startNo);
+		map.put("endNo", endNo);
 
-		ArrayList R = boardDao.list(list);	// 실제 게시판 글 가져오
+		ArrayList<BoardVo> R = boardDao.getBoardlist(map);	// 실제 게시판 글 가져오
 //		for (RboardVO vo : R) {
 //			vo.setCommentCount(dao.commentCount(vo.getIdx())); // 각 글의 댓글 갯수를
 //																// 불러온다.

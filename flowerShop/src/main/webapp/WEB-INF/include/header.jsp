@@ -101,7 +101,7 @@
                 
                 <div class="col-sm-6">
                     <div class="shopping-item">
-                        <a href="cart.html">Cart - <span class="cart-amunt">$800</span> <i class="fa fa-shopping-cart"></i> <span class="product-count">5</span></a>
+                        <a href="cart.html">장바구니 - <!-- <span class="cart-amunt">$800</span>  --><i class="fa fa-shopping-cart"></i> <span class="product-count">5</span></a>
                     </div>
                 </div>
             </div>
@@ -127,7 +127,7 @@
                         <li><a href="cart.html">Cart</a></li>
                         <li><a href="checkout.html">Checkout</a></li>
                         <li><a href="#">Category</a></li>
-                        <li><a href="#">Others</a></li>
+                        <li><a href="list">자유게시판</a></li>
                         <li><a href="#">Contact</a></li>
                     </ul>
                 </div>  

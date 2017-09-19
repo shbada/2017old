@@ -1,6 +1,7 @@
 package com.flowershop.board.repository.impl;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,8 @@ public class BoardDaoImpl implements BoardDao{
 	}
 
 	@Override
-	public ArrayList list(BoardList list) throws Exception{
-		return (ArrayList)sqlSession.selectList("board.list", list);
+	public ArrayList<BoardVo> getBoardlist(Map<String, Integer> map) throws Exception{
+		return (ArrayList)sqlSession.selectList("board.getBoardlist", map);
 	}
 
 }

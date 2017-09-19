@@ -13,7 +13,7 @@
                                 <li data-target="#slide-list" data-slide-to="1"></li>
                                 <li data-target="#slide-list" data-slide-to="2"></li>
                             </ol>                            
-                        </div>
+                       </div>
                     </div>
                 </div>
             </div>

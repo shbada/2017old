@@ -7,7 +7,6 @@ public interface BoardService {
 
 	void insert(BoardVo vo) throws Exception;
 
-	BoardList viewList(int pageNo)throws Exception;
-
+	BoardList getBoardList(int pageNo) throws Exception; 
 	
 }

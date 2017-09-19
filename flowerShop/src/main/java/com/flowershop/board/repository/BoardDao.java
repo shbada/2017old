@@ -1,8 +1,8 @@
 package com.flowershop.board.repository;
 
 import java.util.ArrayList;
+import java.util.Map;
 
-import com.flowershop.board.domain.BoardList;
 import com.flowershop.board.domain.BoardVo;
 
 public interface BoardDao {
@@ -11,6 +11,6 @@ public interface BoardDao {
 
 	int totalCount()throws Exception;
 
-	ArrayList list(BoardList list) throws Exception;
+	ArrayList<BoardVo> getBoardlist(Map<String, Integer> map) throws Exception;
 
 }

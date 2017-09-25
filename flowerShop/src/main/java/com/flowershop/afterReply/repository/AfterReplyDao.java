@@ -8,4 +8,10 @@ public interface AfterReplyDao {
 
 	List<AfterReplyVo> afterReplyList(int productNo);
 
+	AfterReplyVo afterReplyUpdate(AfterReplyVo afterReplyVo);
+
+	void afterReplyUpdateSave(AfterReplyVo afterReplyVo);
+
+	void afterReplyDelete(AfterReplyVo afterReplyVo);
+
 }

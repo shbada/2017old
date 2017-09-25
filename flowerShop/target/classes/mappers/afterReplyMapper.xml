@@ -38,4 +38,35 @@
                 )
           ]]>
 	</insert>
+	
+	<!-- 게시글 수정페이지로 이동 -->
+	<select id="afterReplyUpdate" parameterType="com.flowershop.afterReply.domain.AfterReplyVo" resultType="com.flowershop.afterReply.domain.AfterReplyVo">
+			SELECT
+			P.PRODUCT_NO,
+			P.PRODUCT_NAME,
+			P.PRODUCT_URL,
+			A.AFTER_NO,
+			A.AFTER_LEVEL,
+			A.AFTER_CONTENT
+				FROM PRODUCT P, AFTER_REPLY A
+					WHERE A.PRODUCT_NO = P.PRODUCT_NO
+					AND A.PRODUCT_NO = #{productNo}
+					AND A.AFTER_NO = #{afterNo}
+	</select>
+	
+	<!-- 후기댓글 수정 -->
+	<update id="afterReplyUpdateSave" parameterType="com.flowershop.afterReply.domain.AfterReplyVo">
+		<![CDATA[
+			UPDATE AFTER_REPLY
+				SET 
+					AFTER_LEVEL = #{afterLevel},
+					AFTER_CONTENT = #{afterContent}
+				WHERE AFTER_NO = #{afterNo}
+		]]>
+	</update>
+	
+	<!-- 후기댓글 삭제 -->
+	<delete id="afterReplyDelete" parameterType="com.flowershop.afterReply.domain.AfterReplyVo">
+			DELETE FROM AFTER_REPLY WHERE AFTER_NO = #{afterNo}
+	</delete>
 </mapper>

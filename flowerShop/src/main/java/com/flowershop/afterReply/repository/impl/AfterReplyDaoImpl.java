@@ -19,4 +19,19 @@ public class AfterReplyDaoImpl implements AfterReplyDao{
 	public List<AfterReplyVo> afterReplyList(int productNo) {
 		return session.selectList("afterReply.afterReplyList", productNo);
 	}
+
+	@Override
+	public AfterReplyVo afterReplyUpdate(AfterReplyVo afterReplyVo) {
+		return (AfterReplyVo) session.selectList("afterReply.afterReplyList", afterReplyVo);
+	}
+
+	@Override
+	public void afterReplyUpdateSave(AfterReplyVo afterReplyVo) {
+		session.update("afterReply.afterReplyUpdateSave", afterReplyVo);
+	}
+
+	@Override
+	public void afterReplyDelete(AfterReplyVo afterReplyVo) {
+		session.delete("afterReply.afterReplyDelete", afterReplyVo);
+	}
 }

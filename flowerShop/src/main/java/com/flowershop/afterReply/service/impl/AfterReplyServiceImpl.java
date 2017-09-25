@@ -20,4 +20,19 @@ public class AfterReplyServiceImpl implements AfterReplyService {
 		return afterReplyDao.afterReplyList(productNo);
 	}
 
+	@Override
+	public AfterReplyVo afterReplyUpdate(AfterReplyVo afterReplyVo) {
+		return afterReplyDao.afterReplyUpdate(afterReplyVo);
+	}
+
+	@Override
+	public void afterReplyUpdateSave(AfterReplyVo afterReplyVo) {
+		afterReplyDao.afterReplyUpdateSave(afterReplyVo);
+	}
+
+	@Override
+	public void afterReplyDelete(AfterReplyVo afterReplyVo) {
+		afterReplyDao.afterReplyDelete(afterReplyVo);
+	}
+
 }

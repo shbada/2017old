@@ -21,10 +21,11 @@
 						   USER_POINT, 
   						   SOCIAL_ID, 
 						   SOCIAL_STATE,
-						   ISADMIN)
+						   ISADMIN,
+						   enabled)
 		 VALUES( #{user_id}, user_no.NEXTVAL, #{user_pw}, #{user_name}, #{user_email}, #{user_phone},
 		#{user_addr1}, #{user_addr2}, #{user_addr3}, #{user_addr4}, #{social_state}, to_char(SYSDATE, 'YYYY-MM-DD HH24:MM:SS'),
-		 #{user_yn}, #{user_deldate} , #{user_point} , #{social_id}, #{social_state}, #{isadmin})
+		 #{user_yn}, #{user_deldate} , #{user_point} , #{social_id}, #{social_state}, #{isadmin}, #{enabled})
 	</insert>
 
 	<select id="checkId" parameterType="String" resultType="int">

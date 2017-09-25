@@ -12,7 +12,18 @@
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 
+	<beans:bean id="authInterceptor"
+		class="com.flowershop.login.interceptor.AuthInterceptor"></beans:bean>
 
+	<beans:bean id="loginInterceptor"
+		class="com.flowershop.login.interceptor.LoginInterceptor"></beans:bean>
+
+	<interceptors>
+		<interceptor>
+			<mapping path="/loginPost" />
+			<beans:ref bean="loginInterceptor" />
+		</interceptor>
+	</interceptors>
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->
@@ -27,7 +38,8 @@
 	</beans:bean>
 
 	<context:component-scan base-package="com.flowershop" />
-	<context:component-scan base-package="com.flowershop.login.contorller.LoginController" />
+	<context:component-scan
+		base-package="com.flowershop.login.contorller.LoginController" />
 	<context:component-scan base-package="com.flowershop.*.*" />
 
 

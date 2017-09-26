@@ -4,6 +4,6 @@ import com.flowershop.login.domain.UserVo;
 
 public interface LoginDao {
 	
-	public UserVo login(UserVo userVo)throws Exception;
+	public UserVo login(String user_id)throws Exception;
 
 }

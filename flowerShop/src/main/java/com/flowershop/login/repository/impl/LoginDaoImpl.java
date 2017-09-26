@@ -14,8 +14,8 @@ public class LoginDaoImpl implements LoginDao{
 	private SqlSession sqlSession;
 
 	@Override
-	public UserVo login(UserVo userVo) throws Exception {
-		return sqlSession.selectOne("login.userLogin", userVo);
+	public UserVo login(String user_id) throws Exception {
+		return sqlSession.selectOne("login.userLogin", user_id);
 	}
 
 

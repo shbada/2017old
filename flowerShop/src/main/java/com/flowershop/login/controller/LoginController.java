@@ -31,19 +31,17 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/loginPost", method = RequestMethod.POST)
-	public String loginPOST(UserVo userVo, HttpSession session, Model model) throws Exception {
-		UserVo vo = loginService.login(userVo);
-		// boolean result =passwordEncoder.matches(userVo.getUser_pw(),
-		// vo.getUser_pw());
-		if (vo == null) {
-			String msg = "올바른 아이디와 비밀번호를 입력해주세요";
+	public String loginPOST(@ModelAttribute("vn") UserVo userVo, HttpSession session, Model model, HttpServletResponse response) throws Exception {
+		
+		UserVo vo = loginService.login(userVo.getUser_id());
+
+		if ((vo == null) || (vo != null && (passwordEncoder.matches(userVo.getUser_pw(), vo.getUser_pw()) == false))) {
+			String msg = "아이디와 비밀번호가 올바르지 않습니다.";
 			model.addAttribute("msg", msg);
 			return "login/login";
-		} else if (vo != null && passwordEncoder.matches(userVo.getUser_pw(), vo.getUser_pw()) == true) {
+			
+		} else if (vo != null && (passwordEncoder.matches(userVo.getUser_pw(), vo.getUser_pw()) == true)) {
 			model.addAttribute("userVo", vo);
-		} else if (passwordEncoder.matches(userVo.getUser_pw(), vo.getUser_pw()) == false) {
-			String msg = "올바른 아이디와 비밀번호를 입력해주세요";
-			model.addAttribute("msg", msg);
 		}
 		return "login/login";
 	}

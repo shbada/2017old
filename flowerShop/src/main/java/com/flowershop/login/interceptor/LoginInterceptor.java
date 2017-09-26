@@ -14,31 +14,30 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
 	private static final String LOGIN = "login";
 	private static final Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
-	
+
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-		
+
 		HttpSession session = request.getSession();
-		
 		ModelMap modelMap = modelAndView.getModelMap();
 		Object userVo = modelMap.get("userVo");
-		
 		if (userVo != null) {
+			System.out.println(userVo);
 			session.setAttribute(LOGIN, userVo);
 			response.sendRedirect("/main");
-			System.out.println(request.getAttribute(LOGIN));
-//			Object dest = session.getAttribute("dest");
-//			response.sendRedirect(dest != null ? (String) dest : "/main");
-		}
+			// Object dest = session.getAttribute("dest");
+			// response.sendRedirect(dest != null ? (String) dest : "/main");
+		} 
 	}
 
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		
+
 		HttpSession session = request.getSession();
-		
+
 		if (session.getAttribute(LOGIN) != null) {
 			session.removeAttribute(LOGIN);
+			
 		}
 		return true;
 	}

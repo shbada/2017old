@@ -18,7 +18,7 @@ public class LoginServiceImpl implements LoginService{
 	LoginDaoImpl loginDao;
 
 	@Override
-	public UserVo login(UserVo userVo) throws Exception {
-		return loginDao.login(userVo);
+	public UserVo login(String user_id) throws Exception {
+		return loginDao.login(user_id);
 	}
 }

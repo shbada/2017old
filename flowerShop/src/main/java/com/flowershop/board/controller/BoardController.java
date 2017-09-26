@@ -1,6 +1,6 @@
 package com.flowershop.board.controller;
 
-//주석 추감ㄴ이럼닝러미나얼;ㅣㅁ넝리;ㅁ넝ㄹ;ㅣㅁㄴㅇㄹ
+//주석 변경해보기 2017/09/26 배영철
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;

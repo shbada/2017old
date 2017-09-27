@@ -73,12 +73,11 @@ public class LoginController {
 		return "main/main";
 	}
 
-	@RequestMapping(value = "/kakaologin", produces = "application/json", method = { RequestMethod.GET,
-			RequestMethod.POST })
-	public String kakaoLogin(@RequestParam("code") String code, HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		System.out.println("code : : : :" + code);
-		return "main/main";
-	}
+//	@RequestMapping(value = "/kakaoLogin", produces = "application/json", method = { RequestMethod.GET,
+//			RequestMethod.POST })
+//	public void kakaoLogin(@RequestParam("access_token") String access_token, HttpServletRequest request, HttpServletResponse response, Model model)
+//			throws Exception {
+//		model.addAttribute("userVo", access_token);
+//	}
 
 }

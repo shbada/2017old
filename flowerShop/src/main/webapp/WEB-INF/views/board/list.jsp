@@ -1,16 +1,9 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>답변형 게시판 목록보기</title>
-</head>
-<body>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/include/header.jsp" %>
+<script>
 
+</script>
+<!-- 여기서부터 jsp 소스넣기  -->
 <table width="90%" border="1" align="center">
 	<tr>
 		<th colspan="5"><h2>게시판 목록보기</h2></th>
@@ -40,7 +33,7 @@
 			</c:forEach>
 			RE :&nbsp;
 		</c:if>
-		<a href="increment?page=${pageNo}&idx=${vo.board_no}">${vo.board_title}</a>
+		<a href="increment?pageNo=${pageNo}&board_no=${vo.board_no}">${vo.board_title}</a>
 		(${vo.commentCount})</td>
 		<td align="center">${vo.board_regdate}</td>
 		<td align="center">${vo.board_viewcnt}</td>
@@ -73,5 +66,4 @@
 		</td>
 	</tr>
 </table>
-</body>
-</html>
+<%@ include file="/WEB-INF/include/footer.jsp" %>

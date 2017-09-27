@@ -1,6 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page session="true"%>
 <!DOCTYPE html>
 <html lang="en">
-<%@ page pageEncoding="utf-8"%>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -67,14 +70,25 @@
 									Cart</a></li>
 							<li><a href="checkout.html"><i class="fa fa-user"></i>
 									Checkout</a></li>
-							<li><a href="${pageContext.request.contextPath }/join"><i
-									class="fa fa-user"></i> 회원가입</a></li>
-							<li><a href="${pageContext.request.contextPath }/login"><i
-									class="fa fa-user"></i> 로그인</a></li>
-							<li><a href="${pageContext.request.contextPath }/logout"><i
-									class="fa fa-user"></i> 로그아웃</a></li>
-							<li><a href="${pageContext.request.contextPath }/admin"><i
-									class="fa fa-user"></i>관리자 로그인</a></li>
+
+							<c:set var="user" value="${authUser }" scope="session" />
+							<c:choose>
+								<c:when test="${empty user}">
+									<li><a href="${pageContext.request.contextPath }/join"><i
+											class="fa fa-user"></i> 회원가입</a></li>
+									<li><a href="${pageContext.request.contextPath }/login"><i
+											class="fa fa-user"></i> 로그인</a></li>
+									<li><a href="${pageContext.request.contextPath }/admin"><i
+											class="fa fa-user"></i>관리자 로그인</a></li>
+								</c:when>
+								<c:when test="${not empty user}">
+									<li><a href="${pageContext.request.contextPath }/"><i
+											class="fa fa-user"></i>${user.user_id } 님 </a></li>
+									<li><a href="${pageContext.request.contextPath }/logout"><i
+											class="fa fa-user"></i> 로그아웃</a></li>
+								</c:when>
+							</c:choose>
+
 						</ul>
 					</div>
 				</div>

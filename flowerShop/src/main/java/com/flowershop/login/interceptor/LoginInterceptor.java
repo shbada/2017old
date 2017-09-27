@@ -12,7 +12,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 
-	private static final String LOGIN = "login";
+
 	private static final Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
 
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
@@ -23,7 +23,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		Object userVo = modelMap.get("userVo");
 		if (userVo != null) {
 			System.out.println(userVo);
-			session.setAttribute(LOGIN, userVo);
+			session.setAttribute("authUser", userVo);
+			System.out.println("session  "+session.getAttribute("authUser"));
 			response.sendRedirect("/main");
 			// Object dest = session.getAttribute("dest");
 			// response.sendRedirect(dest != null ? (String) dest : "/main");
@@ -35,8 +36,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
 		HttpSession session = request.getSession();
 
-		if (session.getAttribute(LOGIN) != null) {
-			session.removeAttribute(LOGIN);
+		if (session.getAttribute("authUser") != null) {
+			session.removeAttribute("authUser");
 			
 		}
 		return true;

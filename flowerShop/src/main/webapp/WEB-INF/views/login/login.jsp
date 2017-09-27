@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+<%@ page session="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -80,6 +81,8 @@
         <!--input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"-->
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
     </form>
+     
+     <!-- 카카오 로그인 -->
         <a id="kakao-login-btn"></a>
     <a href="http://developers.kakao.com/logout"></a>
     <script type='text/javascript'>
@@ -90,10 +93,10 @@
         Kakao.Auth.createLoginButton({
           container: '#kakao-login-btn',
           success: function(authObj) {
-            alert(JSON.stringify(authObj));
+        //    alert(JSON.stringify(authObj));
           },
           fail: function(err) {
-             alert(JSON.stringify(err));
+          //   alert(JSON.stringify(err));
           }
         });
       //]]>

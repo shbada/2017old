@@ -32,4 +32,14 @@ public class BoardDaoImpl implements BoardDao{
 		return (ArrayList)sqlSession.selectList("board.getBoardlist", map);
 	}
 
+	@Override
+	public void increment(int board_no) throws Exception {
+		sqlSession.update("board.increment", board_no);
+	}
+
+	@Override
+	public Object selectContent(int board_no) throws Exception {
+		return sqlSession.selectOne("board.selectContent", board_no);
+	}
+
 }

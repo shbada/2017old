@@ -43,8 +43,16 @@ public class BoardServiceImpl implements BoardService {
 //		}
 		list.setList(R);
 		return list;
+	}
 
-		
+	@Override
+	public void increment(int board_no) throws Exception{
+		boardDao.increment(board_no);
+	}
+
+	@Override
+	public BoardVo selectContent(int board_no) throws Exception {
+		return (BoardVo) boardDao.selectContent(board_no);
 	}
 	
 	

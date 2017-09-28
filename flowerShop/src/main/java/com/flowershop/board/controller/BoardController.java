@@ -47,4 +47,47 @@ public class BoardController {
 	model.addAttribute("pageNo", pageNo);
 	return "board/list";
 	}
+	
+	@RequestMapping("/increment") // 게시글을 확인할 때 조회수를 1 증가시킨다.
+	public String increment(HttpServletRequest request, Model model)throws Exception {
+		int board_no = Integer.parseInt(request.getParameter("board_no"));
+		int pageNo = Integer.parseInt(request.getParameter("pageNo"));
+
+		boardService.increment(board_no);
+		model.addAttribute("board_no", board_no);
+		model.addAttribute("pageNo", pageNo);
+
+		return "redirect:content_view"; // @RequestMapping("/view") 메소드를 호출한다.
+	}
+	
+	@RequestMapping("/content_view") // 게시글 한 건을 불러온다.
+	public String view(HttpServletRequest request, Model model)throws Exception {
+		int board_no = Integer.parseInt(request.getParameter("board_no"));
+		int pageNo = Integer.parseInt(request.getParameter("pageNo"));
+		model.addAttribute("vo", boardService.selectContent(board_no));
+//		RboardCommentList comment = new RboardCommentList();
+//		comment.setList(dao.commentList(idx));
+
+//		model.addAttribute("comment", comment);
+		model.addAttribute("pageNo", pageNo);
+		return "board/content_view";
+	}
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

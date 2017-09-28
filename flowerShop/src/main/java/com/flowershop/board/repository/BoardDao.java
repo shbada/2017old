@@ -13,4 +13,8 @@ public interface BoardDao {
 
 	ArrayList<BoardVo> getBoardlist(Map<String, Integer> map) throws Exception;
 
+	void increment(int board_no) throws Exception;
+
+	Object selectContent(int board_no)throws Exception;
+
 }

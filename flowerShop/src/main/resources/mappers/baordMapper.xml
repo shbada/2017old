@@ -21,6 +21,15 @@
 			select rownum rnum, T.* from (select * from board order by board_ref desc, board_seq) 
 			T where rownum <= #{endNo}) where rnum >= #{startNo}
 		]]>
-</select>
+	</select>
+
+	<update id="increment" parameterType="int">
+	update board set board_viewcnt = board_viewcnt + 1 where board_no = #{board_no}
+	</update>
+	
+	<select id="selectContent" parameterType="int" resultType="boardVO">
+	select * from board where board_no = #{board_no}
+	</select>
+
 
 </mapper>

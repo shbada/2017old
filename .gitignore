@@ -1,6 +1,2 @@
-/.metadata/
-
-Servers
-Servers2
-RemoteSystemsTempFiles
-/.recommenders/
+/target/
+/pom.xml

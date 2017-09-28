@@ -1,5 +1,6 @@
 package com.flowershop.login.interceptor;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -23,10 +24,15 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
 		if (userVo != null) {
 			session.setAttribute("authUser", userVo);
-			response.sendRedirect("/main");
-			// Object dest = session.getAttribute("dest");
-			// response.sendRedirect(dest != null ? (String) dest : "/main");
+			response.sendRedirect("/main");		
+			if (request.getParameter("useCookie") != null) {
+				Cookie loginCookie = new Cookie("loginCookie", session.getId());
+				loginCookie.setPath("/");
+				loginCookie.setMaxAge(60 * 60 * 24 * 7);
+				response.addCookie(loginCookie);
+			}
 		}
+
 	}
 
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)

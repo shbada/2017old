@@ -47,6 +47,11 @@ public class LoginController {
 
 		} else if (vo != null && (passwordEncoder.matches(userVo.getUser_pw(), vo.getUser_pw()) == true)) {
 			model.addAttribute("userVo", vo);
+			if (userVo.isUseCookie()) {
+				int amount = 60 * 60 * 24 * 7;
+				Date sessionLimit = new Date(System.currentTimeMillis() + (1000 * amount));
+				loginService.keepLogin(vo.getUser_id(), session.getId(), sessionLimit);
+			}
 		}
 		return "login/login";
 	}
@@ -73,11 +78,13 @@ public class LoginController {
 		return "main/main";
 	}
 
-//	@RequestMapping(value = "/kakaoLogin", produces = "application/json", method = { RequestMethod.GET,
-//			RequestMethod.POST })
-//	public void kakaoLogin(@RequestParam("access_token") String access_token, HttpServletRequest request, HttpServletResponse response, Model model)
-//			throws Exception {
-//		model.addAttribute("userVo", access_token);
-//	}
+	// @RequestMapping(value = "/kakaoLogin", produces = "application/json",
+	// method = { RequestMethod.GET,
+	// RequestMethod.POST })
+	// public void kakaoLogin(@RequestParam("access_token") String access_token,
+	// HttpServletRequest request, HttpServletResponse response, Model model)
+	// throws Exception {
+	// model.addAttribute("userVo", access_token);
+	// }
 
 }

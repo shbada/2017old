@@ -55,6 +55,7 @@ public class UserVo {
 	private String social_state;
 	private String isadmin;
 	private int enabled;
+	private boolean useCookie;
 	
 	public UserVo() {
 		this.user_yn = "N";
@@ -241,6 +242,14 @@ public class UserVo {
 		this.enabled = enabled;
 	}
 
+	public boolean isUseCookie() {
+		return useCookie;
+	}
+
+	public void setUseCookie(boolean useCookie) {
+		this.useCookie = useCookie;
+	}
+
 	@Override
 	public String toString() {
 		return "UserVo [user_id=" + user_id + ", user_no=" + user_no + ", user_pw=" + user_pw + ", user_name="
@@ -248,8 +257,8 @@ public class UserVo {
 				+ ", user_addr2=" + user_addr2 + ", user_addr3=" + user_addr3 + ", user_addr4=" + user_addr4
 				+ ", user_grade=" + user_grade + ", user_regdate=" + user_regdate + ", user_yn=" + user_yn
 				+ ", user_deldate=" + user_deldate + ", user_point=" + user_point + ", social_id=" + social_id
-				+ ", social_state=" + social_state + ", isadmin=" + isadmin + ", enabled=" + enabled + "]";
+				+ ", social_state=" + social_state + ", isadmin=" + isadmin + ", enabled=" + enabled + ", useCookie="
+				+ useCookie + "]";
 	}
-
 	
 }

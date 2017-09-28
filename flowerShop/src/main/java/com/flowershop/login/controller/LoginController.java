@@ -14,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.WebUtils;
 
 import com.flowershop.login.domain.UserVo;
@@ -65,19 +64,17 @@ public class LoginController {
 			UserVo vo = (UserVo) obj;
 			session.removeAttribute("authUser");
 			session.invalidate();
-
 			Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
 			if (loginCookie != null) {
-				loginCookie.setPath("/main");
+				loginCookie.setPath("/");
 				loginCookie.setMaxAge(0);
 				response.addCookie(loginCookie);
-				// loginService.keepLogin(vo.getUser_id(), session.getId(), new
-				// Date());
+				 loginService.keepLogin(vo.getUser_id(), session.getId(), new Date());
 			}
 		}
 		return "main/main";
 	}
-
+	
 	// @RequestMapping(value = "/kakaoLogin", produces = "application/json",
 	// method = { RequestMethod.GET,
 	// RequestMethod.POST })

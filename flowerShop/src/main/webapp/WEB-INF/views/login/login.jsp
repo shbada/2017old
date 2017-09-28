@@ -106,9 +106,12 @@
 			</label>
 		</div>
 		<!--input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"-->
-		<button class="btn btn-lg btn-primary btn-block" type="submit">Sign
-			in</button>
+		<button class="btn btn-lg btn-primary btn-block" type="submit">로그인
+		</button>
+		<input type="button" value="메인으로 가기"
+			onclick="location.href='${pageContext.request.contextPath }/main';">
 	</form>
+
 
 	<!-- 카카오 로그인 -->
 	<a id="kakao-login-btn"></a>
@@ -125,7 +128,7 @@
 				$.ajax({
 					type : 'POST',
 					url : '${pageContext.request.contextPath }/kakaoLogin',
-					data : "access_token=" + authObj.access_token, 
+					data : "access_token=" + authObj.access_token,
 					success : function() {
 					}
 				});

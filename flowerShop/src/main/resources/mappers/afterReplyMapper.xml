@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="afterReply">
-	<select id="afterReplyList" parameterType="int" resultType="com.flowershop.afterReply.domain.AfterReplyVo">	 
+	<select id="afterReplyList" parameterType="com.flowershop.afterReply.domain.AfterReplyVo" resultType="com.flowershop.afterReply.domain.AfterReplyVo">	 
 		SELECT
 			P.PRODUCT_NO,
 			P.PRODUCT_NAME,

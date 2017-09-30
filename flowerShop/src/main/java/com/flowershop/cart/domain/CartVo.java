@@ -3,7 +3,7 @@ package com.flowershop.cart.domain;
 public class CartVo {
 	
 	private int CartNo; //장바구니 번호
-	private int proudctAmount; //상품 수량
+	private int productAmount; //상품 수량
 	private String userId; //회원 아이디
 	private int productNo; //상품번호
 	private String productName; //상품 이름
@@ -16,11 +16,11 @@ public class CartVo {
 	public void setCartNo(int cartNo) {
 		CartNo = cartNo;
 	}
-	public int getProudctAmount() {
-		return proudctAmount;
+	public int getProductAmount() {
+		return getProductAmount();
 	}
-	public void setProudctAmount(int proudctAmount) {
-		this.proudctAmount = proudctAmount;
+	public void setProductAmount(int productAmount) {
+		this.productAmount = productAmount;
 	}
 	public String getUserId() {
 		return userId;
@@ -54,7 +54,7 @@ public class CartVo {
 	}
 	@Override
 	public String toString() {
-		return "CartVo [CartNo=" + CartNo + ", proudctAmount=" + proudctAmount + ", userId=" + userId + ", productNo="
+		return "CartVo [CartNo=" + CartNo + ", proudctAmount=" + productAmount + ", userId=" + userId + ", productNo="
 				+ productNo + ", productName=" + productName + ", productUrl=" + productUrl + ", productPrice="
 				+ productPrice + "]";
 	}

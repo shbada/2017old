@@ -16,8 +16,8 @@ public class AfterReplyDaoImpl implements AfterReplyDao{
 	private SqlSession session;
 
 	@Override
-	public List<AfterReplyVo> afterReplyList(int productNo) {
-		return session.selectList("afterReply.afterReplyList", productNo);
+	public List<AfterReplyVo> afterReplyList(AfterReplyVo afterReplyVo) {
+		return session.selectList("afterReply.afterReplyList", afterReplyVo);
 	}
 
 	@Override
@@ -33,5 +33,10 @@ public class AfterReplyDaoImpl implements AfterReplyDao{
 	@Override
 	public void afterReplyDelete(AfterReplyVo afterReplyVo) {
 		session.delete("afterReply.afterReplyDelete", afterReplyVo);
+	}
+
+	@Override
+	public void afterReplyWriteSave(AfterReplyVo afterReplyVo) {
+		session.insert("afterReply.afterReplyWriteSave", afterReplyVo);
 	}
 }

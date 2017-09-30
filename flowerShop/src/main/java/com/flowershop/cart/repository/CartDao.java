@@ -10,4 +10,14 @@ public interface CartDao {
 
 	int sumMoney(String userId);
 
+	void cartInsert(CartVo cartVo);
+
+	void cartDelete(int productNo);
+
+	void cartUpdate(CartVo cartVo);
+
+	int countCart(int productNo, String userId);
+
+	void UpdateCount(CartVo cartVo);
+
 }

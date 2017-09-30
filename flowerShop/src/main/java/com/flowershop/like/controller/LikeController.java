@@ -64,4 +64,55 @@ public class LikeController {
 </insert>
 
 */
+	
+
+/** jsp
+ <form class="form-horizontal" name="frm">
+ //form 태그 안에 상품 정보가 있고, 추천수 버튼을 누르면 form 태그 안의 정보가 controller로 전송됨을 위해!!
+ </form>
+ 
+ 
+<button type="button" class="btn btn-success btn-s-xs" id="LikeUp">추천</button>
+*/
+	
+/** javascript
+ 
+ function LikeSelect(){
+		$.ajax({
+			type : "GET",
+			url : "<c:url value='/LikeSelect.do?productNo=${productVo.productNo}' />",
+			success : function(result){
+				$("#추천수 id값").html(result); 
+			}
+		});
+		
+		
+		
+ $("#LikeUp").click(function(){ 
+			if(confirm("추천 하시겠습니까?")==true){
+				//ajax통신 끝나면 리스트 페이지 이동
+				var formData = $("form[name=frm]").serialize(); //값을 다가지고와서 변수에 담는다 (리스트형식으로 값이 들어감)
+				$.ajax({
+					type:"POST",
+					url: "<c:url value='/likeSelect.do'/>",
+					dataType:"text",
+					data: formData,
+					success: function(result){
+						if(result == 'ok'){
+							alert("추천이 완료되었습니다.");
+							LikeSelect();
+						}
+						if(result == 'fal'){
+							alert("이미 추천한 상품입니다.");
+						}
+					},
+					error: function(result){
+						alert('에러가 발생하였습니다.');
+						return;
+					},
+				});
+			}
+		});
+ 
+*/
 }

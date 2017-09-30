@@ -39,7 +39,7 @@ public class BoardController {
 		
 	int pageNo = 1;
 	try {
-		pageNo = Integer.parseInt(request.getParameter("page"));
+		pageNo = Integer.parseInt(request.getParameter("pageNo"));
 	} catch (Exception e) {}
 	BoardList list = boardService.getBoardList(pageNo);
 	
@@ -57,7 +57,7 @@ public class BoardController {
 		model.addAttribute("board_no", board_no);
 		model.addAttribute("pageNo", pageNo);
 
-		return "redirect:content_view"; // @RequestMapping("/view") 메소드를 호출한다.
+		return "redirect:content_view"; // @RequestMapping("/content_view") 메소드를 호출한다.
 	}
 	
 	@RequestMapping("/content_view") // 게시글 한 건을 불러온다.

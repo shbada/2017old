@@ -1,0 +1,13 @@
+@CHARSET "UTF-8";
+.best {
+	border: 2px solid red;
+}
+
+.name, td {
+	padding: 15px;
+	text-align:center;
+}
+
+img {
+	margin:auto;
+}

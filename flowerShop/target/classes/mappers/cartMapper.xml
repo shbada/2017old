@@ -2,6 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="cart">
+
+	<insert id="cartInsert">
+		INSERT INTO CART
+			(CART_NO, USER_ID, PRODUCT_NO, PRODUCT_AMOUNT) 
+		VALUES 
+			(seq_cart.NEXTVAL, #{userId}, #{productNo}, #{productAmount})
+		
+	</insert>
+	
 	<select id="cartList" parameterType="string" resultType="com.flowershop.cart.domain.CartVo">
 		SELECT
 			C.CART_NO,
@@ -25,4 +34,30 @@
 				WHERE C.PRODUCT_NO = P.PRODUCT_NO
 				AND C.USER_ID = #{userId}
 	</select>
+	
+	<update id="cartUpdate" parameterType="com.flowershop.cart.domain.CartVo">
+		UPDATE CART
+			SET PRODUCT_AMOUNT = #{productAmount}
+				WHERE USER_ID= #{userId}
+				AND PRODUCT_NO = #{productNo}
+	</update>
+	
+	<delete id="cartDelete" parameterType="com.flowershop.cart.domain.CartVo">
+		DELETE FROM CART
+			WHERE PRODUCT_NO = #{productNo}
+	</delete>
+	
+	<select id="countCart" parameterType="com.flowershop.cart.domain.CartVo" resultType="int">
+		SELECT COUNT(*)
+			FROM CART
+				WHERE USER_ID= #{userId}
+				AND PRODUCT_NO = #{productNo}
+	</select>
+	
+	<update id="UpdateCount" parameterType="com.flowershop.cart.domain.CartVo">
+		UPDATE tbl_cart
+			SET PRODUCT_AMOUNT = PRODUCT_AMOUNT + #{productAmount}
+				WHERE USER_ID= #{userId}
+				AND PRODUCT_NO = #{productNo}
+	</update>
 </mapper>

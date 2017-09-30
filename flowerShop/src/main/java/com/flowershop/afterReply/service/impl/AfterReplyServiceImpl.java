@@ -16,8 +16,8 @@ public class AfterReplyServiceImpl implements AfterReplyService {
 	private AfterReplyDao afterReplyDao;
 	
 	@Override
-	public List<AfterReplyVo> afterReplyList(int productNo) {
-		return afterReplyDao.afterReplyList(productNo);
+	public List<AfterReplyVo> afterReplyList(AfterReplyVo afterReplyVo) {
+		return afterReplyDao.afterReplyList(afterReplyVo);
 	}
 
 	@Override
@@ -33,6 +33,11 @@ public class AfterReplyServiceImpl implements AfterReplyService {
 	@Override
 	public void afterReplyDelete(AfterReplyVo afterReplyVo) {
 		afterReplyDao.afterReplyDelete(afterReplyVo);
+	}
+
+	@Override
+	public void afterReplyWriteSave(AfterReplyVo afterReplyVo) {
+		afterReplyDao.afterReplyWriteSave(afterReplyVo);
 	}
 
 }

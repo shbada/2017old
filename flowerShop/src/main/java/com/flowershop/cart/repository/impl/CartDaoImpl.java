@@ -1,6 +1,8 @@
 package com.flowershop.cart.repository.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,4 +27,31 @@ public class CartDaoImpl implements CartDao{
 		return session.selectOne("cart.sumMoney", userId);
 	}
 
+	@Override
+	public void cartInsert(CartVo cartVo) {
+		session.insert("cart.cartInsert", cartVo);
+	}
+
+	@Override
+	public void cartDelete(int productNo) {
+		session.delete("cart.cartDelete", productNo);
+	}
+
+	@Override
+	public void cartUpdate(CartVo cartVo) {
+		session.update("cart.cartUpdate", cartVo);
+	}
+
+	@Override
+	public int countCart(int productNo, String userId) {
+		Map<String, Object> map = new HashMap<String, Object>();
+        map.put("productNo", productNo);
+        map.put("userId", userId);
+        return (int)session.selectOne("cart.countCart", map);
+	}
+
+	@Override
+	public void UpdateCount(CartVo cartVo) {
+		session.update("cart.UpdateCount", cartVo);
+	}
 }

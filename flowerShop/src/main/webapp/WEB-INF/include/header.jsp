@@ -80,7 +80,7 @@
 											class="fa fa-user"></i> 회원가입</a></li>
 									<li><a href="${pageContext.request.contextPath }/login"><i
 											class="fa fa-user"></i> 로그인</a></li>
-									<li><a href="${pageContext.request.contextPath }/adminPOST"><i
+									<li><a href="${pageContext.request.contextPath }/admin"><i
 											class="fa fa-user"></i>관리자 로그인</a></li>
 								</c:when>
 								<c:when test="${not empty user}">

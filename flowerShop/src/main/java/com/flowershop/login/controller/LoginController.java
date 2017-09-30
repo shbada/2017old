@@ -75,6 +75,16 @@ public class LoginController {
 		return "main/main";
 	}
 	
+	@RequestMapping(value = "/admin", method = RequestMethod.GET)
+	public String adminGET() throws Exception {
+		return "login/admin";
+	}
+	
+	@RequestMapping(value="/adminPost", method = RequestMethod.POST)
+	public String admin(){
+		return "main/main";
+	}
+	
 	// @RequestMapping(value = "/kakaoLogin", produces = "application/json",
 	// method = { RequestMethod.GET,
 	// RequestMethod.POST })

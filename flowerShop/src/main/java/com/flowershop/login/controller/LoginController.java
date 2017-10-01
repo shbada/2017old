@@ -21,6 +21,7 @@ import org.springframework.web.util.WebUtils;
 
 import com.flowershop.login.domain.UserVo;
 import com.flowershop.login.service.impl.LoginServiceImpl;
+import com.flowershop.util.JSONResult;
 
 @Controller
 public class LoginController {
@@ -82,7 +83,7 @@ public class LoginController {
 	public String infoForm() throws Exception {
 		return "login/infoForm";
 	}
-
+	
 	@RequestMapping(value = "/myInfo", method = RequestMethod.POST)
 	@ResponseBody
 	public Object myInfo(String user_id, Model model, HttpSession session) throws Exception {
@@ -102,6 +103,19 @@ public class LoginController {
 		return "main/main";
 	}
 
+	@RequestMapping("/changepwform")
+	public String changePasswordForm()throws Exception{
+		return "login/changepw";
+	}
+	
+	@RequestMapping(value="/changepw" , method=RequestMethod.POST)
+
+	public String changePassword(String user_pw, String user_id)throws Exception{	
+		System.out.println("user_id "+user_id);
+		loginService.changePw(user_id, user_pw);
+		return "main/main";
+	}
+	
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public String adminGET() throws Exception {
 		return "login/admin";

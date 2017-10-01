@@ -40,9 +40,17 @@ public class LoginDaoImpl implements LoginDao {
 	public UserVo myInfo(String user_id) throws Exception {
 		return sqlSession.selectOne("login.myInfo", user_id);
 	}
-	
-	public void changeInfo(UserVo userVo)throws Exception{
+
+	public void changeInfo(UserVo userVo) throws Exception {
 		sqlSession.update("changeInfo", userVo);
 	}
-	
+
+	@Override
+	public void changePw(String user_pw, String user_id) throws Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("user_id", user_id);
+		paramMap.put("user_pw", user_pw);
+		sqlSession.update("changePw", paramMap);
+	}
+
 }

@@ -15,5 +15,7 @@ public interface LoginService {
 	public UserVo myInfo(String user_id)throws Exception;
 	
 	public void changeInfo(UserVo userVo)throws Exception;
+	
+	public void changePw(String user_id, String user_pw)throws Exception;
 
 }

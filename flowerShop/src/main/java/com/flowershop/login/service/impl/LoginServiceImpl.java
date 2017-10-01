@@ -43,4 +43,11 @@ public class LoginServiceImpl implements LoginService{
 	public void changeInfo(UserVo userVo) throws Exception {
 		loginDao.changeInfo(userVo);
 	}
+
+	@Override
+	public void changePw(String user_id, String user_pw) throws Exception {
+		String pw = passwordEncoder.encode(user_pw);
+		
+		loginDao.changePw(pw, user_id);
+	}
 }

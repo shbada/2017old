@@ -34,24 +34,29 @@
 	제목 : <input type="text" name="title" size="80" value="${vo.board_title}" readonly="readonly"/><br/>
 	내용 : <textarea rows="10" cols="80" name="content" readonly="readonly">${vo.board_content}</textarea><br/>
 </form>
-	<input type="button" onclick="location.href='list?pageNo=${pageNo}'" value="리스트로"/>
-	<input type="button" onclick="location.href='reply?pageNo=${pageNo}&board_no=${vo.board_no}'" value="답변달기"/>
+<form action="reply?pageNo=${pageNo}&board_no=${vo.board_no}" method="post">
+	<input type="text" name="board_ref" value="${vo.board_ref}"/>
+	<input type="text" name="board_lev" value="${vo.board_lev}"/>
+	<input type="text" name="board_seq" value="${vo.board_seq}"/>
+	<input type="text" onclick="location.href='list?pageNo=${pageNo}'" value="리스트로"/>
+	<input type="submit" value="답변달기"/>
 	<input type="button" onclick="location.href='update?pageNo=${pageNo}&board_no=${vo.board_no}'" value="수정하기"/>
 	<input type="button" onclick="location.href='delete?pageNo=${pageNo}&board_no=${vo.board_no}'" value="삭제하기"/>
 	<br/>
+</form>
 <!--  댓글폼 -->
-<form method="post" name="commentform" action="commentOK">
-	<input type="hidden" name="idx" value="${vo.board_no}"/>   
-	<input type="hidden" name="ref" value="${vo.board_no}"/>   
-	<input type="hidden" name="pageNo" value="${pageNo}"/>
-	<input type="hidden" name="mode" value="1"/>
-<%-- 	<input type="hidden" name="ip" value="${pageContext.request.remoteAddr}"/> --%>
+<!-- <form method="post" name="commentform" action="commentOK"> -->
+<%-- 	<input type="hidden" name="idx" value="${vo.board_no}"/>    --%>
+<%-- 	<input type="hidden" name="ref" value="${vo.board_no}"/>    --%>
+<%-- 	<input type="hidden" name="pageNo" value="${pageNo}"/> --%>
+<!-- 	<input type="hidden" name="mode" value="1"/> -->
+<%-- <%-- 	<input type="hidden" name="ip" value="${pageContext.request.remoteAddr}"/> --%> --%>
 	
-	이름 : <input type="text" name="name"/>   
-	내용 : <textarea rows="3" cols="50" name="content"></textarea> <br/>
+<!-- 	이름 : <input type="text" name="name"/>    -->
+<!-- 	내용 : <textarea rows="3" cols="50" name="content"></textarea> <br/> -->
 	
-	<input type="submit" value="댓글달기" name="commentBtn" onclick="return commentChk();"/>
-	<input type="button" value="새로쓰기" onclick="setting(1, 0, '저장', '', '')"/>
+<!-- 	<input type="submit" value="댓글달기" name="commentBtn" onclick="return commentChk();"/> -->
+<!-- 	<input type="button" value="새로쓰기" onclick="setting(1, 0, '저장', '', '')"/> -->
 	
 <!-- 댓글 리스트 -->
 <%-- 	<c:if test="${comment.list.size() == 0}"> --%>

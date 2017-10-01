@@ -3,18 +3,6 @@
 <script type="text/javascript">
 	function chk() {
 		f = document.form1;
-		if(!f.name.value || f.name.value.trim().length == 0) {
-			alert('이름넣어!!!');
-			f.name.value = "";
-			f.name.focus();
-			return false;
-		}
-		if(!f.password.value || f.password.value.trim().length == 0) {
-			alert('암호넣어!!!');
-			f.password.value = "";
-			f.password.focus();
-			return false;
-		}
 		if(!f.title.value || f.title.value.trim().length == 0) {
 			alert('제목넣어!!!');
 			f.title.value = "";

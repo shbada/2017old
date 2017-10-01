@@ -42,4 +42,14 @@ public class BoardDaoImpl implements BoardDao{
 		return sqlSession.selectOne("board.selectContent", board_no);
 	}
 
+	@Override
+	public void incrementSeq(BoardVo vo) throws Exception {
+		sqlSession.update("board.incrementSeq", vo);
+	}
+
+	@Override
+	public void replyInsert(BoardVo vo) throws Exception {
+		sqlSession.insert("board.replyInsert", vo);
+	}
+
 }

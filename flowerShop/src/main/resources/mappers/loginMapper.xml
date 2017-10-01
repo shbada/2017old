@@ -27,11 +27,12 @@
 	]]>
 	</select>
 
-	<update id="keepLogin" >
-	update users set sessionKey = #{sessionId}, sessionLimit = #{next} where user_id = #{user_id}
+	<update id="keepLogin">
+		update users set sessionKey = #{sessionId}, sessionLimit = #{next} where
+		user_id = #{user_id}
 	</update>
-	
-	<select id = "checkUserWithSessionKey" resultType="login">
+
+	<select id="checkUserWithSessionKey" resultType="login">
 		<![CDATA[    
 		select user_id, 
            user_no,
@@ -53,5 +54,21 @@
            isadmin,enabled,sessionkey,sessionlimit from users where sessionKey = #{value} and sessionlimit > now()
      ]]>
 	</select>
+
+	<select id="myInfo" parameterType="String" resultType="login">
+		select user_id, user_name, user_email, user_phone, user_addr1,
+		user_addr2, user_addr3, user_addr4 from users where user_id = #{user_id}
+	</select>
+
+	<update id="changeInfo">
+		update users set user_name = #{user_name},
+		user_email = #{user_email},
+		user_phone = #{user_phone},
+		user_addr1 = #{user_addr1},
+		user_addr2 = #{user_addr2},
+		user_addr3 = #{user_addr3},
+		user_addr4 = #{user_addr4}
+		where user_id = #{user_id}
+	</update>
 
 </mapper>

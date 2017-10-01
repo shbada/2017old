@@ -36,4 +36,13 @@ public class LoginDaoImpl implements LoginDao {
 		return sqlSession.selectOne("checkUserWithSessionKey", value);
 	}
 
+	@Override
+	public UserVo myInfo(String user_id) throws Exception {
+		return sqlSession.selectOne("login.myInfo", user_id);
+	}
+	
+	public void changeInfo(UserVo userVo)throws Exception{
+		sqlSession.update("changeInfo", userVo);
+	}
+	
 }

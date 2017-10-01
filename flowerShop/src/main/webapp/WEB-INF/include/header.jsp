@@ -84,7 +84,7 @@
 											class="fa fa-user"></i>관리자 로그인</a></li>
 								</c:when>
 								<c:when test="${not empty user}">
-									<li><a href="${pageContext.request.contextPath }/"><i
+									<li><a href="${pageContext.request.contextPath }/myInfo"><i
 											class="fa fa-user"></i>${user.user_id } 님 </a></li>
 									<li><a href="${pageContext.request.contextPath }/logout"><i
 											class="fa fa-user"></i> 로그아웃</a></li>

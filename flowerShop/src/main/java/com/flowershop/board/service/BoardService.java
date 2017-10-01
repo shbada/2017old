@@ -13,7 +13,6 @@ public interface BoardService {
 
 	void increment(int board_no) throws Exception;
 
-	BoardVo selectContent(int board_no)throws Exception;
+	BoardVo selectContent(int board_no) throws Exception;
 
-	
 }

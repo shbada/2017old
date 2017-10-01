@@ -11,4 +11,8 @@ public interface LoginDao {
 	public void keepLogin(String user_id, String sessionId, Date next);
 	
 	public UserVo checkUserWithSessionKey(String value);
+	
+	public UserVo myInfo(String user_id)throws Exception;
+	
+	public void changeInfo(UserVo userVo)throws Exception;
 }

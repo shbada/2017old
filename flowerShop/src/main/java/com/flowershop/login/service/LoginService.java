@@ -11,5 +11,9 @@ public interface LoginService {
 	public void keepLogin(String user_id, String sessionId, Date next)throws Exception;
 	
 	public UserVo checkLoginBefore(String value);
+	
+	public UserVo myInfo(String user_id)throws Exception;
+	
+	public void changeInfo(UserVo userVo)throws Exception;
 
 }

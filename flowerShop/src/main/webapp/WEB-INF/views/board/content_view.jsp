@@ -35,9 +35,9 @@
 	내용 : <textarea rows="10" cols="80" name="content" readonly="readonly">${vo.board_content}</textarea><br/>
 </form>
 	<input type="button" onclick="location.href='list?pageNo=${pageNo}'" value="리스트로"/>
-	<input type="button" onclick="location.href='reply?pageNo=${pageNo}&idx=${vo.board_no}'" value="답변달기"/>
-	<input type="button" onclick="location.href='update?pageNo=${pageNo}&idx=${vo.board_no}'" value="수정하기"/>
-	<input type="button" onclick="location.href='delete?pageNo=${pageNo}&idx=${vo.board_no}'" value="삭제하기"/>
+	<input type="button" onclick="location.href='reply?pageNo=${pageNo}&board_no=${vo.board_no}'" value="답변달기"/>
+	<input type="button" onclick="location.href='update?pageNo=${pageNo}&board_no=${vo.board_no}'" value="수정하기"/>
+	<input type="button" onclick="location.href='delete?pageNo=${pageNo}&board_no=${vo.board_no}'" value="삭제하기"/>
 	<br/>
 <!--  댓글폼 -->
 <form method="post" name="commentform" action="commentOK">

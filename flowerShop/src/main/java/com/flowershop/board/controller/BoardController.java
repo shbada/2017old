@@ -73,6 +73,15 @@ public class BoardController {
 		return "board/content_view";
 	}
 	
+	@RequestMapping("/reply") // 답글을 쓸 폼을 띄운다.
+	public String reply(HttpServletRequest request, Model model) {
+		System.out.println("reply()");
+		int pageNo = Integer.parseInt(request.getParameter("pageNo"));
+		model.addAttribute("pageNo", pageNo);
+		return "board/reply";
+	}
+	
+	
 	
 }
 

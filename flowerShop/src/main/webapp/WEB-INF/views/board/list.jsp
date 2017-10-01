@@ -22,7 +22,7 @@
 
 <c:forEach var="vo" items="${R.list}">
 	<tr class="header_contents">
-		<td class="center">${vo.board_no}</td>
+		<td class="board_no">${vo.board_no}</td>
 		<td class="title">
 		<c:if test="${vo.board_lev > 0}">
 			<c:forEach var="i" begin="0" end="${vo.board_lev}" step="1">
@@ -60,7 +60,7 @@
 	</tr>
 	<tr>
 		<td colspan="5" align="right">
-			<input type="button" onclick="location.href='insert'" value="쓰기"/>
+			<input type="button" onclick="location.href='write'" value="쓰기"/>
 		</td>
 	</tr>
 </table>

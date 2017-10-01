@@ -131,7 +131,7 @@
 				<div class="col-sm-6">
 					<div class="logo">
 						<h1>
-							<a href="index.html">e<span>Electronics</span></a>
+							<a href="main">e<span>Electronics</span></a>
 						</h1>
 					</div>
 				</div>
@@ -160,7 +160,7 @@
 				</div>
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="index.html">Home</a></li>
+						<li class="active"><a href="main">Home</a></li>
 						<li><a href="${path }/productList">Shop page</a></li> <!-- 상품 페이지 -->
 						<li><a href="single-product.html">Single product</a></li>
 						<li><a href="cart.html">Cart</a></li>

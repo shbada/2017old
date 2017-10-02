@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ page session="true"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,6 +34,7 @@
 <link rel="stylesheet" href="../../resources/css/owl.carousel.css">
 <link rel="stylesheet" href="../../resources/style.css">
 <link rel="stylesheet" href="../../resources/css/responsive.css">
+<link rel="stylesheet" href="../../resources/css/seohae.css">
 
 <!-- Latest jQuery form server -->
 <script src="https://code.jquery.com/jquery.min.js"></script>
@@ -66,13 +68,6 @@
 				<div class="col-md-8">
 					<div class="user-menu">
 						<ul>
-							<li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
-							<li><a href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
-							<li><a href="cart.html"><i class="fa fa-user"></i> My
-									Cart</a></li>
-							<li><a href="checkout.html"><i class="fa fa-user"></i>
-									Checkout</a></li>
-
 							<c:set var="user" value="${authUser }" scope="session" />
 							<c:choose>
 								<c:when test="${empty user}">
@@ -84,42 +79,48 @@
 											class="fa fa-user"></i>관리자 로그인</a></li>
 								</c:when>
 								<c:when test="${not empty user}">
-									<li><a href="${pageContext.request.contextPath }/myInfo"><i
-											class="fa fa-user"></i>${user.user_id } 님 </a></li>
-									<li><a href="${pageContext.request.contextPath }/logout"><i
-											class="fa fa-user"></i> 로그아웃</a></li>
+									<li><a href="#"><i class="fa fa-user"></i> 주문내역</a></li>
+									<li><a href="#"><i class="fa fa-heart"></i> 관심상품</a></li>
+									<li><a href="${pageContext.request.contextPath }/cartList"><i class="fa fa-user"></i> 장바구니</a></li>
+									<li><a href="checkout.html"><i class="fa fa-user"></i> 1:1문의하기</a></li>
 								</c:when>
 							</c:choose>
-
 						</ul>
 					</div>
 				</div>
-
-				<div class="col-md-4">
-					<div class="header-right">
-						<ul class="list-unstyled list-inline">
-							<li class="dropdown dropdown-small"><a
-								data-toggle="dropdown" data-hover="dropdown"
-								class="dropdown-toggle" href="#"><span class="key">currency
-										:</span><span class="value">USD </span><b class="caret"></b></a>
-								<ul class="dropdown-menu">
-									<li><a href="#">USD</a></li>
-									<li><a href="#">INR</a></li>
-									<li><a href="#">GBP</a></li>
-								</ul></li>
-
-							<li class="dropdown dropdown-small"><a
-								data-toggle="dropdown" data-hover="dropdown"
-								class="dropdown-toggle" href="#"><span class="key">language
-										:</span><span class="value">English </span><b class="caret"></b></a>
-								<ul class="dropdown-menu">
-									<li><a href="#">English</a></li>
-									<li><a href="#">French</a></li>
-									<li><a href="#">German</a></li>
-								</ul></li>
-						</ul>
+				
+				<c:if test="${empty user}">
+					<div class="col-md-4">
+						<div class="header-right">
+							<ul class="list-unstyled list-inline">
+								<li class="dropdown dropdown-small">
+								<a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#">
+									<span class="value">로그인이 필요합니다.</span><b class="caret"></b></a> 
+								</li>
+							</ul>
+						</div>
 					</div>
-				</div>
+				</c:if>
+				
+				<c:if test="${not empty user}">
+					<div class="col-md-4">
+						<div class="header-right">
+							<ul class="list-unstyled list-inline">
+								<li class="dropdown dropdown-small">
+								<a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#">
+									<span class="value">${user.user_id } 님  </span><b class="caret"></b></a> 
+									<ul class="dropdown-menu">
+										<li><a href="${pageContext.request.contextPath }/myInfo">회원정보수정</a></li>
+										<li><a href="#">회원탈퇴</a></li>
+										<li><a href="#">????</a></li>
+									</ul>
+								</li>
+	
+								<li><a href="${pageContext.request.contextPath }/logout">로그아웃</a></li>
+							</ul>
+						</div>
+					</div>
+				</c:if>
 			</div>
 		</div>
 	</div>
@@ -131,15 +132,8 @@
 				<div class="col-sm-6">
 					<div class="logo">
 						<h1>
-							<a href="${pageContext.request.contextPath }/main">e<span>Electronics</span></a>
+							<a href="${pageContext.request.contextPath }/main">F<span>lowerShop</span></a>
 						</h1>
-					</div>
-				</div>
-
-				<div class="col-sm-6">
-					<div class="shopping-item">
-						<a href="${pageContext.request.contextPath }/cartList">장바구니 - <!-- <span class="cart-amunt">$800</span>  -->
-							<i class="fa fa-shopping-cart"></i> <span class="product-count">5</span></a>
 					</div>
 				</div>
 			</div>
@@ -163,7 +157,6 @@
 						<li class="active"><a href="index.html">Home</a></li>
 						<li><a href="${path }/productList">Shop page</a></li> <!-- 상품 페이지 -->
 						<li><a href="single-product.html">Single product</a></li>
-						<li><a href="${pageContext.request.contextPath }/cartList">Cart</a></li>
 						<li><a href="checkout.html">Checkout</a></li>
 						<li><a href="#">Category</a></li>
 						<li><a href="list">자유게시판</a></li>

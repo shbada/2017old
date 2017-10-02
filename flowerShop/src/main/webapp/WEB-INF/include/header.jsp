@@ -131,14 +131,14 @@
 				<div class="col-sm-6">
 					<div class="logo">
 						<h1>
-							<a href="index.html">e<span>Electronics</span></a>
+							<a href="${pageContext.request.contextPath }/main">e<span>Electronics</span></a>
 						</h1>
 					</div>
 				</div>
 
 				<div class="col-sm-6">
 					<div class="shopping-item">
-						<a href="cart.html">장바구니 - <!-- <span class="cart-amunt">$800</span>  -->
+						<a href="${pageContext.request.contextPath }/cartList">장바구니 - <!-- <span class="cart-amunt">$800</span>  -->
 							<i class="fa fa-shopping-cart"></i> <span class="product-count">5</span></a>
 					</div>
 				</div>
@@ -163,7 +163,7 @@
 						<li class="active"><a href="index.html">Home</a></li>
 						<li><a href="${path }/productList">Shop page</a></li> <!-- 상품 페이지 -->
 						<li><a href="single-product.html">Single product</a></li>
-						<li><a href="cart.html">Cart</a></li>
+						<li><a href="${pageContext.request.contextPath }/cartList">Cart</a></li>
 						<li><a href="checkout.html">Checkout</a></li>
 						<li><a href="#">Category</a></li>
 						<li><a href="list">자유게시판</a></li>

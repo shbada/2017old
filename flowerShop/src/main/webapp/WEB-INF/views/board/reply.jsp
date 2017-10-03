@@ -19,9 +19,9 @@
 	}
 </script>
 <form action="replyOK?pageNo=${pageNo}&board_no=${vo.board_no}" method="post" onsubmit="return chk();" name="form1">
-	<input type="text" name="board_ref" value="${vo.board_ref}"/>
-	<input type="text" name="board_lev" value="${vo.board_lev}"/>
-	<input type="text" name="board_seq" value="${vo.board_seq}"/>
+	<input type="hidden" name="board_ref" value="${vo.board_ref}"/>
+	<input type="hidden" name="board_lev" value="${vo.board_lev}"/>
+	<input type="hidden" name="board_seq" value="${vo.board_seq}"/>
 	제목 : <input type="text" name="board_title" size="80"/><br/>
 	내용 : <textarea rows="10" cols="80" name="board_content"></textarea><br/>
 	<input type="submit" value="글쓰기">

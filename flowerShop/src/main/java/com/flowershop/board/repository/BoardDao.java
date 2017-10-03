@@ -17,4 +17,9 @@ public interface BoardDao {
 
 	Object selectContent(int board_no)throws Exception;
 
+	void incrementSeq(BoardVo vo)throws Exception;
+
+	void replyInsert(BoardVo vo)throws Exception;
+	
+	
 }

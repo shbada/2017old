@@ -1,6 +1,8 @@
 package com.flowershop.login.controller;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -14,10 +16,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.WebUtils;
 
 import com.flowershop.login.domain.UserVo;
 import com.flowershop.login.service.impl.LoginServiceImpl;
+import com.flowershop.util.JSONResult;
 
 @Controller
 public class LoginController {
@@ -69,9 +73,46 @@ public class LoginController {
 				loginCookie.setPath("/");
 				loginCookie.setMaxAge(0);
 				response.addCookie(loginCookie);
-				 loginService.keepLogin(vo.getUser_id(), session.getId(), new Date());
+				loginService.keepLogin(vo.getUser_id(), session.getId(), new Date());
 			}
 		}
+		return "main/main";
+	}
+
+	@RequestMapping("/myInfo")
+	public String infoForm() throws Exception {
+		return "login/infoForm";
+	}
+	
+	@RequestMapping(value = "/myInfo", method = RequestMethod.POST)
+	@ResponseBody
+	public Object myInfo(String user_id, Model model, HttpSession session) throws Exception {
+
+		UserVo userVo = loginService.myInfo(user_id);
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", "success");
+		map.put("data", userVo);
+
+		return map;
+	}
+
+	@RequestMapping(value = "/changeInfo", method = RequestMethod.POST)
+	public String changeInfo(UserVo userVo) throws Exception {
+		loginService.changeInfo(userVo);
+		return "main/main";
+	}
+
+	@RequestMapping("/changepwform")
+	public String changePasswordForm()throws Exception{
+		return "login/changepw";
+	}
+	
+	@RequestMapping(value="/changepw" , method=RequestMethod.POST)
+
+	public String changePassword(String user_pw, String user_id)throws Exception{	
+		System.out.println("user_id "+user_id);
+		loginService.changePw(user_id, user_pw);
 		return "main/main";
 	}
 	
@@ -79,19 +120,10 @@ public class LoginController {
 	public String adminGET() throws Exception {
 		return "login/admin";
 	}
-	
-	@RequestMapping(value="/adminPost", method = RequestMethod.POST)
-	public String admin(){
+
+	@RequestMapping(value = "/adminPost", method = RequestMethod.POST)
+	public String admin() {
 		return "main/main";
 	}
-	
-	// @RequestMapping(value = "/kakaoLogin", produces = "application/json",
-	// method = { RequestMethod.GET,
-	// RequestMethod.POST })
-	// public void kakaoLogin(@RequestParam("access_token") String access_token,
-	// HttpServletRequest request, HttpServletResponse response, Model model)
-	// throws Exception {
-	// model.addAttribute("userVo", access_token);
-	// }
 
 }

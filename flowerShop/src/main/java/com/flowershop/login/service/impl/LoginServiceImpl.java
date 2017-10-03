@@ -33,4 +33,21 @@ public class LoginServiceImpl implements LoginService{
 	public UserVo checkLoginBefore(String value) {
 		return loginDao.checkUserWithSessionKey(value);
 	}
+
+	@Override
+	public UserVo myInfo(String user_id) throws Exception {
+		return loginDao.myInfo(user_id);
+	}
+
+	@Override
+	public void changeInfo(UserVo userVo) throws Exception {
+		loginDao.changeInfo(userVo);
+	}
+
+	@Override
+	public void changePw(String user_id, String user_pw) throws Exception {
+		String pw = passwordEncoder.encode(user_pw);
+		
+		loginDao.changePw(pw, user_id);
+	}
 }

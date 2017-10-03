@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.flowershop.cart.domain.CartVo;
 import com.flowershop.cart.service.CartService;
+import com.flowershop.login.domain.UserVo;
 
 @Controller
 public class CartController {
@@ -32,12 +33,17 @@ public class CartController {
     @ResponseBody
     public String CartInsert(@ModelAttribute CartVo cartVo, HttpSession session){
     	
-    	if (session.getAttribute("userId") == null){
+		Object obj = session.getAttribute("authUser");
+		
+		UserVo vo = (UserVo) obj;
+		String userId = vo.getUser_id();
+		
+    	if (userId == null){
     		return "fal";
     	}
     	
-    	if (session.getAttribute("userId") != null){
-	        String userId = (String) session.getAttribute("userId"); 
+    	if (userId != null){
+    		
 	        cartVo.setUserId(userId); 
 	        int count = cartService.countCart(cartVo.getProductNo(), userId);
 	        if(count == 0){
@@ -48,11 +54,16 @@ public class CartController {
     	}
         return "ok";
     }
-
+	
 	@RequestMapping("/cartList")
 	public String CartList(HttpSession session, Model model) {
-
-		String userId = (String) session.getAttribute("userId");
+		System.out.println(session.getAttribute("authUser"));
+		
+		Object obj = session.getAttribute("authUser");
+		
+		UserVo vo = (UserVo) obj;
+		String userId = vo.getUser_id();
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		List<CartVo> list = cartService.cartList(userId);
@@ -82,7 +93,10 @@ public class CartController {
 	@RequestMapping(value = "/cartUpdate", method = RequestMethod.POST)
 	public String CartUpdate(@RequestParam int[] amount, @RequestParam int[] productNo, HttpSession session) {
 
-		String userId = (String) session.getAttribute("userId"); 
+		Object obj = session.getAttribute("authUser");
+		
+		UserVo vo = (UserVo) obj;
+		String userId = vo.getUser_id();
 		
 		// 레코드의 갯수 만큼 반복문 실행
 		for (int i = 0; i < productNo.length; i++) {

@@ -28,9 +28,6 @@
 	                <table cellspacing="0" class="shop_table cart">
 	                    <thead>
 	                        <tr>
-	                        	<th style="text-align: center;">
-									<input type="checkbox" id="checkall" name="checkall" />
-								</th>
 	                        	<th class="product-subtotal">번호</th>
 	                            <th class="product-remove">상품명</th>
 	                            <th class="product-thumbnail">상품</th>
@@ -41,9 +38,6 @@
 	                    <tbody>
 	                    	<c:forEach var="row" items="${map.list}" varStatus="i">
 	                         <tr class="cart_item">
-	                         	<td style="text-align: center;">
-									<input type="checkbox" name="chkArry" value="${row.productNo }">
-								</td>
 	                             <td class="product-remove">
 	                                 ${row.cartNo }
 	                             </td>
@@ -69,22 +63,14 @@
 	                             </td>
 	                         </tr>
 	                        </c:forEach>
-	                        
-	                        <tr>
-	                            <td class="actions" colspan="6">
-	                                <input type="submit" value="수량변경" name="update_cart" class="button">
-	                                <input type="submit" value="선택삭제" name="update_cart" class="button">
-	                                <input type="submit" value="선택구매" name="update_cart" class="button">
-	                                <input type="submit" value="전체구매" name="update_cart" class="button">
-	                            </td>
-	                        </tr>
 	                    </tbody>
 	                </table>
 	            </form>
 	            
 	            <hr />
+	            
 	            <form method="post" action="#">
-	            <h2 class="sidebar-title">Total Price</h2>
+	            	<h2 class="sidebar-title">Total Price</h2>
 	                <table cellspacing="0" class="shop_table cart">
 	                    <tbody>
 	                        <tr class="cart-subtotal">
@@ -117,6 +103,9 @@
 	                    </tbody>
 	                </table>
 	            </form>
+	         <hr />
+				<button type="button" class="btn btn-lg btn-shop btn-block" id="buyAllBtn">전체구매</button>
+				<button type="button" class="btn btn-lg btn-primary btn-block" id="buyBtn">선택구매</button>
 		</div>
 	</div>
 </div>

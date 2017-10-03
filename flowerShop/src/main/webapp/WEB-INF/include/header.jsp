@@ -159,8 +159,9 @@
 						<li><a href="single-product.html">Single product</a></li>
 						<li><a href="checkout.html">Checkout</a></li>
 						<li><a href="#">Category</a></li>
+						<li><a href="#">SALE</a></li>
 						<li><a href="list">자유게시판</a></li>
-						<li><a href="#">Contact</a></li>
+						<li><a href="#">고객센터</a></li>
 					</ul>
 				</div>
 			</div>

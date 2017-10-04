@@ -118,7 +118,7 @@
 					<!-- 카카오 로그인 -->
 					<a id="kakao-login-btn"></a> 
 					<a href="http://developers.kakao.com/logout"></a>
-					<a href="${pageContext.request.contextPath }/mailFormId">아이디</a> / <a href="#">비밀번호 찾기</a>
+					<a href="${pageContext.request.contextPath }/mailFormId">아이디</a> / <a href="${pageContext.request.contextPath }/mailFormPw">비밀번호 찾기</a>
 				</div>
 			</div>
 		</div>

@@ -120,14 +120,32 @@ public class LoginController {
 		return "login/mailFormId";
 	}
 
-	@RequestMapping(value = "/mailSending", method = RequestMethod.POST)
-	public String mailSending(String tomail, Model model, HttpServletResponse response) throws Exception{
-		boolean result = loginService.mailSending(tomail);
-		if(result == false){
-			String msg = "이메일이 존재하지않습니다.";
+	@RequestMapping(value = "/mailSendingId", method = RequestMethod.POST)
+	public String mailSendingId(String user_email, Model model, HttpServletResponse response) throws Exception {
+		UserVo userVo = loginService.mailSending(user_email);
+		if (userVo == null) {
+			String msg = "올바른 이메일을 입력해주세요.";
 			model.addAttribute("msg", msg);
-			response.sendRedirect("login/mailFormId");
+			return "login/mailFormId";
 		}
+		return "login/mailSending";
+	}
+
+	@RequestMapping("/mailFormPw")
+	public String mailFormPw() {
+		return "login/mailFormPw";
+	}
+
+	@RequestMapping(value = "/mailSendingPw", method = RequestMethod.POST)
+	public String mailSendingPw(String user_id, String user_email, Model model) throws Exception {
+		 UserVo userVo = loginService.mailSendingPw(user_id, user_email);
+		
+		if(userVo == null){
+			String msg = "올바른 아이디와 이메일을 입력해주세요";
+			model.addAttribute("msg", msg);
+			return "login/mailFormPw";
+		}
+
 		return "login/mailSending";
 	}
 

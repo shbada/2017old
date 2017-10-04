@@ -132,7 +132,11 @@
 				<div class="col-sm-6">
 					<div class="logo">
 						<h1>
+<<<<<<< HEAD
+							<a href="main">e<span>Electronics</span></a>
+=======
 							<a href="${pageContext.request.contextPath }/main">F<span>lowerShop</span></a>
+>>>>>>> origin/master
 						</h1>
 					</div>
 				</div>
@@ -154,13 +158,14 @@
 				</div>
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="index.html">Home</a></li>
+						<li class="active"><a href="main">Home</a></li>
 						<li><a href="${path }/productList">Shop page</a></li> <!-- 상품 페이지 -->
 						<li><a href="single-product.html">Single product</a></li>
 						<li><a href="checkout.html">Checkout</a></li>
 						<li><a href="#">Category</a></li>
+						<li><a href="#">SALE</a></li>
 						<li><a href="list">자유게시판</a></li>
-						<li><a href="#">Contact</a></li>
+						<li><a href="#">고객센터</a></li>
 					</ul>
 				</div>
 			</div>

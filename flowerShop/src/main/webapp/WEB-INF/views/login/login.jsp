@@ -105,7 +105,10 @@
 								<input type="checkbox" name="useCookie">
 								아이디 저장
 							</label>
-						</div><br />
+							<div class="afind">
+								<label><a href="#" class="afindFont">아이디 찾기</a> / <a href="#" class="afindFont">비밀번호 찾기</a></label>
+							</div>
+						</div><hr />
 						<!--input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"-->
 						<button class="btn btn-lg btn-primary btn-block" type="submit">로그인</button>
 						<input type="button" class="btn btn-lg btn-primary btn-block" value="메인으로 가기" onclick="location.href='${pageContext.request.contextPath }/main';">

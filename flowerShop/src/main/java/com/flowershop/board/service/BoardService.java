@@ -15,4 +15,12 @@ public interface BoardService {
 
 	BoardVo selectContent(int board_no) throws Exception;
 
+
+	void incrementSeq(BoardVo vo)throws Exception;
+
+	void replyInsert(BoardVo vo)throws Exception;
+
+	
+
+
 }

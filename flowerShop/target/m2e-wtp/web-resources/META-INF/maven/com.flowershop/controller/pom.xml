@@ -44,7 +44,6 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-
 		<!-- AspectJ -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
@@ -56,8 +55,18 @@
 			<artifactId>aspectjweaver</artifactId>
 			<version>1.5.3</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-support</artifactId>
+			<version>2.0.8</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+		</dependency>
 
-<!-- Spring Security -->
+		<!-- Spring Security -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
@@ -211,13 +220,10 @@
 			<version>4.7</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<!-- oracle -->
-<!-- 		<dependency>
-			<groupId>com.oracle</groupId>
-			<artifactId>ojdbc6</artifactId>
-			<version>12.1.0.1-atlassian-hosted</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>com.oracle</groupId> <artifactId>ojdbc6</artifactId> 
+			<version>12.1.0.1-atlassian-hosted</version> </dependency> -->
 		<!-- mybatis -->
 		<dependency>
 			<groupId>org.springframework</groupId>

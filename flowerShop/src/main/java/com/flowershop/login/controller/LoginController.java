@@ -4,12 +4,15 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +24,6 @@ import org.springframework.web.util.WebUtils;
 
 import com.flowershop.login.domain.UserVo;
 import com.flowershop.login.service.impl.LoginServiceImpl;
-import com.flowershop.util.JSONResult;
 
 @Controller
 public class LoginController {
@@ -83,13 +85,11 @@ public class LoginController {
 	public String infoForm() throws Exception {
 		return "login/infoForm";
 	}
-	
+
 	@RequestMapping(value = "/myInfo", method = RequestMethod.POST)
 	@ResponseBody
 	public Object myInfo(String user_id, Model model, HttpSession session) throws Exception {
-
 		UserVo userVo = loginService.myInfo(user_id);
-
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", "success");
 		map.put("data", userVo);
@@ -104,18 +104,33 @@ public class LoginController {
 	}
 
 	@RequestMapping("/changepwform")
-	public String changePasswordForm()throws Exception{
+	public String changePasswordForm() throws Exception {
 		return "login/changepw";
 	}
-	
-	@RequestMapping(value="/changepw" , method=RequestMethod.POST)
 
-	public String changePassword(String user_pw, String user_id)throws Exception{	
-		System.out.println("user_id "+user_id);
+	@RequestMapping(value = "/changepw", method = RequestMethod.POST)
+
+	public String changePassword(String user_pw, String user_id) throws Exception {
 		loginService.changePw(user_id, user_pw);
 		return "main/main";
 	}
-	
+
+	@RequestMapping("/mailFormId")
+	public String mailFormId() {
+		return "login/mailFormId";
+	}
+
+	@RequestMapping(value = "/mailSending", method = RequestMethod.POST)
+	public String mailSending(String tomail, Model model, HttpServletResponse response) throws Exception{
+		boolean result = loginService.mailSending(tomail);
+		if(result == false){
+			String msg = "이메일이 존재하지않습니다.";
+			model.addAttribute("msg", msg);
+			response.sendRedirect("login/mailFormId");
+		}
+		return "login/mailSending";
+	}
+
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public String adminGET() throws Exception {
 		return "login/admin";

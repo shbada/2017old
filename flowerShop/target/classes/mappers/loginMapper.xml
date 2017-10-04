@@ -76,4 +76,8 @@
 		where user_id = #{user_id}
 	</update>
 
+	<select id="findUserId" parameterType="String" resultType="login">
+	   select user_id from users where user_email = #{user_email}
+	</select>
+
 </mapper>

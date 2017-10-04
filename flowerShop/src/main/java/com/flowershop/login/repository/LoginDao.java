@@ -17,4 +17,6 @@ public interface LoginDao {
 	public void changeInfo(UserVo userVo) throws Exception;
 
 	public void changePw(String user_pw, String user_id) throws Exception;
+
+	public UserVo findUserId(String tomail) throws Exception;
 }

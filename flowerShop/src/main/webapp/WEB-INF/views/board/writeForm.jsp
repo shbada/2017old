@@ -23,7 +23,6 @@
 </head>
 <body>
 <form action="writeOK" method="post" onsubmit="return chk();" >
-	이름 : <input type="text" name="board_writer"/><br/>
 	제목 : <input type="text" name="board_title" size="80"/><br/>
 	내용 : <textarea rows="10" cols="80" name="board_content"></textarea><br/>
 	<input type="submit" value="저장하기">

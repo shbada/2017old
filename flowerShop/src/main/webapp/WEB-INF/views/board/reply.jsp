@@ -19,7 +19,7 @@
 	}
 </script>
 <form action="replyOK?pageNo=${pageNo}&board_no=${vo.board_no}" method="post" onsubmit="return chk();" name="form1">
-	<input type="hidden" name="board_ref" value="${vo.board_ref}"/>
+	<input type="text" name="board_start_ref" value="${vo.board_start_ref}"/>
 	<input type="hidden" name="board_lev" value="${vo.board_lev}"/>
 	<input type="hidden" name="board_seq" value="${vo.board_seq}"/>
 	제목 : <input type="text" name="board_title" size="80"/><br/>

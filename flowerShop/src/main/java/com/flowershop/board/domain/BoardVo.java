@@ -3,7 +3,8 @@ package com.flowershop.board.domain;
 public class BoardVo {
 
 	private int board_no;			// 입력되는 순서대로 부여되는 일련번호
-	private int board_ref;			// 게시글의 글번호
+	private int board_start_ref;			// 게시글의 글번호
+	private int board_before_ref;			// 게시글의 글번호
 	private int board_lev;			// 답변의 레벨
 	private int board_seq;			// 답변글의 일련번호
 	private String board_writer;		// 작성자 이름
@@ -18,17 +19,23 @@ public class BoardVo {
 	
 	
 	
+	public int getBoard_start_ref() {
+		return board_start_ref;
+	}
+	public void setBoard_start_ref(int board_start_ref) {
+		this.board_start_ref = board_start_ref;
+	}
+	public int getBoard_before_ref() {
+		return board_before_ref;
+	}
+	public void setBoard_before_ref(int board_before_ref) {
+		this.board_before_ref = board_before_ref;
+	}
 	public int getBoard_no() {
 		return board_no;
 	}
 	public void setBoard_no(int board_no) {
 		this.board_no = board_no;
-	}
-	public int getBoard_ref() {
-		return board_ref;
-	}
-	public void setBoard_ref(int board_ref) {
-		this.board_ref = board_ref;
 	}
 	public int getBoard_lev() {
 		return board_lev;

@@ -132,11 +132,8 @@
 				<div class="col-sm-6">
 					<div class="logo">
 						<h1>
-<<<<<<< HEAD
 							<a href="main">e<span>Electronics</span></a>
-=======
 							<a href="${pageContext.request.contextPath }/main">F<span>lowerShop</span></a>
->>>>>>> origin/master
 						</h1>
 					</div>
 				</div>

@@ -83,9 +83,8 @@ public class BoardController {
 	
 	@RequestMapping("/replyOK") // 답글을 저장한다.
 	public String replyOK(BoardVo vo, HttpServletRequest request, Model model)throws Exception {
-		System.out.println("replyOK");
 		int pageNo = Integer.parseInt(request.getParameter("pageNo"));
-		boardService.incrementSeq(vo);
+		//boardService.incrementSeq(vo);
 		boardService.replyInsert(vo);
 		return "redirect:list"; // @RequestMapping("/list") 메소드를 호출한다.
 	}

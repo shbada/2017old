@@ -23,6 +23,8 @@
 </head>
 <body>
 <form action="writeOK" method="post" onsubmit="return chk();" >
+		   <input type="hidden" name="board_writer" value="${userVo.user_name}">
+		   <input type="hidden" name="user_id" value="${userVo.user_id}">
 	제목 : <input type="text" name="board_title" size="80"/><br/>
 	내용 : <textarea rows="10" cols="80" name="board_content"></textarea><br/>
 	<input type="submit" value="저장하기">

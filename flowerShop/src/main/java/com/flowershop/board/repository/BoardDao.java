@@ -20,6 +20,8 @@ public interface BoardDao {
 	void incrementSeq(BoardVo vo)throws Exception;
 
 	void replyInsert(BoardVo vo)throws Exception;
+
+	int getReplyCount(BoardVo vo)throws Exception;
 	
 	
 }

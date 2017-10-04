@@ -28,8 +28,10 @@
 	<input type="hidden" name="board_seq" value="${vo.board_seq}"/>
 	<input type="button" onclick="location.href='list?pageNo=${pageNo}'" value="리스트로"/>
 	<input type="submit" value="답변달기"/>
-	<input type="button" onclick="location.href='update?pageNo=${pageNo}&board_no=${vo.board_no}'" value="수정하기"/>
-	<input type="button" onclick="location.href='delete?pageNo=${pageNo}&board_no=${vo.board_no}'" value="삭제하기"/>
+	<c:if test="${userVo.user_id == vo.user_id}">
+		<input type="button" onclick="location.href='update?pageNo=${pageNo}&board_no=${vo.board_no}'" value="수정하기"/>
+		<input type="button" onclick="location.href='delete?pageNo=${pageNo}&board_no=${vo.board_no}'" value="삭제하기"/>
+	</c:if>
 	<br/>
 </form>
 <!--  댓글폼 -->

@@ -22,9 +22,11 @@
 	<input type="text" name="board_start_ref" value="${vo.board_start_ref}"/>
 	<input type="hidden" name="board_lev" value="${vo.board_lev}"/>
 	<input type="hidden" name="board_seq" value="${vo.board_seq}"/>
+	<input type="hidden" name="board_writer" value="${userVo.user_name}">
+ 	<input type="hidden" name="user_id" value="${userVo.user_id}">
 	제목 : <input type="text" name="board_title" size="80"/><br/>
 	내용 : <textarea rows="10" cols="80" name="board_content"></textarea><br/>
-	<input type="submit" value="글쓰기">
+	<input type="submit" value="답글달기">
 </form>
 <!-- 여기서부터 jsp 소스넣기  -->
 <%@ include file="/WEB-INF/include/footer.jsp" %>

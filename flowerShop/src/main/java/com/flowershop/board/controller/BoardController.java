@@ -2,6 +2,7 @@ package com.flowershop.board.controller;
 
 //주석 변경해보기 2017/09/26 배영철
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.flowershop.board.domain.BoardList;
 import com.flowershop.board.domain.BoardVo;
 import com.flowershop.board.service.BoardService;
+import com.flowershop.login.domain.UserVo;
 
 @Controller
 public class BoardController {
@@ -23,8 +25,15 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 	
-	@RequestMapping("/write")
-	private String writeFrom() throws Exception{
+	@RequestMapping(value = "/write", method = RequestMethod.GET)
+	private String writeFrom(HttpSession session, Model model) throws Exception{
+		if(session.getAttribute("authUser") == null) {
+			model.addAttribute("msg", "로그인 후 사용 가능합니다.");
+			model.addAttribute("url", "login");
+			return"board/alert"; 
+		}
+		UserVo userVo = (UserVo)session.getAttribute("authUser");
+		model.addAttribute("userVo", userVo);
 		return "board/writeForm";
 	}
 	
@@ -34,7 +43,7 @@ public class BoardController {
 		return "redirect:list";
 	}
 	
-	@RequestMapping("/list")
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(HttpServletRequest request, Model model)throws Exception {
 		
 	int pageNo = 1;
@@ -49,10 +58,15 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/increment") // 게시글을 확인할 때 조회수를 1 증가시킨다.
-	public String increment(HttpServletRequest request, Model model)throws Exception {
+	public String increment(HttpServletRequest request, Model model, HttpSession session)throws Exception {
 		int board_no = Integer.parseInt(request.getParameter("board_no"));
 		int pageNo = Integer.parseInt(request.getParameter("pageNo"));
 
+		if(session.getAttribute("authUser") == null) {
+			model.addAttribute("msg", "로그인 하셔야 보실 수 있습니다.");
+			model.addAttribute("url", "login");
+			return"board/alert"; 
+		}
 		boardService.increment(board_no);
 		model.addAttribute("board_no", board_no);
 		model.addAttribute("pageNo", pageNo);
@@ -61,7 +75,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/content_view") // 게시글 한 건을 불러온다.
-	public String view(HttpServletRequest request, Model model)throws Exception {
+	public String view(HttpServletRequest request, Model model, HttpSession session)throws Exception {
 		int board_no = Integer.parseInt(request.getParameter("board_no"));
 		int pageNo = Integer.parseInt(request.getParameter("pageNo"));
 		model.addAttribute("vo", boardService.selectContent(board_no));
@@ -69,23 +83,27 @@ public class BoardController {
 //		comment.setList(dao.commentList(idx));
 
 //		model.addAttribute("comment", comment);
+		UserVo userVo = (UserVo) session.getAttribute("authUser");
+		model.addAttribute("userVo", userVo);
 		model.addAttribute("pageNo", pageNo);
 		return "board/content_view";
 	}
 	
 	@RequestMapping("/reply") // 답글을 쓸 폼을 띄운다.
-	public String reply(BoardVo vo, HttpServletRequest request, Model model)throws Exception {
+	public String reply(BoardVo vo, HttpServletRequest request, Model model, HttpSession session)throws Exception {
 		int pageNo = Integer.parseInt(request.getParameter("pageNo"));
 		model.addAttribute("vo", vo);
 		model.addAttribute("pageNo", pageNo);
+		UserVo userVo = (UserVo)session.getAttribute("authUser");
+		model.addAttribute("userVo", userVo);
 		return "board/reply";
 	}
 	
 	@RequestMapping("/replyOK") // 답글을 저장한다.
 	public String replyOK(BoardVo vo, HttpServletRequest request, Model model)throws Exception {
 		int pageNo = Integer.parseInt(request.getParameter("pageNo"));
-		//boardService.incrementSeq(vo);
 		boardService.replyInsert(vo);
+		model.addAttribute("pageNo", pageNo);
 		return "redirect:list"; // @RequestMapping("/list") 메소드를 호출한다.
 	}
 	

@@ -52,4 +52,9 @@ public class BoardDaoImpl implements BoardDao{
 		sqlSession.insert("board.replyInsert", vo);
 	}
 
+	@Override
+	public int getReplyCount(BoardVo vo) throws Exception {
+		return sqlSession.selectOne("board.getReplyCount", vo);
+	}
+
 }

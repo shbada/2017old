@@ -28,7 +28,8 @@
 	</select>
 
 	<update id="keepLogin">
-		update users set sessionKey = #{sessionId}, sessionLimit = #{next} where
+		update users set sessionKey = #{sessionId},
+		sessionLimit = #{next} where
 		user_id = #{user_id}
 	</update>
 
@@ -56,28 +57,47 @@
 	</select>
 
 	<select id="myInfo" parameterType="String" resultType="login">
-		select user_id, user_name, user_email, user_phone, user_addr1,
-		user_addr2, user_addr3, user_addr4 from users where user_id = #{user_id}
+		select
+		user_id, user_name, user_email, user_phone, user_addr1,
+		user_addr2,
+		user_addr3, user_addr4 from users where user_id = #{user_id}
 	</select>
 
 	<update id="changeInfo">
 		update users set user_name = #{user_name},
-		user_email = #{user_email},
+		user_email
+		= #{user_email},
 		user_phone = #{user_phone},
 		user_addr1 = #{user_addr1},
 		user_addr2 = #{user_addr2},
 		user_addr3 = #{user_addr3},
-		user_addr4 = #{user_addr4}
-		where user_id = #{user_id}
-	</update>
-	
-	<update id="changePw" >
-		update users set user_pw = #{user_pw}
+		user_addr4 =
+		#{user_addr4}
 		where user_id = #{user_id}
 	</update>
 
-	<select id="findUserId" parameterType="String" resultType="login">
-	   select user_id from users where user_email = #{user_email}
+	<update id="changePw">
+		update users set user_pw = #{user_pw}
+		where user_id =
+		#{user_id}
+	</update>
+
+	<select id="findUserId" resultType="login" parameterType="map" >
+	   <![CDATA[    
+	    select user_id from users where user_email = #{user_email}
+	    ]]>
 	</select>
+
+	<select id="findUserPw" resultType="login" parameterType="string">
+	   <![CDATA[    
+	   select user_pw from users where user_email = #{user_email} and user_id = #{user_id}
+	    ]]>
+	</select>
+	
+	<update id="userPwInit">
+	 <![CDATA[ 
+	 	update users set user_pw = #{user_pw} where user_id = #{user_id} 
+	  ]]>   
+	</update>
 
 </mapper>

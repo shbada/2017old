@@ -28,7 +28,7 @@ public class UserVo {
 	@Size(min = 1)
 	private String user_name;
 
-	@NotNull(message = "이메일을 입력해주세요.")
+	//@NotNull(message = "이메일을 입력해주세요.")
 	@Size(min = 1)
 	private String user_email;
 	@NotNull(message = "연락처를 입력해주세요.")

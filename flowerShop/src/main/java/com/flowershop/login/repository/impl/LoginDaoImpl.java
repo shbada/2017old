@@ -28,12 +28,12 @@ public class LoginDaoImpl implements LoginDao {
 		paramMap.put("user_id", user_id);
 		paramMap.put("sessionId", sessionId);
 		paramMap.put("next", next);
-		sqlSession.update("keepLogin", paramMap);
+		sqlSession.update("login.keepLogin", paramMap);
 	}
 
 	@Override
 	public UserVo checkUserWithSessionKey(String value) {
-		return sqlSession.selectOne("checkUserWithSessionKey", value);
+		return sqlSession.selectOne("login.checkUserWithSessionKey", value);
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public class LoginDaoImpl implements LoginDao {
 	}
 
 	public void changeInfo(UserVo userVo) throws Exception {
-		sqlSession.update("changeInfo", userVo);
+		sqlSession.update("login.changeInfo", userVo);
 	}
 
 	@Override
@@ -50,12 +50,27 @@ public class LoginDaoImpl implements LoginDao {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("user_id", user_id);
 		paramMap.put("user_pw", user_pw);
-		sqlSession.update("changePw", paramMap);
+		sqlSession.update("login.changePw", paramMap);
 	}
 
 	@Override
 	public UserVo findUserId(String user_email) throws Exception {
-		return sqlSession.selectOne("findUserId", user_email);
+		return sqlSession.selectOne("login.findUserId", user_email);
+	}
+
+	@Override
+	public UserVo findUserPw(String user_id, String user_email) throws Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("user_id", user_id);
+		paramMap.put("user_email", user_email);
+		return sqlSession.selectOne("login.findUserPw", paramMap);
+	}
+
+	public void userPwInit(String user_id, String user_pw) throws Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("user_id", user_id);
+		paramMap.put("user_pw", user_pw);
+		sqlSession.update("login.userPwInit", paramMap);
 	}
 
 }

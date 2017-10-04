@@ -17,8 +17,8 @@ import com.flowershop.login.service.LoginService;
 @Service
 public class LoginServiceImpl implements LoginService {
 
-	boolean result;	
-	
+	boolean result;
+
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 
@@ -61,14 +61,14 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public boolean mailSending(String email) throws Exception {	
-
-		String user_id = loginDao.findUserId(email).getUser_id();
+	public UserVo mailSending(String user_email) throws Exception {
+		UserVo user_id = loginDao.findUserId(user_email);
+		
 		if (user_id != null) {
 			String setfrom = "ghkd7426@gmail.com";
-			String tomail = email;
-			String title = "FlowerShop 계정 사용자 ID"; 
-			String content = "고객님의 아이디는 " + user_id + " 입니다.";
+			String tomail = user_email;
+			String title = "FlowerShop 계정 사용자 ID";
+			String content = "고객님의 아이디는 " + user_id.getUser_id() + " 입니다.";
 			try {
 				MimeMessage message = mailSender.createMimeMessage();
 				MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
@@ -81,10 +81,46 @@ public class LoginServiceImpl implements LoginService {
 			} catch (Exception e) {
 				System.out.println(e);
 			}
-		}else{
-			result = false;
 		}
-		return result;	
+		return loginDao.findUserId(user_email);
 	}
-	
+
+	@Override
+	public UserVo mailSendingPw(String user_id, String user_email) throws Exception {
+		String user_pw = getRamdomPassword(8);
+		UserVo userVo = loginDao.findUserPw(user_id, user_email);
+		loginDao.userPwInit(user_id, passwordEncoder.encode(user_pw));
+		if (userVo != null) {
+			String setfrom = "hwanggyeongjin369@gmail.com";
+			String tomail = user_email;
+			String title = "FlowerShop 계정 사용자 ID";
+			String content = "고객님의 비밀번호가 " + user_pw + " 로 초기화 되었습니다.\n 로그인 후 비밀번호를 변경해주세요";
+			try {
+				MimeMessage message = mailSender.createMimeMessage();
+				MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+				messageHelper.setFrom(setfrom);
+				messageHelper.setTo(tomail);
+				messageHelper.setSubject(title);
+				messageHelper.setText(content);
+				mailSender.send(message);
+				result = true;
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		}
+		return userVo;
+	}
+
+	public String getRamdomPassword(int len) {
+		char[] charSet = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F',
+				'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+		int idx = 0;
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < len; i++) {
+			idx = (int) (charSet.length * Math.random());
+			sb.append(charSet[idx]);
+		}
+		return sb.toString();
+	}
+
 }

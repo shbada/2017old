@@ -53,4 +53,9 @@ public class LoginDaoImpl implements LoginDao {
 		sqlSession.update("changePw", paramMap);
 	}
 
+	@Override
+	public UserVo findUserId(String user_email) throws Exception {
+		return sqlSession.selectOne("findUserId", user_email);
+	}
+
 }

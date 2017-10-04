@@ -17,5 +17,7 @@ public interface LoginService {
 	public void changeInfo(UserVo userVo)throws Exception;
 	
 	public void changePw(String user_id, String user_pw)throws Exception;
+	
+	public boolean mailSending(String tomail) throws Exception;
 
 }

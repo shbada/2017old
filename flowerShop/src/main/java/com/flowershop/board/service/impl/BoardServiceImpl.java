@@ -63,6 +63,11 @@ public class BoardServiceImpl implements BoardService {
 		boardDao.incrementSeq(vo);								 //  해당글의 답변이 들어갈 글의 위치를 비워두기 위해서 해당위치 의 글들의 seq + 1 을 모두 해준다.
 		boardDao.replyInsert(vo);								 //  해당글의 답변글을 비워둔 자리에 넣어준다.
 	}
+
+	@Override
+	public void update(BoardVo vo) throws Exception {
+		boardDao.update(vo);
+	}
 	
 	
 

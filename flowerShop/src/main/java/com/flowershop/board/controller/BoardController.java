@@ -1,5 +1,7 @@
 package com.flowershop.board.controller;
 
+import java.security.Provider.Service;
+
 //주석 변경해보기 2017/09/26 배영철
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -108,9 +110,24 @@ public class BoardController {
 	}
 	
 	
+	@RequestMapping("/update") // 게시글 한 건을 수정하는 페이지를 불러온다.
+	public String update(HttpServletRequest request, Model model)throws Exception {
+		int board_no = Integer.parseInt(request.getParameter("board_no"));
+		int pageNo = Integer.parseInt(request.getParameter("pageNo"));
+		model.addAttribute("vo", boardService.selectContent(board_no));
+		model.addAttribute("pageNo", pageNo);
+		return "board/update";
+	}
 	
-	
-	
+	@RequestMapping("/updateOK") // 게시글 한 건을 수정한다.
+	public String updateOK(BoardVo vo,HttpServletRequest request, Model model)throws Exception {
+		int pageNo = Integer.parseInt(request.getParameter("pageNo"));
+		boardService.update(vo);
+		model.addAttribute("board_no", vo.getBoard_no());
+		model.addAttribute("pageNo", pageNo);
+		return "redirect:content_view"; // 메시지를 alert 할 수 있는 jsp파일로 이동한다.
+		// return "redirect:list"; // @RequestMapping("/list") 메소드를 호출한다.
+	}
 	
 	
 }

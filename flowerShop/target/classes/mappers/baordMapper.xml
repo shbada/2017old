@@ -7,8 +7,8 @@
 		                  board_title, board_content, board_viewcnt, board_regdate, 
 		                  board_modidate, board_deldate, user_id, commentcount)
 		values (board_no_seq.nextval, board_no_seq.currval, 0, 0, #{board_writer}, 
-				#{board_title}, #{board_content}, 0, to_char(sysdate, 'YYYY-MM-DD HH:MM'),
-				to_char(sysdate, 'YYYY-MM-DD HH:MM:SS'), 'notdeleted', #{user_id}, 0)
+				#{board_title}, #{board_content}, 0, to_char(sysdate, 'YYYY-MM-DD HH:MI'),
+				to_char(sysdate, 'YYYY-MM-DD HH:MI'), 'notdeleted', #{user_id}, 0)
 	</insert>
 
 	<select id="totalCount" resultType="int">
@@ -42,12 +42,16 @@
 		                  board_title, board_content, board_viewcnt, board_regdate, 
 		                  board_modidate, board_deldate, user_id, commentcount)
 		values (board_no_seq.nextval, #{board_start_ref}, #{board_no}, #{board_lev}+1, #{board_seq}+1, #{board_writer}, 
-				#{board_title}, #{board_content}, 0, to_char(sysdate, 'YYYY-MM-DD HH:MM'),
-				to_char(sysdate, 'YYYY-MM-DD HH:MM:SS'), 'notdeleted', #{user_id}, 0)
+				#{board_title}, #{board_content}, 0, to_char(sysdate, 'YYYY-MM-DD HH:MI'),
+				to_char(sysdate, 'YYYY-MM-DD HH:MI'), 'notdeleted', #{user_id}, 0)
 	</insert>
 	
 	<select id="getReplyCount" parameterType="boardVO" resultType="int">
 		select count(*) from board where board_before_ref = #{board_no}
 	</select>
+
+	<update id="update" parameterType="boardVO">
+		update board set board_title = #{board_title}, board_content = #{board_content}, board_modidate = to_char(sysdate, 'YYYY-MM-DD HH:MI') where board_no = #{board_no}
+	</update>
 
 </mapper>

@@ -1,7 +1,5 @@
 package com.flowershop.board.service;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.flowershop.board.domain.BoardList;
 import com.flowershop.board.domain.BoardVo;
 
@@ -16,6 +14,8 @@ public interface BoardService {
 	BoardVo selectContent(int board_no) throws Exception;
 
 	void replyInsert(BoardVo vo)throws Exception;
+
+	void update(BoardVo vo)throws Exception;
 
 	
 

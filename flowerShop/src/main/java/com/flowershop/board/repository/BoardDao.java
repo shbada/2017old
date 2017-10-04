@@ -22,6 +22,8 @@ public interface BoardDao {
 	void replyInsert(BoardVo vo)throws Exception;
 
 	int getReplyCount(BoardVo vo)throws Exception;
+
+	void update(BoardVo vo)throws Exception;
 	
 	
 }

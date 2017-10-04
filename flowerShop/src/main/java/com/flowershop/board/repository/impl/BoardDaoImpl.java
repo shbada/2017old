@@ -57,4 +57,9 @@ public class BoardDaoImpl implements BoardDao{
 		return sqlSession.selectOne("board.getReplyCount", vo);
 	}
 
+	@Override
+	public void update(BoardVo vo) throws Exception {
+		sqlSession.update("board.update", vo);
+	}
+
 }

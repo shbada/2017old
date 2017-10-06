@@ -27,7 +27,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			response.sendRedirect("/main");		
 			if (request.getParameter("useCookie") != null) {
 				Cookie loginCookie = new Cookie("loginCookie", session.getId());
-				loginCookie.setPath("/");
+				loginCookie.setPath("/main");
 				loginCookie.setMaxAge(60 * 60 * 24 * 7);
 				response.addCookie(loginCookie);
 			}

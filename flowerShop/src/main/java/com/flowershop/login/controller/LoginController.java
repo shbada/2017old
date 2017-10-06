@@ -58,6 +58,7 @@ public class LoginController {
 				loginService.keepLogin(vo.getUser_id(), session.getId(), sessionLimit);
 			}
 		}
+
 		return "login/login";
 	}
 
@@ -138,9 +139,9 @@ public class LoginController {
 
 	@RequestMapping(value = "/mailSendingPw", method = RequestMethod.POST)
 	public String mailSendingPw(String user_id, String user_email, Model model) throws Exception {
-		 UserVo userVo = loginService.mailSendingPw(user_id, user_email);
-		
-		if(userVo == null){
+		UserVo userVo = loginService.mailSendingPw(user_id, user_email);
+
+		if (userVo == null) {
 			String msg = "올바른 아이디와 이메일을 입력해주세요";
 			model.addAttribute("msg", msg);
 			return "login/mailFormPw";

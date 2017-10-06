@@ -52,7 +52,7 @@
            user_point,
            social_id,
            social_state,
-           isadmin,enabled,sessionkey,sessionlimit from users where sessionKey = #{value} and sessionlimit > now()
+           isadmin,enabled,sessionkey,sessionlimit from users where sessionKey = #{value} and sessionlimit > sysdate
      ]]>
 	</select>
 

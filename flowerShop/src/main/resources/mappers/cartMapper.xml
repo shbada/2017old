@@ -42,11 +42,6 @@
 				AND PRODUCT_NO = #{productNo}
 	</update>
 	
-	<delete id="cartDelete" parameterType="com.flowershop.cart.domain.CartVo">
-		DELETE FROM CART
-			WHERE PRODUCT_NO = #{productNo}
-	</delete>
-	
 	<select id="countCart" parameterType="com.flowershop.cart.domain.CartVo" resultType="int">
 		SELECT COUNT(*)
 			FROM CART
@@ -55,9 +50,13 @@
 	</select>
 	
 	<update id="UpdateCount" parameterType="com.flowershop.cart.domain.CartVo">
-		UPDATE tbl_cart
+		UPDATE CART
 			SET PRODUCT_AMOUNT = PRODUCT_AMOUNT + #{productAmount}
 				WHERE USER_ID= #{userId}
 				AND PRODUCT_NO = #{productNo}
 	</update>
+	
+	<delete id="cartListDelete" parameterType="com.flowershop.cart.domain.CartVo">
+		DELETE FROM CART WHERE PRODUCT_NO = #{productNo}
+	</delete>
 </mapper>

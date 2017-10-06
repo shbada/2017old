@@ -33,11 +33,6 @@ public class CartDaoImpl implements CartDao{
 	}
 
 	@Override
-	public void cartDelete(int productNo) {
-		session.delete("cart.cartDelete", productNo);
-	}
-
-	@Override
 	public void cartUpdate(CartVo cartVo) {
 		session.update("cart.cartUpdate", cartVo);
 	}

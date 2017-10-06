@@ -84,12 +84,6 @@ public class CartController {
 		return "cart/cartList";
 	}
 
-	@RequestMapping("/cartDelete")
-	public String CartDelete(@RequestParam int productNo) {
-		cartService.cartDelete(productNo); 
-		return "redirect:/cartList.do";
-	}
-
 	@RequestMapping(value = "/cartUpdate", method = RequestMethod.POST)
 	public String CartUpdate(@RequestParam int[] amount, @RequestParam int[] productNo, HttpSession session) {
 

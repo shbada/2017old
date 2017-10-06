@@ -4,7 +4,43 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/jquery-2.1.1.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/jquery.validate.js"></script>
 <script type="text/javascript">
+$("#amountUpdate").click(function(){ 
+	document.form1.method="POST";   		
+	document.form1.action="<c:url value='/cartUpdate' />";   		
+	document.form1.submit();
+});
 
+function CartDel() {
+	var chkedVal = new Array(); //배열
+	var chkedObj = null;
+	
+	$(":checkbox[name='cartCheck']:checked").each(function(i){
+		 chkedObj = new Object();
+		 chkedObj.productNo = $(this).val();
+		 chkedVal[i] = chkedObj; 
+	 });
+	if(chkedVal.length == 0){
+		alert("선택된 목록이 없습니다. 삭제하시려는 목록을 체크하세요");
+		return;
+	}else {
+		if (confirm("정말 삭제하시겠습니까?") == true){
+			 $.ajax({					
+					type:"POST",
+					url:"/cartListDelete.do",
+					dataType:"JSON",
+					data : JSON.stringify(chkedVal),
+					contentType: "application/json; charset=UTF-8",
+					async : false,
+					complete: function() {
+						alert("삭제 되었습니다.")
+						window.location.reload();
+				    }				
+				});
+		}else{   //취소
+	    	return;
+		}
+	}
+}
 </script>
 <!-- *** -->
 <div class="product-big-title-area">
@@ -28,6 +64,9 @@
 	                <table cellspacing="0" class="shop_table cart">
 	                    <thead>
 	                        <tr>
+	                        	<th style="text-align: center;">
+									<input type="checkbox" id="cartCheckAll" name="checkall" />
+								</th>
 	                        	<th class="product-subtotal">번호</th>
 	                            <th class="product-remove">상품명</th>
 	                            <th class="product-thumbnail">상품</th>
@@ -38,6 +77,9 @@
 	                    <tbody>
 	                    	<c:forEach var="row" items="${map.list}" varStatus="i">
 	                         <tr class="cart_item">
+	                         	<td style="text-align: center;">
+									<input type="checkbox" name="cartCheck" value="${row.productNo }">
+								</td>
 	                             <td class="product-remove">
 	                                 ${row.cartNo }
 	                             </td>
@@ -65,6 +107,8 @@
 	                        </c:forEach>
 	                    </tbody>
 	                </table>
+	                <button type="button" class="btn btn-danger btn-s-xs btnList" id="cartDelete" onclick="CartDel();">선택삭제 </button>&nbsp;
+					<button type="button" class="btn btn-primary btn-s-xs btnList" id="amountUpdate">수량수정 </button>
 	            </form>
 	            
 	            <hr />

@@ -12,8 +12,6 @@ public interface CartDao {
 
 	void cartInsert(CartVo cartVo);
 
-	void cartDelete(int productNo);
-
 	void cartUpdate(CartVo cartVo);
 
 	int countCart(int productNo, String userId);

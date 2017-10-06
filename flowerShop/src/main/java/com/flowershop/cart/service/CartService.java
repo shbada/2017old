@@ -10,8 +10,6 @@ public interface CartService {
 
 	int sumMoney(String userId);
 	
-	void cartDelete(int productNo);
-	
 	void cartInsert(CartVo cartVo);
 	
 	void cartUpdate(CartVo cartVo);

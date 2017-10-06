@@ -3,10 +3,11 @@
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias alias="join" type="com.flowershop.login.domain.UserVo"/>
-		<typeAlias alias="login" type="com.flowershop.login.domain.UserVo"/>
-		<typeAlias alias="boardVo" type="com.flowershop.board.domain.BoardVo"/>
-		<typeAlias alias="boardList" type="com.flowershop.board.domain.BoardList"/>
+		<typeAlias alias="join" type="com.flowershop.login.domain.UserVo" />
+		<typeAlias alias="login" type="com.flowershop.login.domain.UserVo" />
+		<typeAlias alias="boardVo" type="com.flowershop.board.domain.BoardVo" />
+		<typeAlias alias="boardList" type="com.flowershop.board.domain.BoardList" />
+	    <typeAlias alias="product" type="com.flowershop.product.domain.ProductVo" /> 
 	</typeAliases>
 
 </configuration>

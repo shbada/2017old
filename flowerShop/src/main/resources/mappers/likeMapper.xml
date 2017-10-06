@@ -8,7 +8,7 @@
 	</select>
 
 
-	<select id="LikeUpSelect" parameterType="com.flowershop.product.vo.ProductVo" resultType="com.flowershop.product.vo.ProductVo">
+	<select id="LikeUpSelect" parameterType="product" resultType="product">
 		SELECT PRODUCT_NO,
 		USER_ID,
 		PRODUCT_RECDATE
@@ -18,7 +18,7 @@
 	</select>
 
 
-	<insert id="likeUpSave" parameterType="com.flowershop.product.vo.ProductVo">
+	<insert id="likeUpSave" parameterType="product">
 		<![CDATA[
 		 INSERT 
 		   INTO LIKES(

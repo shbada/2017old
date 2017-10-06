@@ -1,16 +1,15 @@
 package com.flowershop.product.domain;
 
-public class ProductVO {
-	private int product_no;            
-	private String product_name;  
-	private int product_price;                   
-	private String product_comment; 
-	private String product_regdate;  
-	private String product_url;     
-	private int product_mod;            
-	private int product_buycnt;         
+public class ProductVo {
+	private int product_no;
+	private String product_name;
+	private int product_price;
+	private String product_comment;
+	private String product_regdate;
+	private String product_url;
+	private int product_mod;
+	private int product_buycnt;
 	private String product_saleyn;
-	
 	public int getProduct_no() {
 		return product_no;
 	}
@@ -64,6 +63,13 @@ public class ProductVO {
 	}
 	public void setProduct_saleyn(String product_saleyn) {
 		this.product_saleyn = product_saleyn;
-	} 	
-
+	}
+	@Override
+	public String toString() {
+		return "ProductVo [product_no=" + product_no + ", product_name=" + product_name + ", product_price="
+				+ product_price + ", product_comment=" + product_comment + ", product_regdate=" + product_regdate
+				+ ", product_url=" + product_url + ", product_mod=" + product_mod + ", product_buycnt=" + product_buycnt
+				+ ", product_saleyn=" + product_saleyn + "]";
+	}
+	
 }

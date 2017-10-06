@@ -59,7 +59,7 @@ public class LoginController {
 			}
 		}
 
-		return "login/login";
+		return "main/main";
 	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)

@@ -23,7 +23,7 @@
 	<div class="row m-n">
 		<div class="col-md-4 col-md-offset-4 m-t-lg">
 			<!-- ************************ -->
-			<header class="text-left createHeader">비밀번호 찾기&nbsp;
+			<header class="text-left createHeader">아이디 찾기&nbsp;
             	<span class="subCreateHeader">가입하신 회원님의 아이디와 이메일을 입력해주세요</span>
             </header>
 			<form action="${pageContext.request.contextPath}/mailSendingId" method="post">

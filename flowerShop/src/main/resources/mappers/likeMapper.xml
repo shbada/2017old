@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="like">
+	<select id="LikeSelect" resultType="int">
+		SELECT COUNT(PRODUCT_NO) FROM
+		LIKES WHERE PRODUCT_NO=#{product_no}
+	</select>
+
+
+	<select id="LikeUpSelect" parameterType="product" resultType="product">
+		SELECT PRODUCT_NO,
+		USER_ID,
+		PRODUCT_RECDATE
+		FROM LIKES
+		WHERE PRODUCT_NO = #{product_no}
+		AND USER_ID = #{user_id}
+	</select>
+
+
+	<insert id="likeUpSave" parameterType="product">
+		<![CDATA[
+		 INSERT 
+		   INTO LIKES(
+		     PRODUCT_NO,
+		     USER_ID,
+		     PRODUCT_RECDATE
+		   ) VALUES (
+		     #{product_no},
+		     #{user_id},
+		     TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS')
+		   )
+		]]>
+	</insert>
+</mapper>

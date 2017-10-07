@@ -24,3 +24,17 @@
 .afindFont{
 	color: #000000;
 }
+.freeReplTextarea{
+	height:100px !important;
+	max-height:100px;
+	overflow:scroll;
+	resize:none;
+}
+
+.centerBtn{
+	text-align:center;
+}
+
+.heart{
+	color: #ff0000;
+}

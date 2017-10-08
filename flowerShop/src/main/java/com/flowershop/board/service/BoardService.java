@@ -2,6 +2,7 @@ package com.flowershop.board.service;
 
 import com.flowershop.board.domain.BoardList;
 import com.flowershop.board.domain.BoardVo;
+import com.flowershop.login.domain.UserVo;
 
 public interface BoardService {
 
@@ -17,7 +18,7 @@ public interface BoardService {
 
 	void update(BoardVo vo)throws Exception;
 
-	
+	void deleteContent(int board_no, UserVo userVo)throws Exception;
 
 
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="comment">
+
+	<insert id="insertComment" parameterType="commentVo">
+		insert into board_Comment(board_no, comment_no, comment_start_ref, comment_before_ref, comment_reply_count, comment_lev, comment_seq,
+								  comment_content, comment_regdate, comment_modidate, comment_scryn, user_id) 
+		values (#{board_no}, comment_no_seq.nextval, comment_no_seq.currval, -1, 0, 0, 0, #{comment_content}, to_char(sysdate, 'YYYY-MM-DD HH:MI'), 
+				to_char(sysdate, 'YYYY-MM-DD HH:MI'), #{comment_scryn}, #{user_id})
+	</insert>
+
+	<update id="updateComment" parameterType="commentVo">
+		update board_Comment set comment_content = #{comment_content}, comment_modidate = #{comment_modidate} where comment_no = #{comment_no}
+	</update>
+	
+	<select id="selectComentList" parameterType="int" resultType="commentVo">
+		select * from board_comment where board_no = #{board_no}
+	</select>
+<!-- 	COMMENT_START_REF DESC, COMMENT_SEQ -->
+</mapper>

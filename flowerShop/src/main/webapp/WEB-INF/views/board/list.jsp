@@ -30,8 +30,13 @@
 			</c:forEach>
 			RE :&nbsp;
 		</c:if>
-		<a href="increment?pageNo=${pageNo}&board_no=${vo.board_no}">${vo.board_title}</a>
-		[${vo.commentCount}]</td>
+		<c:if test="${vo.board_deldate == 'deleted'}">
+			${vo.board_title}
+		</c:if>
+		<c:if test="${vo.board_deldate != 'deleted'}">
+			<a href="increment?pageNo=${pageNo}&board_no=${vo.board_no}">${vo.board_title}</a>[${vo.commentCount}]
+		</c:if>
+		</td>
 		<td class="writer">${vo.board_writer}</td>
 		<td class="regdate">${vo.board_regdate}</td>
 		<td class="viewcnt">${vo.board_viewcnt}</td>

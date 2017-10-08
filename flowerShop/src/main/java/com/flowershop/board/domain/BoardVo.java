@@ -16,9 +16,15 @@ public class BoardVo {
 	private String board_modidate;		// 글 수정일
 	private String board_deldate;			// 글 삭제날짜
 	private String user_id;			// 회원 아이디
+	private int board_reply_count;
 	
 	
-	
+	public int getBoard_reply_count() {
+		return board_reply_count;
+	}
+	public void setBoard_reply_count(int board_reply_count) {
+		this.board_reply_count = board_reply_count;
+	}
 	public int getBoard_start_ref() {
 		return board_start_ref;
 	}

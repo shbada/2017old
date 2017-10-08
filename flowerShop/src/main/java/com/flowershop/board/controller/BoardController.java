@@ -1,6 +1,7 @@
 package com.flowershop.board.controller;
 
 import java.security.Provider.Service;
+import java.util.ArrayList;
 
 //주석 변경해보기 2017/09/26 배영철
 import javax.servlet.http.HttpServletRequest;
@@ -11,12 +12,15 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.flowershop.board.domain.BoardList;
 import com.flowershop.board.domain.BoardVo;
 import com.flowershop.board.service.BoardService;
+import com.flowershop.comment.domain.CommentVo;
+import com.flowershop.comment.service.CommentService;
 import com.flowershop.login.domain.UserVo;
 
 @Controller
@@ -26,6 +30,8 @@ public class BoardController {
 
 	@Autowired
 	private BoardService boardService;
+	@Autowired
+	private CommentService commentService;
 	
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	private String writeFrom(HttpSession session, Model model) throws Exception{
@@ -81,11 +87,9 @@ public class BoardController {
 		int board_no = Integer.parseInt(request.getParameter("board_no"));
 		int pageNo = Integer.parseInt(request.getParameter("pageNo"));
 		model.addAttribute("vo", boardService.selectContent(board_no));
-//		RboardCommentList comment = new RboardCommentList();
-//		comment.setList(dao.commentList(idx));
-
-//		model.addAttribute("comment", comment);
+		ArrayList<CommentVo> commentList = commentService.selectComentList(board_no);
 		UserVo userVo = (UserVo) session.getAttribute("authUser");
+		model.addAttribute("commentList", commentList);
 		model.addAttribute("userVo", userVo);
 		model.addAttribute("pageNo", pageNo);
 		return "board/content_view";
@@ -129,6 +133,15 @@ public class BoardController {
 		// return "redirect:list"; // @RequestMapping("/list") 메소드를 호출한다.
 	}
 	
+	@RequestMapping("/delete") // 게시글 한 건을 삭제하는 페이지를 불러온다.
+	public String delete(HttpSession session, HttpServletRequest request, Model model)throws Exception {
+		int board_no = Integer.parseInt(request.getParameter("board_no"));
+		int pageNo = Integer.parseInt(request.getParameter("pageNo"));
+		UserVo userVo = (UserVo)session.getAttribute("authUser");
+		boardService.deleteContent(board_no, userVo);
+		model.addAttribute("pageNo", pageNo);
+		return "redirect:list";
+	}
 	
 }
 

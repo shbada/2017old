@@ -21,9 +21,16 @@ public interface BoardDao {
 
 	void replyInsert(BoardVo vo)throws Exception;
 
-	int getReplyCount(BoardVo vo)throws Exception;
-
 	void update(BoardVo vo)throws Exception;
-	
-	
+
+	void deleteContent(Map map)throws Exception;
+
+	void incrementBRC(int board_no)throws Exception;
+
+	int getBefore_ref(int board_no)throws Exception;
+
+	int getReply_count(int board_no)throws Exception;
+
+	void fixContent(Map<String, String> map)throws Exception;
+
 }

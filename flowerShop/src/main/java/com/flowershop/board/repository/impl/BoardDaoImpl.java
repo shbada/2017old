@@ -53,13 +53,33 @@ public class BoardDaoImpl implements BoardDao{
 	}
 
 	@Override
-	public int getReplyCount(BoardVo vo) throws Exception {
-		return sqlSession.selectOne("board.getReplyCount", vo);
+	public void update(BoardVo vo) throws Exception {
+		sqlSession.update("board.update", vo);
 	}
 
 	@Override
-	public void update(BoardVo vo) throws Exception {
-		sqlSession.update("board.update", vo);
+	public void deleteContent(Map map) throws Exception {
+		sqlSession.delete("board.deleteContent", map);
+	}
+
+	@Override
+	public void incrementBRC(int board_no) throws Exception {
+		sqlSession.update("board.incrementBRC", board_no);
+	}
+
+	@Override
+	public int getBefore_ref(int board_no) throws Exception {
+		return sqlSession.selectOne("board.getBefore_ref", board_no);
+	}
+
+	@Override
+	public int getReply_count(int board_no) throws Exception {
+		return sqlSession.selectOne("board.getReply_count", board_no);
+	}
+
+	@Override
+	public void fixContent(Map<String, String> map) throws Exception {
+		sqlSession.update("board.fixContent", map);
 	}
 
 }

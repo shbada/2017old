@@ -72,23 +72,22 @@
 	<c:if test="${commentList.size() > 0}">
 		<div width="90%" style="border:1px solid gray;">
 		<c:forEach var="co" items="${commentList}">
-			<div width="95%" style="border:1px solid silver;">
-			<div width="90%" style="background-color:silver;">
-			<c:if test="${co.comment_scryn == 0}">	
-				ID: ${co.user_id} (${co.comment_regdate})
-			</c:if>
-			<c:if test="${co.comment_scryn == -1 && userVo.user_id != co.user_id && userVo.user_id != vo.user_id}">	
-				비밀 댓글 입니다.
-			</c:if>
-				
-			<c:set var="content" value="${co.comment_content}"/>
-			<c:set var="content" value="${fn:replace(comment_content, '>', '&gt;')}"/>
-			<c:set var="content" value="${fn:replace(comment_content, '<', '&lt;')}"/>
-			<c:set var="rn" value="${rn}"/>
-			<c:set var="content" value="${fn:replace(comment_content, rn, '<br/>')}"/>
-			<input type="button" value="수정" onclick="setting(2, '${co.board_no}', '수정', '${comment_content}')"/>
-			<input type="button" value="삭제" onclick="setting(3, '${co.board_no}', '삭제', '${comment_content}')"/>
-			</div>
+			<div width="95%" style="border:1px solid;">
+				<div width="90%">
+				<c:if test="${co.comment_scryn == 0}">	
+					ID: ${co.user_id} (${co.comment_regdate})
+				</c:if>
+				<c:if test="${co.comment_scryn == -1 && userVo.user_id != co.user_id && userVo.user_id != vo.user_id}">	
+					비밀 댓글 입니다.
+				</c:if>
+				<c:set var="content" value="${co.comment_content}"/>
+				<c:set var="content" value="${fn:replace(comment_content, '>', '&gt;')}"/>
+				<c:set var="content" value="${fn:replace(comment_content, '<', '&lt;')}"/>
+				<c:set var="rn" value="${rn}"/>
+				<c:set var="content" value="${fn:replace(comment_content, rn, '<br/>')}"/>
+				<input type="button" value="수정" onclick="setting(2, '${co.board_no}', '수정', '${comment_content}')"/>
+				<input type="button" value="삭제" onclick="setting(3, '${co.board_no}', '삭제', '${comment_content}')"/>
+				</div>
 			${co.comment_content}
 			</div>
 		</c:forEach>

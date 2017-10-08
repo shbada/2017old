@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.util.WebUtils;
 
@@ -16,20 +17,6 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 
 	@Autowired
 	private LoginServiceImpl loginService;
-
-	// private void saveDest(HttpServletRequest request) {
-	// String uri = request.getRequestURI();
-	// String query = request.getQueryString();
-	//
-	// if (query == null || query.equals("null")) {
-	// query = "";
-	// } else {
-	// query = "?" + query;
-	// }
-	// if (request.getMethod().equals("GET")) {
-	// request.getSession().setAttribute("dest", uri + query);
-	// }
-	// }
 
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
@@ -47,6 +34,12 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+			ModelAndView modelAndView) throws Exception {
+		super.postHandle(request, response, handler, modelAndView);
 	}
 
 }

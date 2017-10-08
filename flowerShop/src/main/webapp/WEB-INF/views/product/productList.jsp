@@ -1,56 +1,83 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/include/header.jsp" %>
-<link href='/resources/css/productList.css' rel='stylesheet' type='text/css'>
-<br>
-<div align="center">
-	<h3>상품 목록 리스트</h3>	
-	<table>				
-		<tr class="best">			
-			<td>
-				<a href="${path }/flower1"><img src="/resources/flowers/flower1.png" alt="꽃1" width="350" height="350"></a>
-				<h5 class="name">꽃1</h5>
-				<img src="/resources/flowers/best.png" width="50" height="25">				
-			</td>
-			<td>
-				<a href="${path }/flower2"><img src="/resources/flowers/flower2.png" alt="꽃2" width="350" height="350"></a>
-				<h5 class="name">꽃2</h5>
-				<img src="/resources/flowers/best.png" width="50" height="25">
-			</td>
-			<td>
-				<a href="${path }/flower3"><img src="/resources/flowers/flower3.png" alt="꽃3" width="350" height="350"></a>
-				<h5 class="name">꽃3</h5>
-				<img src="/resources/flowers/best.png" width="50" height="25">
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<a href="${path }/flower4"><img src="/resources/flowers/flower4.png" alt="꽃4" width="200" height="200"></a>
-				<h5 class="name">꽃4</h5>
-			</td>
-			<td>
-				<a href="${path }/flower5"><img src="/resources/flowers/flower5.png" alt="꽃5" width="200" height="200"></a>
-				<h5 class="name">꽃5</h5>
-			</td>
-			<td>
-				<a href="${path }/flower6"><img src="/resources/flowers/flower6.png" alt="꽃6" width="200" height="200"></a>
-				<h5 class="name">꽃6</h5>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<a href="${path }/flower7"><img src="/resources/flowers/flower7.png" alt="꽃7" width="200" height="200"></a>
-				<h5 class="name">꽃7</h5>
-			</td>
-			<td>
-				<a href="${path }/flower8"><img src="/resources/flowers/flower8.png" alt="꽃8" width="200" height="200"></a>
-				<h5 class="name">꽃8</h5>
-			</td>
-			<td>
-				<a href="${path }/flower9"><img src="/resources/flowers/flower9.png" alt="꽃9" width="200" height="200"></a>
-				<h5 class="name">꽃9</h5>
-			</td>
-		</tr>		
-	</table>
+<%@ page session="true"%>
+<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/jquery-2.1.1.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/jquery.validate.js"></script>
+<script type="text/javascript">
+function AddPage(pageNo){
+	$("input[name=pageNo]").val(pageNo); 
+	var obj = document.viewTable; 
+	obj.method="POST";
+	obj.action="<c:url value='/productList' />"; 
+	obj.submit();         
+}
+
+$(document).ready(function(){
+    $("#btnAdd").click(function(){
+        location.href="/productWrite";
+    });
+});
+
+function listDetail(idx){ 
+	document.viewTable.product_no.value = idx;
+	document.viewTable.method="POST";   		
+	document.viewTable.action="<c:url value='/productDetail' />";   		
+	document.viewTable.submit();
+}
+
+function listUpdate(idx){ 
+	document.viewTable.product_no.value = idx;
+	document.viewTable.method="POST";   		
+	document.viewTable.action="<c:url value='/productUpdate' />";   		
+	document.viewTable.submit();
+}
+</script>
+<!-- *** -->
+<div class="product-big-title-area">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="product-bit-title text-center">
+					<h2>Name</h2>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-<br>
+
+<div class="single-product-area">
+        <div class="container">
+            <div class="row">
+			<!-- ************************ -->
+				<button type="button" id="btnAdd" class="btn btn-sm btn-primary">상품등록</button>
+				<p class="pull-right"><a href="/viewLowPrice.do">낮은가격</a> / <a href="/viewHighPrice.do">높은가격</a> / <a href="/viewName.do">상품명</a> / <a href="/productList.do">신상품</a></p>
+					<br /><br />
+				<form name="viewTable" onsubmit="return flase;">
+					<input type="hidden" name="product_no" value="1">
+					<input type="hidden" name="pageNo" value="${pageVO.pageNo }" />
+					
+					<c:forEach var="row" items="${list}">
+						<div class="col-md-3 col-sm-6">
+		                    <div class="single-shop-product">
+		                        <div class="product-upper">
+		                            <a href="#" class="link" onclick="javacscript:listDetail('${row.product_no }');">
+										<img src="${pageContext.request.contextPath }/img/${row.product_url}" width="430px" height="550px">
+									</a>
+		                        </div>
+		                        	<h5>
+										<a href="#" class="link" onclick="javacscript:listDetail('${row.product_no }');">${row.product_name}</a>
+									</h5>
+		                        <div class="product-carousel-price">
+		                            <ins>${row.product_price}</ins> <del>${row.product_price}</del>
+		                        </div>  
+		                        
+		                        <a href="#" class="link" onclick="javacscript:listUpdate('${row.product_no }');">[상품편집]</a>                    
+		                    </div>
+		                </div>
+		            </c:forEach>
+				</form>
+		</div>
+	</div>
+</div>
+
 <%@ include file="/WEB-INF/include/footer.jsp" %>

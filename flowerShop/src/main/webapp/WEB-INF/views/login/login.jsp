@@ -106,19 +106,17 @@
 								아이디 저장
 							</label>
 							<div class="afind">
-								<label><a href="#" class="afindFont">아이디 찾기</a> / <a href="#" class="afindFont">비밀번호 찾기</a></label>
+								<label><a href="${pageContext.request.contextPath }/mailFormId" class="afindFont">아이디 찾기</a> / <a href="${pageContext.request.contextPath }/mailFormPw" class="afindFont">비밀번호 찾기</a></label>
 							</div>
 						</div><hr />
 						<!--input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"-->
 						<button class="btn btn-lg btn-primary btn-block" type="submit">로그인</button>
 						<input type="button" class="btn btn-lg btn-primary btn-block" value="메인으로 가기" onclick="location.href='${pageContext.request.contextPath }/main';">
 					</form>
-
 					<br>
 					<!-- 카카오 로그인 -->
 					<a id="kakao-login-btn"></a> 
 					<a href="http://developers.kakao.com/logout"></a>
-					<a href="${pageContext.request.contextPath }/mailFormId">아이디</a> / <a href="${pageContext.request.contextPath }/mailFormPw">비밀번호 찾기</a>
 				</div>
 			</div>
 		</div>

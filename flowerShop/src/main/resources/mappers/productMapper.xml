@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="product">
+    <select id="productList" resultType="com.flowershop.product.domain.ProductVo"> 
+        SELECT  
+        	A.product_no,
+			A.product_name,
+			A.product_price,
+			A.product_desc,
+			A.product_url
+      FROM(
+        SELECT ROWNUM RNUM, S.*
+          FROM(
+            	SELECT  F.product_no,
+                     	F.product_name,
+                      	F.product_price,
+                    	F.product_desc,
+                      	F.product_url
+                   FROM product F
+                  WHERE 1=1
+                  ORDER BY product_no DESC
+          ) S
+      ) A
+      WHERE RNUM BETWEEN #{startRowNo} AND #{endRowNo}
+    </select>
+    
+    <select id="productListCount" parameterType="com.flowershop.product.domain.ProductVo" resultType="int">
+		SELECT COUNT(product_no)
+			 FROM product
+	</select>
+    
+    <select id="productDetail" resultType="com.flowershop.product.domain.ProductVo">
+        SELECT 
+            product_no, 
+            product_name, 
+            product_price,
+            product_desc
+        FROM PRODUCT 
+        	WHERE product_no = #{product_no}
+    </select>
+    
+    <insert id="insertProduct">
+         <![CDATA[
+         INSERT 
+           INTO PRODUCT(
+           	product_no;
+			product_name;
+			product_price;
+			product_desc;
+			product_regdate;
+			product_url;
+           ) VALUES (
+             seq_product.NEXTVAL
+            , #{product_name}
+            , #{product_price}
+            , #{product_desc}
+            , TO_CHAR(SYSDATE, 'YYYYMMDD')
+            , #{product_url}
+           )
+       ]]>
+    </insert>
+    
+    <update id="productUpdateSave" parameterType="com.flowershop.product.domain.ProductVo">
+		<![CDATA[
+			UPDATE product
+				SET 
+					PRODUCT_NAME = #{product_name},
+					PRODUCT_PRICE = #{product_price},
+					product_desc = #{product_desc},
+					PRODUCT_URL = #{product_url}
+				WHERE product_no = #{product_no}
+		]]>
+	</update>
+	
+    <delete id="productDelete">
+        DELETE FROM product
+        	WHERE product_no = #{product_no}
+    </delete>
+	
+    <select id="fileInfo" resultType="String">
+        SELECT     
+        product_url
+       		FROM product
+       			WHERE product_no = #{product_no}
+    </select>
+ 	
+    <select id="viewLowPrice" resultType="com.flowershop.product.domain.ProductVo">
+        SELECT  A.product_no,
+			A.product_name,
+			A.product_price,
+			A.product_desc,
+			A.product_url
+      FROM(
+        SELECT ROWNUM RNUM, S.*
+          FROM(
+            	SELECT  F.product_no,
+                     	F.product_name,
+                      	F.product_price,
+                    	F.product_desc,
+                      	F.product_url
+                   FROM product F
+                  WHERE 1=1
+                  ORDER BY product_price ASC
+          ) S
+      ) A
+      WHERE RNUM BETWEEN #{startRowNo} AND #{endRowNo}
+    </select>
+    
+    <select id="viewHighPrice" resultType="com.flowershop.product.domain.ProductVo">
+        SELECT  A.product_no,
+			A.product_name,
+			A.product_price,
+			A.product_desc,
+			A.product_url
+      FROM(
+        SELECT ROWNUM RNUM, S.*
+          FROM(
+            	SELECT  F.product_no,
+                     	F.product_name,
+                      	F.product_price,
+                    	F.product_desc,
+                      	F.product_url
+                   FROM product F
+                  WHERE 1=1
+                  ORDER BY product_price DESC
+          ) S
+      ) A
+      WHERE RNUM BETWEEN #{startRowNo} AND #{endRowNo}
+    </select>
+    
+    <select id="viewName" resultType="com.flowershop.product.domain.ProductVo">
+        SELECT  A.product_no,
+			A.product_name,
+			A.product_price,
+			A.product_desc,
+			A.product_url
+      FROM(
+        SELECT ROWNUM RNUM, S.*
+          FROM(
+            	SELECT  F.product_no,
+                     	F.product_name,
+                      	F.product_price,
+                    	F.product_desc,
+                      	F.product_url
+                   FROM product F
+                  WHERE 1=1
+                  ORDER BY product_name
+          ) S
+      ) A
+      WHERE RNUM BETWEEN #{startRowNo} AND #{endRowNo}
+    </select>
+</mapper>

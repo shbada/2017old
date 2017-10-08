@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,16 +37,16 @@ public class CartController {
 		Object obj = session.getAttribute("authUser");
 		
 		UserVo vo = (UserVo) obj;
-		String userId = vo.getUser_id();
+		String user_id = vo.getUser_id();
 		
-    	if (userId == null){
+    	if (user_id == null){
     		return "fal";
     	}
     	
-    	if (userId != null){
+    	if (user_id != null){
     		
-	        cartVo.setUserId(userId); 
-	        int count = cartService.countCart(cartVo.getProductNo(), userId);
+	        cartVo.setUser_id(user_id); 
+	        int count = cartService.countCart(cartVo.getProduct_no(), user_id);
 	        if(count == 0){
 	            cartService.cartInsert(cartVo);
 	        } else {
@@ -57,17 +58,19 @@ public class CartController {
 	
 	@RequestMapping("/cartList")
 	public String CartList(HttpSession session, Model model) {
-		System.out.println(session.getAttribute("authUser"));
 		
 		Object obj = session.getAttribute("authUser");
 		
 		UserVo vo = (UserVo) obj;
-		String userId = vo.getUser_id();
+		String user_id = vo.getUser_id();
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 
-		List<CartVo> list = cartService.cartList(userId);
-		int sumMoney = cartService.sumMoney(userId);
+		List<CartVo> list = cartService.cartList(user_id);
+		System.out.println(list);
+		
+		int sumMoney = cartService.sumMoney(user_id);
+		System.out.println(sumMoney);
 
 		int fee = sumMoney >= 100000 ? 0 : 2500;
 
@@ -85,28 +88,32 @@ public class CartController {
 	}
 
 	@RequestMapping("/cartDelete")
-	public String CartDelete(@RequestParam int productNo) {
-		cartService.cartDelete(productNo); 
+	public String CartDelete(@RequestParam int product_no) {
+		cartService.cartDelete(product_no); 
 		return "redirect:/cartList.do";
 	}
 
 	@RequestMapping(value = "/cartUpdate", method = RequestMethod.POST)
-	public String CartUpdate(@RequestParam int[] amount, @RequestParam int[] productNo, HttpSession session) {
+	public String CartUpdate(@RequestParam int[] product_amount, @RequestParam int[] product_no, HttpSession session) {
 
 		Object obj = session.getAttribute("authUser");
 		
 		UserVo vo = (UserVo) obj;
-		String userId = vo.getUser_id();
+		String user_id = vo.getUser_id();
 		
-		// 레코드의 갯수 만큼 반복문 실행
-		for (int i = 0; i < productNo.length; i++) {
+		for (int i = 0; i < product_no.length; i++) {
 			CartVo cartVo = new CartVo();
-			cartVo.setUserId(userId); 
-			cartVo.setProductAmount(amount[i]); 
-			cartVo.setProductNo(productNo[i]); 
+			cartVo.setUser_id(user_id); 
+			cartVo.setProduct_amount(product_amount[i]); 
+			cartVo.setProduct_no(product_no[i]); 
 			cartService.cartUpdate(cartVo); 
 		}
 
 		return "redirect:/cartList.do";
+	}
+	
+	@RequestMapping(value="/cartListDelete", method=RequestMethod.POST, consumes="application/json")	 
+	public void CartListDelete(@RequestBody List<CartVo> data) {
+		cartService.cartListDelete(data);
 	}
 }

@@ -6,14 +6,14 @@ import com.flowershop.afterReply.domain.AfterReplyVo;
 
 public interface AfterReplyDao {
 
+	void afterReplyWrite(AfterReplyVo afterReplyVo);
+
+	void AfterReplyDelete(int freeBorReplyIdx);
+
+	void AfterReplyUpdate(AfterReplyVo afterReplyVo);
+
+	int afterReplyCount(AfterReplyVo afterReplyVo);
+
 	List<AfterReplyVo> afterReplyList(AfterReplyVo afterReplyVo);
-
-	AfterReplyVo afterReplyUpdate(AfterReplyVo afterReplyVo);
-
-	void afterReplyUpdateSave(AfterReplyVo afterReplyVo);
-
-	void afterReplyDelete(AfterReplyVo afterReplyVo);
-
-	void afterReplyWriteSave(AfterReplyVo afterReplyVo);
 
 }

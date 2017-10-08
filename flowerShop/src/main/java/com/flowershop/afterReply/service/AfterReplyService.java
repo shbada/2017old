@@ -2,17 +2,20 @@ package com.flowershop.afterReply.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import com.flowershop.afterReply.domain.AfterReplyVo;
 
 public interface AfterReplyService {
 	
-	List<AfterReplyVo> afterReplyList(AfterReplyVo afterReplyVo);
+	void afterReplyWrite(AfterReplyVo afterReplyVo);
+	
+	void AfterReplyDelete(int freeBorReplyIdx);
+	
+	void AfterReplyUpdate(AfterReplyVo afterReplyVo);
 
-	AfterReplyVo afterReplyUpdate(AfterReplyVo afterReplyVo);
+	int afterReplyCount(AfterReplyVo afterReplyVo);
 
-	void afterReplyUpdateSave(AfterReplyVo afterReplyVo);
+	List<AfterReplyVo> afterReplyList(AfterReplyVo afterReplyVo, HttpSession session);
 
-	void afterReplyDelete(AfterReplyVo afterReplyVo);
-
-	void afterReplyWriteSave(AfterReplyVo afterReplyVo);
 }

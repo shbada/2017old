@@ -9,8 +9,8 @@
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" />
-		<property name="username" value="아이디@gmail.com" />
-		<property name="password" value="비밀번호" />
+		<property name="username" value="hwanggyeongjin369@gmail.com" />
+		<property name="password" value="hwang7017!" />
 		<property name="javaMailProperties">
 			<props>
 				<prop key="mail.transport.protocol">smtp</prop>

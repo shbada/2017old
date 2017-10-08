@@ -6,18 +6,20 @@ import com.flowershop.cart.domain.CartVo;
 
 public interface CartDao {
 
-	List<CartVo> cartList(String userId);
+	List<CartVo> cartList(String user_id);
 
-	int sumMoney(String userId);
+	int sumMoney(String user_id);
 
 	void cartInsert(CartVo cartVo);
 
-	void cartDelete(int productNo);
+	void cartDelete(int product_no);
 
 	void cartUpdate(CartVo cartVo);
 
-	int countCart(int productNo, String userId);
+	int countCart(int product_no, String user_id);
 
 	void UpdateCount(CartVo cartVo);
+
+	void cartListDelete(CartVo cartVo);
 
 }

@@ -1,25 +1,25 @@
 package com.flowershop.afterReply.controller;
 
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.flowershop.afterReply.domain.AfterReplyVo;
 import com.flowershop.afterReply.service.AfterReplyService;
+import com.flowershop.login.domain.UserVo;
 
 @Controller
 public class AfterReplyController {
@@ -29,71 +29,78 @@ public class AfterReplyController {
 	@Autowired
 	private AfterReplyService afterReplyService;
 	
-	@RequestMapping("/afterReplyList")
-	public String AfterReplyList(@ModelAttribute AfterReplyVo afterReplyVo, HttpSession session, Model model){
-        
-        Map<String, Object> map = new HashMap<String, Object>();
-        
-        List<AfterReplyVo> list = afterReplyService.afterReplyList(afterReplyVo);
+	@RequestMapping(value="/afterReplyWrite", method=RequestMethod.POST)
+	@ResponseBody
+	public void QReplyWrite(@ModelAttribute AfterReplyVo afterReplyVo, HttpSession session){
+		
+		Object obj = session.getAttribute("authUser");
+		
+		UserVo vo = (UserVo) obj;
+		afterReplyVo.setUser_id(vo.getUser_id());
+		
+		System.out.println(afterReplyVo);
+		
+		afterReplyService.afterReplyWrite(afterReplyVo);
+	} 
+	
+	@RequestMapping(value="/afterReplyList", method=RequestMethod.POST)
+	public String AfterReplyList(@ModelAttribute AfterReplyVo afterReplyVo, Model model, HttpSession session){
+		
+		int totalCount = afterReplyService.afterReplyCount(afterReplyVo);
+		
+		if(afterReplyVo.getPageCnt() == null) afterReplyVo.setPageSize(5);
+		else afterReplyVo.setPageSize(Integer.parseInt(afterReplyVo.getPageCnt()));
+		
+		afterReplyVo.setTotalCount(totalCount);
+		
+		model.addAttribute("pageVO", afterReplyVo);
+		model.addAttribute("product_no", afterReplyVo);
+		
+		List<AfterReplyVo> replyList = afterReplyService.afterReplyList(afterReplyVo, session);
 
-        map.put("list", list);                
-        map.put("count", list.size());       
-        
-        model.addAttribute("map", map); 
-        
-        log.info(list);
+		model.addAttribute("replyList", replyList);
 		
-		return "afterReply/afterReplyList";
-	}
-	
-	@RequestMapping("/afterReplyWrite")
-	public String AfterReplyWrite(HttpSession session, Model model){
-		return "afterReply/afterReplyWrite";
-	}
-	
-	/** 후기댓글 작성 */
-	@RequestMapping(value="/afterReplyWriteSave", method=RequestMethod.POST)
-	public String AfterReplyWriteSave(@ModelAttribute("AfterReplyVo") AfterReplyVo afterReplyVo, Model model, HttpServletResponse response, HttpServletRequest request) throws Exception{
+		Object obj = session.getAttribute("authUser");
 		
-		HttpSession session = request.getSession(false);
+		UserVo vo = (UserVo) obj;
+		String user_id = vo.getUser_id();
+		
+		model.addAttribute("sessionUser_id", user_id);
+		
+		return "product/replyList";
+	}
 
-		afterReplyVo.setUserId((String) session.getAttribute("userId"));
-		afterReplyVo.setUserName((String) session.getAttribute("userNm")); 
-		afterReplyService.afterReplyWriteSave(afterReplyVo);
+	
+	@RequestMapping(value="/AfterReplyDelete", method=RequestMethod.PATCH)
+	@ResponseBody
+	public ResponseEntity<String> QreplyOneDelete(@RequestParam int after_no){ 
 		
-		return "afterReply/afterReplyList";
+		ResponseEntity<String> entity = null; 
+		
+		try{
+			afterReplyService.AfterReplyDelete(after_no); 
+			entity = new ResponseEntity<String>("ok", HttpStatus.OK); 
+		} catch (Exception e){ // 에러처리
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST); //에러 발생시 
+		}
+		return entity; 
 	}
 	
-	/** 후기댓글 수정 */
-	//수정페이지
-	@RequestMapping(value="/afterReplyUpdate", method=RequestMethod.POST)
-	public String QUpdateView(@ModelAttribute AfterReplyVo afterReplyVo, Model model){
-		AfterReplyVo list = afterReplyService.afterReplyUpdate(afterReplyVo); 
-		model.addAttribute("afterReplyVo", list);
-		/*model.addAttribute("pageVO", afterReplyVo);*/
-		return "afterReply/afterReplyUpdate";
-	}
-	
-	//수정완료
-	@RequestMapping(value="/afterReplyUpdateSave", method=RequestMethod.POST)
-	public String QUpdate(@ModelAttribute("AfterReplyVo") AfterReplyVo afterReplyVo, Model model, HttpServletResponse response, HttpServletRequest request) throws Exception{
+	@RequestMapping(value="/AfterReplyUpdate", method=RequestMethod.PUT)
+	@ResponseBody
+	public String QreplyOneUpdate(@RequestParam int after_no, @RequestParam String after_content){ 
 		
-		HttpSession session = request.getSession(false);
-
-		afterReplyVo.setUserId((String) session.getAttribute("userId")); 
-		afterReplyVo.setUserName((String) session.getAttribute("userName")); 
-		afterReplyService.afterReplyUpdateSave(afterReplyVo); 
-		/*model.addAttribute("pageVO", afterReplyVo);
-*/		
-		return "afterReply/afterReplyList";
-	}
-	
-	/** 후기댓글 삭제 */
-	@RequestMapping(value="/afterReplyDelete", method=RequestMethod.POST)
-	public String QDelete(@ModelAttribute AfterReplyVo afterReplyVo) throws IOException{
-		/** FK로 이어져있는 테이블은 차례대로 삭제해준다. */
-		afterReplyService.afterReplyDelete(afterReplyVo);
+		AfterReplyVo afterReplyVo = new AfterReplyVo(); 
 		
-		return "afterReply/afterReplyList";
+		System.out.println(after_no);
+		System.out.println(after_content);
+		/** .jsp에서 입력된 수정할 데이터들을 Vo에 담아온다. */
+		afterReplyVo.setAfter_no(after_no);
+		afterReplyVo.setAfter_content(after_content);
+		
+		afterReplyService.AfterReplyUpdate(afterReplyVo); 
+		
+		return "ok";
 	}
 }

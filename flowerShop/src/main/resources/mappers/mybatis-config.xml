@@ -7,6 +7,7 @@
 		<typeAlias alias="login" type="com.flowershop.login.domain.UserVo"/>
 		<typeAlias alias="boardVo" type="com.flowershop.board.domain.BoardVo"/>
 		<typeAlias alias="commentVo" type="com.flowershop.comment.domain.CommentVo"/>
+		<typeAlias alias="product" type="com.flowershop.product.domain.ProductVo" />
 	</typeAliases>
 
 </configuration>

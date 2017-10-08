@@ -18,13 +18,13 @@ public class CartDaoImpl implements CartDao{
 	private SqlSession session;
 	
 	@Override
-	public List<CartVo> cartList(String userId) {
-		return session.selectList("cart.cartList", userId);
+	public List<CartVo> cartList(String user_id) {
+		return session.selectList("cart.cartList", user_id);
 	}
 
 	@Override
-	public int sumMoney(String userId) {
-		return session.selectOne("cart.sumMoney", userId);
+	public int sumMoney(String user_id) {
+		return session.selectOne("cart.sumMoney", user_id);
 	}
 
 	@Override
@@ -33,8 +33,8 @@ public class CartDaoImpl implements CartDao{
 	}
 
 	@Override
-	public void cartDelete(int productNo) {
-		session.delete("cart.cartDelete", productNo);
+	public void cartDelete(int product_no) {
+		session.delete("cart.cartDelete", product_no);
 	}
 
 	@Override
@@ -43,15 +43,19 @@ public class CartDaoImpl implements CartDao{
 	}
 
 	@Override
-	public int countCart(int productNo, String userId) {
+	public int countCart(int product_no, String user_id) {
 		Map<String, Object> map = new HashMap<String, Object>();
-        map.put("productNo", productNo);
-        map.put("userId", userId);
+        map.put("product_no", product_no);
+        map.put("user_id", user_id);
         return (int)session.selectOne("cart.countCart", map);
 	}
 
 	@Override
 	public void UpdateCount(CartVo cartVo) {
 		session.update("cart.UpdateCount", cartVo);
+	}
+	
+	public void cartListDelete(CartVo cartVo) {
+		session.delete("cart.cartListDelete", cartVo);
 	}
 }

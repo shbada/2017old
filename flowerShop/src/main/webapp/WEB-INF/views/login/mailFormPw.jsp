@@ -12,7 +12,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="product-bit-title text-center">
-					<h2>FIND ID</h2>
+					<h2>FIND PASSWORD</h2>
 				</div>
 			</div>
 		</div>
@@ -23,13 +23,16 @@
 	<div class="row m-n">
 		<div class="col-md-4 col-md-offset-4 m-t-lg">
 			<!-- ************************ -->
-			<header class="text-left createHeader">아이디 찾기&nbsp;
+			<header class="text-left createHeader">비밀번호 찾기&nbsp;
             	<span class="subCreateHeader">가입하신 회원님의 아이디와 이메일을 입력해주세요</span>
             </header>
-			<form action="${pageContext.request.contextPath}/mailSendingId" method="post">
-      			<input type="text" name="user_email" placeholder="이메일을 입력해주세요." class="form-control" ><hr>  
-      			<input type="submit" value="아이디 찾기" class="btn btn-lg btn-primary btn-block">
-  			</form><br>
+			<form action="${pageContext.request.contextPath}/mailSendingPw" method="post">
+			    <div align="center"><!-- 받는 사람 이메일 -->
+			      <input type="text" name="user_id" placeholder="아이디를 입력해주세요." class="form-control" ><br/>
+			      <input type="text" name="user_email" placeholder="이메일을 입력해주세요." class="form-control" >
+			    </div><hr >
+			    <input type="submit" value="비밀번호 찾기" class="btn btn-lg btn-primary btn-block">   
+			</form><br>
   			${msg }
 		</div>
 	</div>

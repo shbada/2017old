@@ -21,10 +21,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession();
 		ModelMap modelMap = modelAndView.getModelMap();
 		Object userVo = modelMap.get("userVo");
-
 		if (userVo != null) {
 			session.setAttribute("authUser", userVo);
-			response.sendRedirect("/main");		
 			if (request.getParameter("useCookie") != null) {
 				Cookie loginCookie = new Cookie("loginCookie", session.getId());
 				loginCookie.setPath("/");

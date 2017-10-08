@@ -7,7 +7,7 @@
 		INSERT INTO CART
 			(CART_NO, USER_ID, PRODUCT_NO, PRODUCT_AMOUNT) 
 		VALUES 
-			(seq_cart.NEXTVAL, #{userId}, #{productNo}, #{productAmount})
+			(seq_cart.NEXTVAL, #{user_id}, #{product_no}, #{product_amount})
 		
 	</insert>
 	
@@ -24,7 +24,7 @@
 				FROM USERS U, PRODUCT P, CART C
 					WHERE U.USER_ID = C.USER_ID
 					AND P.PRODUCT_NO = C.PRODUCT_NO
-					AND C.USER_ID = #{userId}
+					AND C.USER_ID = #{user_id}
 					 ORDER BY C.CART_NO
 	</select>
 	
@@ -32,32 +32,32 @@
 		SELECT NVL(SUM(PRODUCT_PRICE * PRODUCT_AMOUNT), 0) MONEY
 			FROM CART C, PRODUCT P
 				WHERE C.PRODUCT_NO = P.PRODUCT_NO
-				AND C.USER_ID = #{userId}
+				AND C.USER_ID = #{user_id}
 	</select>
 	
 	<update id="cartUpdate" parameterType="com.flowershop.cart.domain.CartVo">
 		UPDATE CART
-			SET PRODUCT_AMOUNT = #{productAmount}
-				WHERE USER_ID= #{userId}
-				AND PRODUCT_NO = #{productNo}
+			SET PRODUCT_AMOUNT = #{product_amount}
+				WHERE USER_ID= #{user_id}
+				AND PRODUCT_NO = #{product_no}
 	</update>
 	
-	<delete id="cartDelete" parameterType="com.flowershop.cart.domain.CartVo">
+	<delete id="cartListDelete" parameterType="com.flowershop.cart.domain.CartVo">
 		DELETE FROM CART
-			WHERE PRODUCT_NO = #{productNo}
+			WHERE PRODUCT_NO = #{product_no}
 	</delete>
 	
 	<select id="countCart" parameterType="com.flowershop.cart.domain.CartVo" resultType="int">
 		SELECT COUNT(*)
 			FROM CART
-				WHERE USER_ID= #{userId}
-				AND PRODUCT_NO = #{productNo}
+				WHERE USER_ID= #{user_id}
+				AND PRODUCT_NO = #{product_no}
 	</select>
 	
 	<update id="UpdateCount" parameterType="com.flowershop.cart.domain.CartVo">
-		UPDATE tbl_cart
-			SET PRODUCT_AMOUNT = PRODUCT_AMOUNT + #{productAmount}
-				WHERE USER_ID= #{userId}
-				AND PRODUCT_NO = #{productNo}
+		UPDATE cart
+			SET PRODUCT_AMOUNT = PRODUCT_AMOUNT + #{product_amount}
+				WHERE USER_ID= #{user_id}
+				AND PRODUCT_NO = #{product_no}
 	</update>
 </mapper>

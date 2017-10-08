@@ -23,6 +23,11 @@
 			<mapping path="/loginPost" />
 			<beans:ref bean="loginInterceptor" />
 		</interceptor>
+
+		<interceptor>
+			<mapping path="/main" />
+			<beans:ref bean="authInterceptor" />
+		</interceptor>
 	</interceptors>
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 

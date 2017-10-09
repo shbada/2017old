@@ -25,6 +25,13 @@ function listDetail(idx){
 	document.viewTable.submit();
 }
 
+function listUpdate(idx){ 
+	document.viewTable.product_no.value = idx;
+	document.viewTable.method="POST";   		
+	document.viewTable.action="<c:url value='/productUpdate' />";   		
+	document.viewTable.submit();
+}
+
 function saleDelete(idx){ 
 	if(confirm("세일 상품에서 제외하시겠습니까?") == true){
 		document.viewTable.product_no.value = idx;
@@ -67,7 +74,7 @@ function saleDelete(idx){
 		                        </div> <br />
 		                        	<h2>
 										<a href="#" class="link" onclick="javacscript:listDetail('${row.product_no }');">${row.product_name}</a>
-										&nbsp;sale
+										<a class="link" style="color:red;">SALE</a>
 									</h2>
 		                        <div class="product-carousel-price">
 		                            <ins>${row.sale_price}원</ins> <del>${row.product_price}원</del>

@@ -73,7 +73,7 @@ function saleWrite(idx){
 		                        	<h2>
 										<a href="#" class="link" onclick="javacscript:listDetail('${row.product_no }');">${row.product_name}</a>
 										<c:if test="${row.product_saleyn == 'Y'}"> 
-										&nbsp;sale
+											<a class="link" style="color:red;">SALE</a>
 										</c:if>
 									</h2>
 		                        <div class="product-carousel-price">

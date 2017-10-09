@@ -108,6 +108,7 @@ function listReply(pageCnt){
 		url: "<c:url value='/afterReplyList'/>",
 		success: function(result){
 			$("#listReply").html(result);
+			
 		}
 	});
 }

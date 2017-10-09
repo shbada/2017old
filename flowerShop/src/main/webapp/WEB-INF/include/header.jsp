@@ -132,7 +132,6 @@
 				<div class="col-sm-6">
 					<div class="logo">
 						<h1>
-							<a href="main">e<span>Electronics</span></a>
 							<a href="${pageContext.request.contextPath }/main">F<span>lowerShop</span></a>
 						</h1>
 					</div>
@@ -160,7 +159,7 @@
 						<li><a href="single-product.html">Single product</a></li>
 						<li><a href="checkout.html">Checkout</a></li>
 						<li><a href="#">Category</a></li>
-						<li><a href="#">SALE</a></li>
+						<li><a href="/productSaleList">SALE</a></li>
 						<li><a href="list">자유게시판</a></li>
 						<li><a href="#">고객센터</a></li>
 					</ul>

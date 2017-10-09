@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.flowershop.cart.service.CartService;
 import com.flowershop.login.domain.UserVo;
 import com.flowershop.product.domain.ProductVo;
+import com.flowershop.product.domain.SaleVo;
 import com.flowershop.product.service.ProductService;
 
 @Controller
@@ -37,10 +38,6 @@ public class ProductController {
 	@RequestMapping(value="/productList", method={RequestMethod.GET, RequestMethod.POST})
 	public String ProductList(@ModelAttribute("ProductVo") ProductVo productVo, Model model){
 		
-		/** 페이징 처리 */
-		if(productVo.getPage_cnt() == null) productVo.setPageSize(5);
-		else productVo.setPageSize(Integer.parseInt(productVo.getPage_cnt()));
-		
 		Map<String, Object> map = productService.productList(productVo); 
 		
 /*		String path = "C:\\project\\ganadamart\\"
@@ -52,7 +49,6 @@ public class ProductController {
 		
 		model.addAttribute("list", map.get("list")); 
 		/*model.addAttribute("path", path); */
-		log.info(productVo.getEndPageNo());
 		return "product/productList";
 	}
 	
@@ -156,7 +152,6 @@ public class ProductController {
                 file.delete(); // 파일 삭제
             }
         }
-        cartService.cartDelete(product_no); 
         productService.productDelete(product_no); 
         
         return "redirect:productList";
@@ -165,27 +160,18 @@ public class ProductController {
 	
 	@RequestMapping(value="/viewLowPrice", method={RequestMethod.GET, RequestMethod.POST})
 	public String ViewLowPrice(@ModelAttribute ProductVo productVo, Model model){
-		
-		/** 페이징 처리 */
-		if(productVo.getPage_cnt() == null) productVo.setPageSize(5);
-		else productVo.setPageSize(Integer.parseInt(productVo.getPage_cnt()));
-		
+
 		Map<String, Object> map = productService.viewLowPrice(productVo); 
 		
 		/** 페이징 처리 */
 		model.addAttribute("pageVO", productVo);
 		
 		model.addAttribute("list", map.get("list")); 
-		log.info(productVo.getEndPageNo());
 		return "product/productList";
 	}
 	
 	@RequestMapping(value="/viewHighPrice", method={RequestMethod.GET, RequestMethod.POST})
 	public String ViewHighPrice(@ModelAttribute ProductVo productVo, Model model){
-		
-		/** 페이징 처리 */
-		if(productVo.getPage_cnt() == null) productVo.setPageSize(5);
-		else productVo.setPageSize(Integer.parseInt(productVo.getPage_cnt()));
 		
 		Map<String, Object> map = productService.viewHighPrice(productVo); 
 		
@@ -193,16 +179,11 @@ public class ProductController {
 		model.addAttribute("pageVO", productVo);
 		
 		model.addAttribute("list", map.get("list")); 
-		log.info(productVo.getEndPageNo());
 		return "product/productList";
 	}
 	
 	@RequestMapping(value="/viewName", method={RequestMethod.GET, RequestMethod.POST})
 	public String ViewName(@ModelAttribute ProductVo productVo, Model model){
-		
-		/** 페이징 처리 */
-		if(productVo.getPage_cnt() == null) productVo.setPageSize(5);
-		else productVo.setPageSize(Integer.parseInt(productVo.getPage_cnt()));
 		
 		Map<String, Object> map = productService.viewName(productVo); 
 		
@@ -210,7 +191,6 @@ public class ProductController {
 		model.addAttribute("pageVO", productVo);
 		
 		model.addAttribute("list", map.get("list"));
-		log.info(productVo.getEndPageNo());
 		return "product/productList";
 	}
 	
@@ -235,4 +215,48 @@ public class ProductController {
 		}
 		else return "fal";
 	}
+	
+	/** 세일상품 시작 */
+	@RequestMapping(value="/saleWrite", method=RequestMethod.POST)
+	public String SaleWrite(@ModelAttribute("ProductVo") ProductVo productVo, Model model, HttpSession session){
+		
+		ProductVo list = productService.productDetail(productVo);
+		model.addAttribute("ProductVo", list); 
+		
+		return "/product/sale/saleWrite";
+	}
+	
+	@RequestMapping(value="/saleWriteSave", method=RequestMethod.POST)
+	public String SaleWriteSave(@ModelAttribute("SaleVo") SaleVo saleVo, Model model, HttpSession session){
+		
+		double percent = (double) (saleVo.getSale_percent() * 0.01);
+		
+		int minusPrice = (int) (saleVo.getProduct_price() * percent);
+		
+		int totalSalePrice = saleVo.getProduct_price() - minusPrice;
+		saleVo.setSale_price(totalSalePrice);
+		
+		productService.updateSaleYn(saleVo);
+		productService.saleWriteSave(saleVo);
+		
+		return "redirect:/productList";
+	}
+	
+	@RequestMapping(value="/productSaleList", method={RequestMethod.GET, RequestMethod.POST})
+	public String ProductSaleList(@ModelAttribute("ProductVo") ProductVo productVo, Model model){
+		
+		Map<String, Object> map = productService.productSaleList(productVo); 
+		model.addAttribute("list", map.get("list")); 
+		
+		return "/product/sale/productSaleList";
+	}
+	
+	@RequestMapping(value="/saleDelete", method=RequestMethod.POST)
+	public String SaleDelete(@RequestParam int product_no){
+		 
+		productService.productSaleDelete(product_no); 
+        productService.saleDelete(product_no); 
+        
+        return "redirect:productSaleList";
+    }
 }

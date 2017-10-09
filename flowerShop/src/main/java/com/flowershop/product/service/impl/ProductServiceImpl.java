@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.flowershop.product.domain.ProductVo;
+import com.flowershop.product.domain.SaleVo;
 import com.flowershop.product.repository.ProductDao;
 import com.flowershop.product.service.ProductService;
 
@@ -19,9 +20,6 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Map<String, Object> productList(ProductVo productVo) {
-		int totalCount = productDao.productListCount(productVo); 
-		productVo.setTotalCount(totalCount);
-		
 		List<ProductVo> list = productDao.productList(productVo); 
 		
 		Map<String, Object> map = new HashMap<String, Object>(); 
@@ -58,9 +56,6 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public Map<String, Object> viewLowPrice(ProductVo productVo) {
-		int totalCount = productDao.productListCount(productVo);
-		productVo.setTotalCount(totalCount); 
-		
 		List<ProductVo> list = productDao.viewLowPrice(productVo); 
 		
 		Map<String, Object> map = new HashMap<String, Object>(); 
@@ -72,9 +67,6 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public Map<String, Object> viewHighPrice(ProductVo productVo) {
-		int totalCount = productDao.productListCount(productVo); 
-		productVo.setTotalCount(totalCount); 
-		
 		List<ProductVo> list = productDao.viewHighPrice(productVo);
 		
 		Map<String, Object> map = new HashMap<String, Object>(); 
@@ -86,9 +78,6 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public Map<String, Object> viewName(ProductVo productVo) {
-		int totalCount = productDao.productListCount(productVo);
-		productVo.setTotalCount(totalCount);
-		
 		List<ProductVo> list = productDao.viewName(productVo); 
 		
 		Map<String, Object> map = new HashMap<String, Object>(); 
@@ -111,6 +100,38 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void likeUpSave(ProductVo productVo) {
 		productDao.likeUpSave(productVo);
+	}
+	
+	@Override
+	public void saleWriteSave(SaleVo saleVo) {
+		productDao.saleWriteSave(saleVo);
+	}
+
+	@Override
+	public void updateSaleYn(SaleVo saleVo) {
+		productDao.updateSaleYn(saleVo);
+	}
+
+	@Override
+	public Map<String, Object> productSaleList(ProductVo productVo) {
+		
+		List<ProductVo> list = productDao.productSaleList(productVo); 
+		
+		Map<String, Object> map = new HashMap<String, Object>(); 
+		
+		map.put("list", list); 
+		
+		return map;
+	}
+
+	@Override
+	public void productSaleDelete(int product_no) {
+		productDao.productSaleDelete(product_no);
+	}
+
+	@Override
+	public void saleDelete(int product_no) {
+		productDao.saleDelete(product_no);
 	}
 
 }

@@ -66,12 +66,12 @@ public class AfterReplyController {
 
 		model.addAttribute("replyList", replyList);
 		
-		Object obj = session.getAttribute("authUser");
-		
-		UserVo vo = (UserVo) obj;
-		String user_id = vo.getUser_id();
-		
-		model.addAttribute("sessionUser_id", user_id);
+		if (session.getAttribute("authUser") != null){
+			UserVo userVo = (UserVo)session.getAttribute("authUser");
+			String user_id = userVo.getUser_id();
+			
+			model.addAttribute("sessionUser_id", user_id);
+    	}
 		
 		return "product/replyList";
 	}

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.flowershop.product.domain.ProductVo;
+import com.flowershop.product.domain.SaleVo;
 import com.flowershop.product.repository.ProductDao;
 
 @Repository
@@ -68,6 +69,31 @@ public class ProductDaoImpl implements ProductDao{
 	@Override
 	public void likeUpSave(ProductVo productVo) {
 		session.insert("like.likeUpSave", productVo);
+	}
+
+	@Override
+	public void saleWriteSave(SaleVo saleVo) {
+		session.insert("product.saleWriteSave", saleVo);
+	}
+
+	@Override
+	public void updateSaleYn(SaleVo saleVo) {
+		session.update("product.updateSaleYn", saleVo);
+	}
+
+	@Override
+	public List<ProductVo> productSaleList(ProductVo productVo) {
+		return session.selectList("product.productSaleList", productVo);
+	}
+
+	@Override
+	public void productSaleDelete(int product_no) {
+		session.update("product.productSaleDelete", product_no);
+	}
+
+	@Override
+	public void saleDelete(int product_no) {
+		session.delete("product.saleDelete", product_no);
 	}
 
 }

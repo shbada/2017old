@@ -38,7 +38,7 @@ function listUpdate(idx){
 		<div class="row">
 			<div class="col-md-12">
 				<div class="product-bit-title text-center">
-					<h2>Name</h2>
+					<h2>PRODUCT LIST</h2>
 				</div>
 			</div>
 		</div>
@@ -50,7 +50,7 @@ function listUpdate(idx){
             <div class="row">
 			<!-- ************************ -->
 				<button type="button" id="btnAdd" class="btn btn-sm btn-primary">상품등록</button>
-				<p class="pull-right"><a href="/viewLowPrice.do" class="afindFont">낮은가격</a> / <a href="/viewHighPrice.do" class="afindFont">높은가격</a> / <a href="/viewName.do" class="afindFont">상품명</a> / <a href="/productList.do" class="afindFont">신상품</a></p>
+				<p class="pull-right"><a href="/viewLowPrice" class="afindFont">낮은가격</a> / <a href="/viewHighPrice" class="afindFont">높은가격</a> / <a href="/viewName.do" class="afindFont">상품명</a> / <a href="/productList.do" class="afindFont">신상품</a></p>
 					<br /><br /><br /> <br />
 				<form name="viewTable" onsubmit="return flase;">
 					<input type="hidden" name="product_no" value="1">

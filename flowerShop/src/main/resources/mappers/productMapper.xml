@@ -41,7 +41,7 @@
         	WHERE product_no = #{product_no}
     </select>
     
-    <insert id="insertProduct">
+    <insert id="insertProduct" parameterType="com.flowershop.product.domain.ProductVo">
          <![CDATA[
          INSERT 
            INTO PRODUCT(

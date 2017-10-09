@@ -43,8 +43,6 @@ public class ProductController {
 		
 		Map<String, Object> map = productService.productList(productVo); 
 		
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@"+map.get("list"));
-		
 /*		String path = "C:\\project\\ganadamart\\"
                 + ".metadata\\.plugins\\org.eclipse.wst.server.core\\"
                 + "tmp0\\wtpwebapps\\flowerShop\\images\\";*/
@@ -92,7 +90,7 @@ public class ProductController {
             productVo.setProduct_url(filename); // 파일 경로를 Vo에 저장
             productService.insertProduct(productVo); // 상품을 등록
         }
-        return "redirect:/productList.do";
+        return "redirect:/productList";
 	}
 	
 	@RequestMapping(value="/productDetail", method=RequestMethod.POST)
@@ -138,7 +136,7 @@ public class ProductController {
             productVo.setProduct_url(vo2.getProduct_url()); 
         }
         productService.productUpdateSave(productVo);
-        return "redirect:/productList.do";
+        return "redirect:/productList";
 	}
 	
 	
@@ -161,7 +159,7 @@ public class ProductController {
         cartService.cartDelete(product_no); 
         productService.productDelete(product_no); 
         
-        return "redirect:productList.do";
+        return "redirect:productList";
     }
 	
 	
@@ -220,16 +218,12 @@ public class ProductController {
 	@ResponseBody
 	public String LikeUpSave(@ModelAttribute ProductVo productVo, HttpSession session) throws IOException{
 		
-		System.out.println("@@@@1");
+		if (session.getAttribute("authUser") == null){
+    		return "null";
+    	}
 		
-		Object obj = session.getAttribute("authUser");
-		
-		UserVo vo = (UserVo) obj;
-		String user_id = vo.getUser_id();
-		
-		if(user_id == null){
-			return "fal";
-		}
+		UserVo userVo = (UserVo)session.getAttribute("authUser");
+		String user_id = userVo.getUser_id();
 		
 		productVo.setUser_id(user_id);
 		

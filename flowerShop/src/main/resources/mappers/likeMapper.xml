@@ -3,18 +3,18 @@
 
 <mapper namespace="like">
 	<select id="LikeSelect" resultType="int">
-		SELECT COUNT(PRODUCT_NO) FROM
-		LIKES WHERE PRODUCT_NO=#{product_no}
+		SELECT COUNT(PRODUCT_NO) FROM LIKES WHERE PRODUCT_NO=#{product_no}
 	</select>
 
 
 	<select id="LikeUpSelect" parameterType="product" resultType="product">
-		SELECT PRODUCT_NO,
-		USER_ID,
-		PRODUCT_RECDATE
-		FROM LIKES
-		WHERE PRODUCT_NO = #{product_no}
-		AND USER_ID = #{user_id}
+		SELECT 
+			PRODUCT_NO,
+			USER_ID,
+			PRODUCT_RECDATE
+				FROM LIKES
+					WHERE PRODUCT_NO = #{product_no}
+					AND USER_ID = #{user_id}
 	</select>
 
 

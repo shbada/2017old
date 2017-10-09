@@ -31,7 +31,11 @@ public class AfterReplyController {
 	
 	@RequestMapping(value="/afterReplyWrite", method=RequestMethod.POST)
 	@ResponseBody
-	public void QReplyWrite(@ModelAttribute AfterReplyVo afterReplyVo, HttpSession session){
+	public String AfterReplyWrite(@ModelAttribute AfterReplyVo afterReplyVo, HttpSession session){
+		
+		if (session.getAttribute("authUser") == null){
+    		return "fal";
+    	}
 		
 		Object obj = session.getAttribute("authUser");
 		
@@ -41,6 +45,8 @@ public class AfterReplyController {
 		System.out.println(afterReplyVo);
 		
 		afterReplyService.afterReplyWrite(afterReplyVo);
+		
+		return "ok";
 	} 
 	
 	@RequestMapping(value="/afterReplyList", method=RequestMethod.POST)

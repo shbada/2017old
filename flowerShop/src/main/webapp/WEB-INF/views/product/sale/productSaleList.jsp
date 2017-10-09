@@ -70,7 +70,7 @@ function saleDelete(idx){
 										&nbsp;sale
 									</h2>
 		                        <div class="product-carousel-price">
-		                            <ins>${row.sale_price}</ins> <del>${row.product_price}</del>
+		                            <ins>${row.sale_price}원</ins> <del>${row.product_price}원</del>
 		                        </div> <br />
 		                        <a href="#" class="add_to_cart_button" onclick="javacscript:listUpdate('${row.product_no }');">[상품편집]</a>                    
 		                        <a href="#" class="add_to_cart_button" onclick="javacscript:saleDelete('${row.product_no }');">[세일삭제]</a>                    

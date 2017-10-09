@@ -78,10 +78,10 @@ function saleWrite(idx){
 									</h2>
 		                        <div class="product-carousel-price">
 		                        	<c:if test="${row.product_saleyn == 'N'}">
-		                            	<ins>${row.product_price}</ins> <del>${row.product_price}</del>
+		                            	<ins>${row.product_price}원</ins>
 		                            </c:if>
 		                            <c:if test="${row.product_saleyn == 'Y'}">
-		                           	 <ins>${row.sale_price}</ins> <del>${row.product_price}</del>
+		                           	 <ins>${row.sale_price}원</ins> <del>${row.product_price}원</del>
 		                            </c:if>
 		                        </div> <br />
 		                        <a href="#" class="add_to_cart_button" onclick="javacscript:listUpdate('${row.product_no }');">[상품편집]</a>                    

@@ -140,7 +140,7 @@ function CartDel() {
 	            
 	            <form method="post" action="#">
 	            	<h2 class="sidebar-title">Total Price</h2>
-                	<span class="subCreateHeader">10만원 미만 금액은 배송비 2500원입니다.</span>
+                	<span class="subCreateHeader">5만원 미만의 금액은 배송비 2500원입니다.</span>
 	                <table cellspacing="0" class="shop_table cart">
 	                    <tbody>
 	                        <tr class="cart-subtotal">

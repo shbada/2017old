@@ -64,7 +64,7 @@ public class CartController {
 		List<CartVo> list = cartService.cartList(user_id);
 		
 		int sumMoney = cartService.sumMoney(user_id);
-		int fee = sumMoney >= 100000 ? 0 : 2500;
+		int fee = sumMoney >= 50000 ? 0 : 2500;
 
 		map.put("list", list);
 		map.put("count", list.size());

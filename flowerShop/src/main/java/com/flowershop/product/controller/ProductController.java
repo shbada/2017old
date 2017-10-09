@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.flowershop.cart.service.CartService;
 import com.flowershop.login.domain.UserVo;
@@ -43,10 +44,16 @@ public class ProductController {
 		Map<String, Object> map = productService.productList(productVo); 
 		
 		System.out.println("@@@@@@@@@@@@@@@@@@@@@"+map.get("list"));
+		
+/*		String path = "C:\\project\\ganadamart\\"
+                + ".metadata\\.plugins\\org.eclipse.wst.server.core\\"
+                + "tmp0\\wtpwebapps\\flowerShop\\images\\";*/
+		
 		/** 페이징 처리 */
 		model.addAttribute("pageVO", productVo);
 		
 		model.addAttribute("list", map.get("list")); 
+		/*model.addAttribute("path", path); */
 		log.info(productVo.getEndPageNo());
 		return "product/productList";
 	}
@@ -58,7 +65,11 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value="/productWriteSave", method={RequestMethod.GET, RequestMethod.POST})
-	public String ProductWriteSave(@ModelAttribute ProductVo productVo, Model model){
+	public String ProductWriteSave(@ModelAttribute ProductVo productVo, @RequestParam("product_photo")MultipartFile multipartFile){
+		
+		System.out.println(productVo);
+		System.out.println(multipartFile);
+		
 		String filename = "";
         // 첨부파일(상품사진)이 있으면
         if(!productVo.getProduct_photo().isEmpty()){
@@ -67,7 +78,7 @@ public class ProductController {
             //String path = "C:\\Users\\doubles\\Desktop\\workspace\\gitSpring\\"
             //                + "spring02\\src\\main\\webapp\\WEB-INF\\views\\images";
             // 배포디렉토리 - 파일 업로드 경로
-            String path = "C:\\project\\ganadamart\\"
+            String path = "C:\\project\\flowerShopProject\\"
                     + ".metadata\\.plugins\\org.eclipse.wst.server.core\\"
                     + "tmp0\\wtpwebapps\\flowerShop\\resources\\img\\";
 
@@ -109,7 +120,7 @@ public class ProductController {
         if(!productVo.getProduct_photo().isEmpty()){
             filename = productVo.getProduct_photo().getOriginalFilename();
             
-            String path = "C:\\project\\ganadamart\\"
+            String path = "C:\\project\\flowerShopProject\\"
                     + ".metadata\\.plugins\\org.eclipse.wst.server.core\\"
                     + "tmp0\\wtpwebapps\\flowerShop\\resources\\img\\";
             try {
@@ -135,7 +146,8 @@ public class ProductController {
 	public String ProductDelete(@RequestParam int product_no){
 		 // 상품 이미지 정보
         String filename = productService.fileInfo(product_no);
-        String path = "C:\\project\\ganadamart\\"
+        
+        String path = "C:\\project\\flowerShopProject\\"
                 + ".metadata\\.plugins\\org.eclipse.wst.server.core\\"
                 + "tmp0\\wtpwebapps\\flowerShop\\resources\\img\\";
         // 상품 이미지 삭제
@@ -148,6 +160,7 @@ public class ProductController {
         }
         cartService.cartDelete(product_no); 
         productService.productDelete(product_no); 
+        
         return "redirect:productList.do";
     }
 	
@@ -213,6 +226,10 @@ public class ProductController {
 		
 		UserVo vo = (UserVo) obj;
 		String user_id = vo.getUser_id();
+		
+		if(user_id == null){
+			return "fal";
+		}
 		
 		productVo.setUser_id(user_id);
 		

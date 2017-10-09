@@ -35,6 +35,7 @@
             product_no, 
             product_name, 
             product_price,
+            product_url,
             product_desc
         FROM PRODUCT 
         	WHERE product_no = #{product_no}
@@ -44,12 +45,12 @@
          <![CDATA[
          INSERT 
            INTO PRODUCT(
-           	product_no;
-			product_name;
-			product_price;
-			product_desc;
-			product_regdate;
-			product_url;
+           	product_no,
+			product_name,
+			product_price,
+			product_desc,
+			product_regdate,
+			product_url
            ) VALUES (
              seq_product.NEXTVAL
             , #{product_name}

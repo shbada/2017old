@@ -50,28 +50,27 @@ function listUpdate(idx){
             <div class="row">
 			<!-- ************************ -->
 				<button type="button" id="btnAdd" class="btn btn-sm btn-primary">상품등록</button>
-				<p class="pull-right"><a href="/viewLowPrice.do">낮은가격</a> / <a href="/viewHighPrice.do">높은가격</a> / <a href="/viewName.do">상품명</a> / <a href="/productList.do">신상품</a></p>
-					<br /><br />
+				<p class="pull-right"><a href="/viewLowPrice.do" class="afindFont">낮은가격</a> / <a href="/viewHighPrice.do" class="afindFont">높은가격</a> / <a href="/viewName.do" class="afindFont">상품명</a> / <a href="/productList.do" class="afindFont">신상품</a></p>
+					<br /><br /><br /> <br />
 				<form name="viewTable" onsubmit="return flase;">
 					<input type="hidden" name="product_no" value="1">
 					<input type="hidden" name="pageNo" value="${pageVO.pageNo }" />
 					
 					<c:forEach var="row" items="${list}">
-						<div class="col-md-3 col-sm-6">
+						<div class="col-md-3 col-sm-6" style="text-align:center;">
 		                    <div class="single-shop-product">
 		                        <div class="product-upper">
 		                            <a href="#" class="link" onclick="javacscript:listDetail('${row.product_no }');">
-										<img src="${pageContext.request.contextPath }/img/${row.product_url}" width="430px" height="550px">
+										<img src="<c:url value="${path}/img/${row.product_url}" />" width="430px" height="550px">
 									</a>
-		                        </div>
-		                        	<h5>
+		                        </div> <br />
+		                        	<h2>
 										<a href="#" class="link" onclick="javacscript:listDetail('${row.product_no }');">${row.product_name}</a>
-									</h5>
+									</h2>
 		                        <div class="product-carousel-price">
 		                            <ins>${row.product_price}</ins> <del>${row.product_price}</del>
-		                        </div>  
-		                        
-		                        <a href="#" class="link" onclick="javacscript:listUpdate('${row.product_no }');">[상품편집]</a>                    
+		                        </div> <br />
+		                        <a href="#" class="add_to_cart_button" onclick="javacscript:listUpdate('${row.product_no }');">[상품편집]</a>                    
 		                    </div>
 		                </div>
 		            </c:forEach>

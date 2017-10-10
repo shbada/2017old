@@ -41,11 +41,12 @@ public class AfterReplyServiceImpl implements AfterReplyService {
 	@Override
 	public List<AfterReplyVo> afterReplyList(AfterReplyVo afterReplyVo, HttpSession session) {
 		
-		Object obj = session.getAttribute("authUser");
-		
-		UserVo userVo = (UserVo) obj;
-		String user_id = userVo.getUser_id();
-		afterReplyVo.setUser_id(user_id);
+		if (session.getAttribute("authUser") != null){
+			UserVo userVo = (UserVo)session.getAttribute("authUser");
+			String user_id = userVo.getUser_id();
+			
+			afterReplyVo.setUser_id(user_id);
+		}
 		
 		List<AfterReplyVo> items = afterReplyDao.afterReplyList(afterReplyVo);
 		

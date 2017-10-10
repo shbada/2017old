@@ -73,7 +73,7 @@ function AfterReplyUpdate(after_no, paramText){
 				</c:if>
 				<br /><br />
 				<span>${row.after_content }</span>
-				<c:if test="${row.user_id == sessionUser_id }"> <!-- 댓글 작성자와 접속중인 아이디가 같으면 -->
+				<c:if test="${row.user_id == sessionUser_id }"> 
 					<button type="button" class="btn btn-sm btn-primary btnReplyUpdate" onclick="javascript:AfterReplyUpdate('${row.after_no }', '${row.after_content }');">수정</button>
 					<%-- <button type="button" class="btn btn-sm btn-primary btnReplyUpdate" onclick="javascript:AfterReplyUpdate('${row.after_no }', ${row.after_level }', '${row.after_content }');">수정</button> --%>
 					<button type="button" class="btn btn-sm btn-success btnReplyDelete" onclick="javascript:AfterReplyDelete('${row.after_no }');">삭제</button>
@@ -92,7 +92,7 @@ function AfterReplyUpdate(after_no, paramText){
 		</div>
 	</c:when>
 	<c:otherwise>
-		<span>등록된 댓글이 없습니다.</span>
+		<span>등록된 후기댓글이 없습니다.</span>
 	</c:otherwise>
 </c:choose>
 <input type="hidden" id="pageCnt" value="${pageVO.pageCnt }" />

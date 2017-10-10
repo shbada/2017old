@@ -32,11 +32,13 @@ function listUpdate(idx){
 	document.viewTable.submit();
 }
 
-function saleWrite(idx){ 
-	document.viewTable.product_no.value = idx;
-	document.viewTable.method="POST";   		
-	document.viewTable.action="<c:url value='/saleWrite' />";   		
-	document.viewTable.submit();
+function saleDelete(idx){ 
+	if(confirm("세일 상품에서 제외하시겠습니까?") == true){
+		document.viewTable.product_no.value = idx;
+		document.viewTable.method="POST";   		
+		document.viewTable.action="<c:url value='/saleDelete' />";   		
+		document.viewTable.submit();
+	}
 }
 </script>
 <!-- *** -->
@@ -72,20 +74,13 @@ function saleWrite(idx){
 		                        </div> <br />
 		                        	<h2>
 										<a href="#" class="link" onclick="javacscript:listDetail('${row.product_no }');">${row.product_name}</a>
-										<c:if test="${row.product_saleyn == 'Y'}"> 
-											<a class="link" style="color:red;">SALE</a>
-										</c:if>
+										<a class="link" style="color:red;">SALE</a>
 									</h2>
 		                        <div class="product-carousel-price">
-		                        	<c:if test="${row.product_saleyn == 'N'}">
-		                            	<ins>${row.product_price}원</ins>
-		                            </c:if>
-		                            <c:if test="${row.product_saleyn == 'Y'}">
-		                           	 <ins>${row.sale_price}원</ins> <del>${row.product_price}원</del>
-		                            </c:if>
+		                            <ins>${row.sale_price}원</ins> <del>${row.product_price}원</del>
 		                        </div> <br />
 		                        <a href="#" class="add_to_cart_button" onclick="javacscript:listUpdate('${row.product_no }');">[상품편집]</a>                    
-		                        <a href="#" class="add_to_cart_button" onclick="javacscript:saleWrite('${row.product_no }');">[세일등록]</a>                    
+		                        <a href="#" class="add_to_cart_button" onclick="javacscript:saleDelete('${row.product_no }');">[세일삭제]</a>                    
 		                    </div>
 		                </div>
 		            </c:forEach>

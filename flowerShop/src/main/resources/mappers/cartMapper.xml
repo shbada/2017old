@@ -3,12 +3,18 @@
 
 <mapper namespace="cart">
 
-	<insert id="cartInsert">
-		INSERT INTO CART
-			(CART_NO, USER_ID, PRODUCT_NO, PRODUCT_AMOUNT) 
-		VALUES 
-			(seq_cart.NEXTVAL, #{user_id}, #{product_no}, #{product_amount})
-		
+	<insert id="cartInsert" parameterType="com.flowershop.cart.domain.CartVo">
+		INSERT INTO CART(
+			CART_NO, 
+			USER_ID, 
+			PRODUCT_NO, 
+			PRODUCT_AMOUNT
+		) VALUES (
+			seq_cart.NEXTVAL, 
+			#{user_id}, 
+			#{product_no}, 
+			#{product_amount}
+		)
 	</insert>
 	
 	<select id="cartList" parameterType="string" resultType="com.flowershop.cart.domain.CartVo">
@@ -23,8 +29,8 @@
 			(PRODUCT_PRICE * PRODUCT_AMOUNT) MONEY
 				FROM USERS U, PRODUCT P, CART C
 					WHERE U.USER_ID = C.USER_ID
-					AND P.PRODUCT_NO = C.PRODUCT_NO
-					AND C.USER_ID = #{user_id}
+						AND P.PRODUCT_NO = C.PRODUCT_NO
+						AND C.USER_ID = #{user_id}
 					 ORDER BY C.CART_NO
 	</select>
 	
@@ -37,14 +43,14 @@
 	
 	<update id="cartUpdate" parameterType="com.flowershop.cart.domain.CartVo">
 		UPDATE CART
-			SET PRODUCT_AMOUNT = #{product_amount}
+			SET 
+				PRODUCT_AMOUNT = #{product_amount}
 				WHERE USER_ID= #{user_id}
 				AND PRODUCT_NO = #{product_no}
 	</update>
 	
 	<delete id="cartListDelete" parameterType="com.flowershop.cart.domain.CartVo">
-		DELETE FROM CART
-			WHERE PRODUCT_NO = #{product_no}
+		DELETE FROM CART WHERE PRODUCT_NO = #{product_no}
 	</delete>
 	
 	<select id="countCart" parameterType="com.flowershop.cart.domain.CartVo" resultType="int">
@@ -56,7 +62,8 @@
 	
 	<update id="UpdateCount" parameterType="com.flowershop.cart.domain.CartVo">
 		UPDATE cart
-			SET PRODUCT_AMOUNT = PRODUCT_AMOUNT + #{product_amount}
+			SET 
+				PRODUCT_AMOUNT = PRODUCT_AMOUNT + #{product_amount}
 				WHERE USER_ID= #{user_id}
 				AND PRODUCT_NO = #{product_no}
 	</update>

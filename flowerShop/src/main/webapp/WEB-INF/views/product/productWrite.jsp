@@ -22,12 +22,12 @@ $(document).ready(function(){
             alert("상품 사진을 입력해주세요");
             product_photo.focus();
         }
-        document.form1.action="<c:url value='/productWriteSave.do' />";
+        document.form1.action="<c:url value='/productWriteSave' />";
         document.form1.submit();
     });
     
     $("#listBtn").click(function(){
-        location.href='/productList.do';
+        location.href='/productList';
     });
 });
 </script>

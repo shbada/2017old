@@ -31,16 +31,20 @@ public class AfterReplyController {
 	
 	@RequestMapping(value="/afterReplyWrite", method=RequestMethod.POST)
 	@ResponseBody
-	public void QReplyWrite(@ModelAttribute AfterReplyVo afterReplyVo, HttpSession session){
+	public String AfterReplyWrite(@ModelAttribute AfterReplyVo afterReplyVo, HttpSession session){
 		
-		Object obj = session.getAttribute("authUser");
+		if (session.getAttribute("authUser") == null){
+    		return "fal";
+    	}
 		
-		UserVo vo = (UserVo) obj;
-		afterReplyVo.setUser_id(vo.getUser_id());
+		UserVo userVo = (UserVo)session.getAttribute("authUser");
+		String user_id = userVo.getUser_id();
 		
 		System.out.println(afterReplyVo);
 		
 		afterReplyService.afterReplyWrite(afterReplyVo);
+		
+		return "ok";
 	} 
 	
 	@RequestMapping(value="/afterReplyList", method=RequestMethod.POST)
@@ -60,12 +64,12 @@ public class AfterReplyController {
 
 		model.addAttribute("replyList", replyList);
 		
-		Object obj = session.getAttribute("authUser");
-		
-		UserVo vo = (UserVo) obj;
-		String user_id = vo.getUser_id();
-		
-		model.addAttribute("sessionUser_id", user_id);
+		if (session.getAttribute("authUser") != null){
+			UserVo userVo = (UserVo)session.getAttribute("authUser");
+			String user_id = userVo.getUser_id();
+			
+			model.addAttribute("sessionUser_id", user_id);
+    	}
 		
 		return "product/replyList";
 	}

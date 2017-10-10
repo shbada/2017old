@@ -7,22 +7,13 @@
         	A.product_no,
 			A.product_name,
 			A.product_price,
+			A.product_saleyn,
 			A.product_desc,
-			A.product_url
-      FROM(
-        SELECT ROWNUM RNUM, S.*
-          FROM(
-            	SELECT  F.product_no,
-                     	F.product_name,
-                      	F.product_price,
-                    	F.product_desc,
-                      	F.product_url
-                   FROM product F
-                  WHERE 1=1
+			A.product_url,
+			B.sale_price
+       FROM product A LEFT OUTER JOIN sale B
+          ON A.product_no = B.product_no
                   ORDER BY product_no DESC
-          ) S
-      ) A
-      WHERE RNUM BETWEEN #{startRowNo} AND #{endRowNo}
     </select>
     
     <select id="productListCount" parameterType="com.flowershop.product.domain.ProductVo" resultType="int">
@@ -35,21 +26,22 @@
             product_no, 
             product_name, 
             product_price,
+            product_url,
             product_desc
         FROM PRODUCT 
         	WHERE product_no = #{product_no}
     </select>
     
-    <insert id="insertProduct">
+    <insert id="insertProduct" parameterType="com.flowershop.product.domain.ProductVo">
          <![CDATA[
          INSERT 
            INTO PRODUCT(
-           	product_no;
-			product_name;
-			product_price;
-			product_desc;
-			product_regdate;
-			product_url;
+           	product_no,
+			product_name,
+			product_price,
+			product_desc,
+			product_regdate,
+			product_url
            ) VALUES (
              seq_product.NEXTVAL
             , #{product_name}
@@ -73,9 +65,8 @@
 		]]>
 	</update>
 	
-    <delete id="productDelete">
-        DELETE FROM product
-        	WHERE product_no = #{product_no}
+    <delete id="productDelete" parameterType="int">
+        DELETE FROM product WHERE product_no = #{product_no}
     </delete>
 	
     <select id="fileInfo" resultType="String">
@@ -86,68 +77,95 @@
     </select>
  	
     <select id="viewLowPrice" resultType="com.flowershop.product.domain.ProductVo">
-        SELECT  A.product_no,
+       SELECT  
+        	A.product_no,
 			A.product_name,
 			A.product_price,
+			A.product_saleyn,
 			A.product_desc,
-			A.product_url
-      FROM(
-        SELECT ROWNUM RNUM, S.*
-          FROM(
-            	SELECT  F.product_no,
-                     	F.product_name,
-                      	F.product_price,
-                    	F.product_desc,
-                      	F.product_url
-                   FROM product F
-                  WHERE 1=1
+			A.product_url,
+			B.sale_price
+       FROM product A LEFT OUTER JOIN sale B
+          ON A.product_no = B.product_no
                   ORDER BY product_price ASC
-          ) S
-      ) A
-      WHERE RNUM BETWEEN #{startRowNo} AND #{endRowNo}
     </select>
     
     <select id="viewHighPrice" resultType="com.flowershop.product.domain.ProductVo">
-        SELECT  A.product_no,
+       SELECT  
+        	A.product_no,
 			A.product_name,
 			A.product_price,
+			A.product_saleyn,
 			A.product_desc,
-			A.product_url
-      FROM(
-        SELECT ROWNUM RNUM, S.*
-          FROM(
-            	SELECT  F.product_no,
-                     	F.product_name,
-                      	F.product_price,
-                    	F.product_desc,
-                      	F.product_url
-                   FROM product F
-                  WHERE 1=1
+			A.product_url,
+			B.sale_price
+       FROM product A LEFT OUTER JOIN sale B
+          ON A.product_no = B.product_no
                   ORDER BY product_price DESC
-          ) S
-      ) A
-      WHERE RNUM BETWEEN #{startRowNo} AND #{endRowNo}
     </select>
     
     <select id="viewName" resultType="com.flowershop.product.domain.ProductVo">
-        SELECT  A.product_no,
+        SELECT  
+        	A.product_no,
 			A.product_name,
 			A.product_price,
+			A.product_saleyn,
 			A.product_desc,
-			A.product_url
-      FROM(
-        SELECT ROWNUM RNUM, S.*
-          FROM(
-            	SELECT  F.product_no,
-                     	F.product_name,
-                      	F.product_price,
-                    	F.product_desc,
-                      	F.product_url
-                   FROM product F
-                  WHERE 1=1
+			A.product_url,
+			B.sale_price
+       FROM product A LEFT OUTER JOIN sale B
+          ON A.product_no = B.product_no
                   ORDER BY product_name
-          ) S
-      ) A
-      WHERE RNUM BETWEEN #{startRowNo} AND #{endRowNo}
     </select>
+    
+    <insert id="saleWriteSave" parameterType="com.flowershop.product.domain.SaleVo">
+         <![CDATA[
+         INSERT 
+           INTO SALE(
+           	product_no,
+			sale_price,
+			sale_percent
+           ) VALUES (
+            #{product_no}
+            , #{sale_price}
+            , #{sale_percent}
+           )
+       ]]>
+    </insert>
+    
+    <update id="updateSaleYn" parameterType="com.flowershop.product.domain.SaleVo">
+		<![CDATA[
+			UPDATE PRODUCT
+				SET 
+					PRODUCT_SALEYN = 'Y'
+				WHERE product_no = #{product_no}
+		]]>
+	</update>
+	
+	<select id="productSaleList" resultType="com.flowershop.product.domain.ProductVo"> 
+        SELECT  
+        	A.product_no,
+			A.product_name,
+			A.product_price,
+			A.product_saleyn,
+			A.product_desc,
+			A.product_url,
+			B.sale_price
+       FROM product A, sale B
+             WHERE product_saleyn = 'Y'
+                  ORDER BY product_no DESC
+    </select>
+    
+    <update id="productSaleDelete" parameterType="com.flowershop.product.domain.SaleVo">
+		<![CDATA[
+			UPDATE PRODUCT
+				SET 
+					PRODUCT_SALEYN = 'N'
+				WHERE product_no = #{product_no}
+		]]>
+	</update>
+	
+	<delete id="saleDelete" parameterType="int">
+        DELETE FROM sale WHERE product_no = #{product_no}
+    </delete>
 </mapper>

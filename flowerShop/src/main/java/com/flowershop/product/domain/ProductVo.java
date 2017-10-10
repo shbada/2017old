@@ -2,7 +2,7 @@ package com.flowershop.product.domain;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class ProductVo extends ProductPageVo{
+public class ProductVo{
 	private int product_no;
     private String product_name; 
     private int product_price;
@@ -16,6 +16,7 @@ public class ProductVo extends ProductPageVo{
 	private String product_saleyn;
 	private String user_id;
 	private int like;
+	private String sale_price;
 	
 	public int getProduct_no() {
 		return product_no;
@@ -120,6 +121,15 @@ public class ProductVo extends ProductPageVo{
 	public void setLike(int like) {
 		this.like = like;
 	}
+	
+
+	public String getSale_price() {
+		return sale_price;
+	}
+
+	public void setSale_price(String sale_price) {
+		this.sale_price = sale_price;
+	}
 
 	@Override
 	public String toString() {
@@ -127,7 +137,7 @@ public class ProductVo extends ProductPageVo{
 				+ product_price + ", product_desc=" + product_desc + ", product_url=" + product_url + ", product_photo="
 				+ product_photo + ", page_cnt=" + page_cnt + ", product_regdate=" + product_regdate + ", product_mod="
 				+ product_mod + ", product_buycnt=" + product_buycnt + ", product_saleyn=" + product_saleyn
-				+ ", user_id=" + user_id + ", like=" + like + "]";
+				+ ", user_id=" + user_id + ", like=" + like + ", sale_price=" + sale_price + "]";
 	}
 	
 	

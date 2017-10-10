@@ -16,16 +16,16 @@ $(document).ready(function(){
 			var formData = $("form[name=frm]").serialize(); //값을 다가지고와서 변수에 담는다 (리스트형식으로 값이 들어감)
 			$.ajax({
 				type:"POST",
-				url: "<c:url value='/cartInsert.do'/>",
+				url: "<c:url value='/cartInsert'/>",
 				dataType:"text",
 				data: formData,
 				success: function(result){
 					if(result == 'ok'){
-						 location.href="/cartList.do";
+						 location.href="/cartList";
 					}
 					if(result == 'fal'){
 						alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
-						location.href="/login.do";
+						location.href="/login";
 					}
 				},
 				error: function(result){
@@ -52,6 +52,10 @@ $(document).ready(function(){
    					if(result == 'fal'){
    						alert("이미 추천한 상품입니다.");
    					}
+   					if(result == 'null'){
+   						alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
+   						location.href="/login";
+   					}
    				},
    				error: function(result){
    					alert('에러가 발생하였습니다.');
@@ -75,13 +79,20 @@ $(document).ready(function(){
 			
 			$.ajax({
 				type:"POST",
-				url: "<c:url value='/afterReplyWrite.do'/>", 
+				url: "<c:url value='/afterReplyWrite'/>", 
 				dataType:"text",
 				data: formData,
 				success: function(result){ 
-						alert("회원님의 리뷰가 등록되었습니다!");
-						$("#after_content").val(''); 
-						listReply("5");
+						if(result == 'ok'){
+							alert("회원님의 리뷰가 등록되었습니다!");
+							$("#after_content").val(''); 
+							listReply("5");
+	   					}
+	   					if(result == 'fal'){
+	   						alert("로그인이 필요합니다.");
+	   						$("#after_content").val(''); 
+							listReply("5");
+	   					}
 					}
 			});
 		}
@@ -97,6 +108,7 @@ function listReply(pageCnt){
 		url: "<c:url value='/afterReplyList'/>",
 		success: function(result){
 			$("#listReply").html(result);
+			
 		}
 	});
 }
@@ -129,11 +141,11 @@ function listReply(pageCnt){
 		                    <div class="col-sm-6">
 		                        <div class="product-images">
 		                            <div class="product-main-img">
-		                                <img src="${path}/images/${ProductVo.product_url}" width="340px" height="300px">
+		                               <img src="<c:url value="${path}/img/${ProductVo.product_url}" />" width="430px" height="550px">
 		                            </div>
 		                        </div>
 		                    </div>
-		                    
+		                    <br />
 		                    <div class="col-sm-6">
 		                        <div class="product-inner">
 		                            <h2 class="product-name">${ProductVo.product_name}</h2>
@@ -142,11 +154,7 @@ function listReply(pageCnt){
 		                            </div>    
 		                            
 	                                <div class="quantity">
-	                                    <select name="product_amount">
-											<c:forEach begin="1" end="10" var="i">
-												<option value="${i}">${i}</option>
-											</c:forEach>
-										</select>
+	                                    <input type="number" name="product_amount" size="4" class="input-text qty text" title="Qty" value="1" min="0" step="1">
 	                                </div>&nbsp;
 										<input type="hidden" name="product_no" value="${ProductVo.product_no}">
 										<input type="hidden" name="product_name" value="${ProductVo.product_name}">

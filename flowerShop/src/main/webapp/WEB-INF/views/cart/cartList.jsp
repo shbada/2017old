@@ -24,7 +24,15 @@ $(document).ready(function(){
             $("input[name=chk]").prop("checked",false);
         }
     });
+    
 });
+
+function listDetail(idx){ 
+	document.form1.product_no.value = idx;
+	document.form1.method="POST";   		
+	document.form1.action="<c:url value='/productDetail' />";   		
+	document.form1.submit();
+}
 
 function CartDel() {
 	var chkedVal = new Array(); //배열
@@ -42,7 +50,7 @@ function CartDel() {
 		if (confirm("정말 삭제하시겠습니까??") == true){    
 			 $.ajax({					
 					type:"POST",
-					url:"/cartListDelete.do", 
+					url:"/cartListDelete", 
 					dataType:"JSON",
 					data : JSON.stringify(chkedVal),
 					contentType: "application/json; charset=UTF-8",
@@ -105,7 +113,9 @@ function CartDel() {
 	                             </td>
 	
 	                             <td class="product-name">
-	                                 <img src="${pageContext.request.contextPath }/img/${row.product_url}">
+	                             	 <a href="#" class="link" onclick="javacscript:listDetail('${row.product_no }');">
+	                                 	<img src="${pageContext.request.contextPath }/img/${row.product_url}" width="145" height="145">
+	                             	 </a>
 	                             </td>
 	
 	                             <td class="product-quantity">
@@ -130,6 +140,7 @@ function CartDel() {
 	            
 	            <form method="post" action="#">
 	            	<h2 class="sidebar-title">Total Price</h2>
+                	<span class="subCreateHeader">5만원 미만의 금액은 배송비 2500원입니다.</span>
 	                <table cellspacing="0" class="shop_table cart">
 	                    <tbody>
 	                        <tr class="cart-subtotal">

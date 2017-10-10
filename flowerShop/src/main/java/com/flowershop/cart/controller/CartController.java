@@ -34,18 +34,16 @@ public class CartController {
     @ResponseBody
     public String CartInsert(@ModelAttribute CartVo cartVo, HttpSession session){
     	
-		Object obj = session.getAttribute("authUser");
-		
-		UserVo vo = (UserVo) obj;
-		String user_id = vo.getUser_id();
-		
-    	if (user_id == null){
+		if (session.getAttribute("authUser") == null){
     		return "fal";
     	}
-    	
+		
+		UserVo userVo = (UserVo)session.getAttribute("authUser");
+		String user_id = userVo.getUser_id();
+		
     	if (user_id != null){
-    		
-	        cartVo.setUser_id(user_id); 
+	       
+    		cartVo.setUser_id(user_id); 
 	        int count = cartService.countCart(cartVo.getProduct_no(), user_id);
 	        if(count == 0){
 	            cartService.cartInsert(cartVo);
@@ -59,20 +57,14 @@ public class CartController {
 	@RequestMapping("/cartList")
 	public String CartList(HttpSession session, Model model) {
 		
-		Object obj = session.getAttribute("authUser");
-		
-		UserVo vo = (UserVo) obj;
-		String user_id = vo.getUser_id();
+		UserVo userVo = (UserVo)session.getAttribute("authUser");
+		String user_id = userVo.getUser_id();
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-
 		List<CartVo> list = cartService.cartList(user_id);
-		System.out.println(list);
 		
 		int sumMoney = cartService.sumMoney(user_id);
-		System.out.println(sumMoney);
-
-		int fee = sumMoney >= 100000 ? 0 : 2500;
+		int fee = sumMoney >= 50000 ? 0 : 2500;
 
 		map.put("list", list);
 		map.put("count", list.size());
@@ -82,24 +74,20 @@ public class CartController {
 
 		model.addAttribute("map", map);
 
-		log.info(list);
-
 		return "cart/cartList";
 	}
 
 	@RequestMapping("/cartDelete")
 	public String CartDelete(@RequestParam int product_no) {
 		cartService.cartDelete(product_no); 
-		return "redirect:/cartList.do";
+		return "redirect:/cartList";
 	}
 
 	@RequestMapping(value = "/cartUpdate", method = RequestMethod.POST)
 	public String CartUpdate(@RequestParam int[] product_amount, @RequestParam int[] product_no, HttpSession session) {
 
-		Object obj = session.getAttribute("authUser");
-		
-		UserVo vo = (UserVo) obj;
-		String user_id = vo.getUser_id();
+		UserVo userVo = (UserVo)session.getAttribute("authUser");
+		String user_id = userVo.getUser_id();
 		
 		for (int i = 0; i < product_no.length; i++) {
 			CartVo cartVo = new CartVo();
@@ -108,8 +96,7 @@ public class CartController {
 			cartVo.setProduct_no(product_no[i]); 
 			cartService.cartUpdate(cartVo); 
 		}
-
-		return "redirect:/cartList.do";
+		return "redirect:/cartList";
 	}
 	
 	@RequestMapping(value="/cartListDelete", method=RequestMethod.POST, consumes="application/json")	 

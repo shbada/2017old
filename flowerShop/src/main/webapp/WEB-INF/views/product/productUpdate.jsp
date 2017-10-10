@@ -34,7 +34,7 @@ $(document).ready(function(){
     });
     
     $("#listBtn").click(function(){
-        location.href = "/productList.do";
+        location.href = "/productList";
     });
 });
 </script>
@@ -69,8 +69,8 @@ $(document).ready(function(){
 					<textarea class="form-control freeTextarea" maxlength="2000" name="product_desc" id="product_desc">${ProductVo.product_desc}</textarea><br />
 				<hr>
 				<button type="button" class="btn btn-lg btn-warning btn-block" id="editBtn">저장</button>
-				<button type="button" class="btn btn-lg btn-primary btn-block" id="listBtn">목록</button>
 				<button type="button" class="btn btn-lg btn-danger btn-block" id="deleteBtn">삭제</button>
+				<button type="button" class="btn btn-lg btn-primary btn-block" id="listBtn">목록</button>
 		</form>
 		</div>
 	</div>

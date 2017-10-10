@@ -3,6 +3,7 @@ package com.flowershop.product.service;
 import java.util.Map;
 
 import com.flowershop.product.domain.ProductVo;
+import com.flowershop.product.domain.SaleVo;
 
 public interface ProductService {
 
@@ -29,5 +30,15 @@ public interface ProductService {
 	ProductVo LikeUpSelect(ProductVo productVo);
 	
 	void likeUpSave(ProductVo productVo);
+
+	void saleWriteSave(SaleVo saleVo);
+
+	void updateSaleYn(SaleVo saleVo);
+
+	Map<String, Object> productSaleList(ProductVo productVo);
+
+	void productSaleDelete(int product_no);
+
+	void saleDelete(int product_no);
 
 }

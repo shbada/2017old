@@ -75,14 +75,19 @@
 											class="fa fa-user"></i> 회원가입</a></li>
 									<li><a href="${pageContext.request.contextPath }/login"><i
 											class="fa fa-user"></i> 로그인</a></li>
-									<li><a href="${pageContext.request.contextPath }/admin"><i
-											class="fa fa-user"></i>관리자 로그인</a></li>
+<%-- 									<li><a href="${pageContext.request.contextPath }/admin"><i
+											class="fa fa-user"></i>관리자 로그인</a></li> --%>
 								</c:when>
-								<c:when test="${not empty user}">
+								<c:when test="${not empty user && user.isadmin != 'ROLE_ADMIN'}">
 									<li><a href="#"><i class="fa fa-user"></i> 주문내역</a></li>
 									<li><a href="#"><i class="fa fa-heart"></i> 관심상품</a></li>
 									<li><a href="${pageContext.request.contextPath }/cartList"><i class="fa fa-user"></i> 장바구니</a></li>
 									<li><a href="checkout.html"><i class="fa fa-user"></i> 1:1문의하기</a></li>
+								</c:when>
+								<c:when test="${not empty user && user.isadmin == 'ROLE_ADMIN'}">
+									<li><a href="#"><i class="fa fa-user"></i> 전체 회원 목록</a></li>
+									<li><a href="#"><i class="fa fa-heart"></i> 구매 관리</a></li>
+									<li><a href="#"><i class="fa fa-user"></i>1:1 문의목록</a></li>
 								</c:when>
 							</c:choose>
 						</ul>

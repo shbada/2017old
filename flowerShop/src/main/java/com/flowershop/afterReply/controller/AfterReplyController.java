@@ -68,6 +68,7 @@ public class AfterReplyController {
 			UserVo userVo = (UserVo)session.getAttribute("authUser");
 			String user_id = userVo.getUser_id();
 			
+			model.addAttribute("userVo", userVo);
 			model.addAttribute("sessionUser_id", user_id);
     	}
 		

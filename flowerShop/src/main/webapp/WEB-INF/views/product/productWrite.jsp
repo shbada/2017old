@@ -6,8 +6,8 @@ $(document).ready(function(){
     $("#addBtn").click(function(){
         var product_name = $("#product_name").val(); 
         var product_price = $("#product_price").val(); 
-        var product_desc = $("#product_photo").val(); 
-        var product_photo = $("#productPhoto").val();
+        var product_desc = $("#product_desc").val(); 
+        var product_photo = $("#product_photo").val();
 
         if(product_name == "") {
             alert("상품명을 입력해주세요");

@@ -58,7 +58,9 @@ function saleDelete(idx){
         <div class="container">
             <div class="row">
 			<!-- ************************ -->
-				<button type="button" id="btnAdd" class="btn btn-sm btn-primary">상품등록</button>
+				<c:if test="${userVo.isadmin == 'ROLE_ADMIN'}">
+					<button type="button" id="btnAdd" class="btn btn-sm btn-primary">상품등록</button>
+				</c:if>
 				<p class="pull-right"><a href="/viewLowPrice" class="afindFont">낮은가격</a> / <a href="/viewHighPrice" class="afindFont">높은가격</a> / <a href="/viewName.do" class="afindFont">상품명</a> / <a href="/productList.do" class="afindFont">신상품</a></p>
 					<br /><br /><br /> <br />
 				<form name="viewTable" onsubmit="return flase;">
@@ -79,8 +81,10 @@ function saleDelete(idx){
 		                        <div class="product-carousel-price">
 		                            <ins>${row.sale_price}원</ins> <del>${row.product_price}원</del>
 		                        </div> <br />
-		                        <a href="#" class="add_to_cart_button" onclick="javacscript:listUpdate('${row.product_no }');">[상품편집]</a>                    
-		                        <a href="#" class="add_to_cart_button" onclick="javacscript:saleDelete('${row.product_no }');">[세일삭제]</a>                    
+		                        <c:if test="${userVo.isadmin == 'ROLE_ADMIN'}">
+			                        <a href="#" class="add_to_cart_button" onclick="javacscript:listUpdate('${row.product_no }');">[상품편집]</a>                    
+			                        <a href="#" class="add_to_cart_button" onclick="javacscript:saleDelete('${row.product_no }');">[세일삭제]</a>                    
+		                   		</c:if>
 		                    </div>
 		                </div>
 		            </c:forEach>

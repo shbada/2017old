@@ -36,7 +36,7 @@ public class ProductController {
 	private CartService cartService;
 	
 	@RequestMapping(value="/productList", method={RequestMethod.GET, RequestMethod.POST})
-	public String ProductList(@ModelAttribute("ProductVo") ProductVo productVo, Model model){
+	public String ProductList(@ModelAttribute("ProductVo") ProductVo productVo, Model model, HttpSession session){
 		
 		Map<String, Object> map = productService.productList(productVo); 
 		
@@ -44,7 +44,9 @@ public class ProductController {
                 + ".metadata\\.plugins\\org.eclipse.wst.server.core\\"
                 + "tmp0\\wtpwebapps\\flowerShop\\images\\";*/
 		
-		/** 페이징 처리 */
+		UserVo userVo = (UserVo)session.getAttribute("authUser");
+		model.addAttribute("userVo", userVo);
+		
 		model.addAttribute("pageVO", productVo);
 		
 		model.addAttribute("list", map.get("list")); 
@@ -243,10 +245,13 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value="/productSaleList", method={RequestMethod.GET, RequestMethod.POST})
-	public String ProductSaleList(@ModelAttribute("ProductVo") ProductVo productVo, Model model){
+	public String ProductSaleList(@ModelAttribute("ProductVo") ProductVo productVo, Model model, HttpSession session){
 		
 		Map<String, Object> map = productService.productSaleList(productVo); 
 		model.addAttribute("list", map.get("list")); 
+		
+		UserVo userVo = (UserVo)session.getAttribute("authUser");
+		model.addAttribute("userVo", userVo);
 		
 		return "/product/sale/productSaleList";
 	}

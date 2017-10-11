@@ -60,6 +60,11 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
+<script>
+function MessageList(){ 
+	alert(1);
+}
+</script>
 <body>
 
 	<div class="header-area">
@@ -120,7 +125,7 @@
 										<li><a href="#">????</a></li>
 									</ul>
 								</li>
-	
+								<li><a href="#" class="add_to_cart_button" onclick="javacscript:MessageList();">[쪽지함]</a></li>                   
 								<li><a href="${pageContext.request.contextPath }/logout">로그아웃</a></li>
 							</ul>
 						</div>

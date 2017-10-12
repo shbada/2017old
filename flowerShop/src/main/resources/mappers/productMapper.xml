@@ -152,7 +152,8 @@
 			A.product_url,
 			B.sale_price
        FROM product A, sale B
-             WHERE product_saleyn = 'Y'
+             WHERE A.product_saleyn = 'Y' AND
+                   A.product_no = B.product_no 
                   ORDER BY product_no DESC
     </select>
     

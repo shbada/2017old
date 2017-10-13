@@ -85,7 +85,7 @@
 									<li><a href="checkout.html"><i class="fa fa-user"></i> 1:1문의하기</a></li>
 								</c:when>
 								<c:when test="${not empty user && user.isadmin == 'ROLE_ADMIN'}">
-									<li><a href="#"><i class="fa fa-user"></i> 전체 회원 목록</a></li>
+									<li><a href="${pageContext.request.contextPath }/allMemberList"><i class="fa fa-user"></i> 전체 회원 목록</a></li>
 									<li><a href="#"><i class="fa fa-heart"></i> 구매 관리</a></li>
 									<li><a href="#"><i class="fa fa-user"></i>1:1 문의목록</a></li>
 								</c:when>
@@ -165,8 +165,8 @@
 						<li><a href="checkout.html">Checkout</a></li>
 						<li><a href="#">Category</a></li>
 						<li><a href="/productSaleList">SALE</a></li>
-						<li><a href="list">자유게시판</a></li>
-						<li><a href="#">고객센터</a></li>
+						<li><a href="list">자유게시판</a></li>											
+						<li><a href="${pageContext.request.contextPath }/customerCenter">고객센터</a></li>
 					</ul>
 				</div>
 			</div>

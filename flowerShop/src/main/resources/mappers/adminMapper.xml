@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="admin">
+	<select id="allMemberList" resultType="com.flowershop.login.domain.UserVo">
+		SELECT 		
+			user_no,	
+			user_id,			
+			user_name,
+			user_email,
+			user_phone,
+			user_addr1,
+			user_addr2,
+			user_addr3,
+			user_addr4,
+			user_grade,
+			user_regdate,						
+			user_point,			
+			isadmin
+		FROM USERS
+		ORDER BY USER_NO asc
+	</select>
+</mapper>

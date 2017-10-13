@@ -62,7 +62,7 @@
 </head>
 <script>
 function MessageList(){ 
-	alert(1);
+	window.open("/messageList","쪽지함","width=650, height=600, top:100, left:100");
 }
 </script>
 <body>
@@ -125,7 +125,6 @@ function MessageList(){
 										<li><a href="#">????</a></li>
 									</ul>
 								</li>
-								<li><a href="#" class="add_to_cart_button" onclick="javacscript:MessageList();">[쪽지함]</a></li>                   
 								<li><a href="${pageContext.request.contextPath }/logout">로그아웃</a></li>
 							</ul>
 						</div>
@@ -146,6 +145,14 @@ function MessageList(){
 						</h1>
 					</div>
 				</div>
+				
+				<div class="col-sm-6">
+                    <div class="shopping-item">
+                        <a href="#" onclick="javacscript:MessageList();">Message　　 
+                        	<span class="product-count">${messageCount }</span>
+                        </a>
+                    </div>
+                </div>
 			</div>
 		</div>
 	</div>

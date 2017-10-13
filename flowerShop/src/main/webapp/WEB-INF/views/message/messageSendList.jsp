@@ -4,8 +4,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/jquery-2.1.1.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/jquery.validate.js"></script>
 <script type="text/javascript">
-function messageSendWrite(idx){ 
-	document.form1.msg_send.value = idx;
+function messageSendWrite(){ 
 	document.form1.method="POST";   		
 	document.form1.action="<c:url value='/messageSendWrite' />";   		
 	document.form1.submit();
@@ -27,7 +26,7 @@ function MessageDel() {
 		if (confirm("정말 삭제하시겠습니까??") == true){    
 			 $.ajax({					
 					type:"POST",
-					url:"/messageGetListDel", 
+					url:"/messageSendListDel", 
 					dataType:"JSON",
 					data : JSON.stringify(chkedVal),
 					contentType: "application/json; charset=UTF-8",
@@ -44,7 +43,7 @@ function MessageDel() {
 }
 
 $(document).ready(function(){
-		
+	
 	//최상단 체크박스 클릭
     $("#checkall").click(function(){
         //클릭되었으면
@@ -62,8 +61,8 @@ $(document).ready(function(){
         location.href="/messageWrite";
     });
     
-    $("#messageSendList").click(function(){
-        location.href="/messageSendList";
+    $("#messageList").click(function(){
+        location.href="/messageList";
     });
 });
 
@@ -71,7 +70,7 @@ function MessageDelete(idx){
 	if(confirm("보낸 쪽지를 삭제하시겠습니까?")){
 		document.form1.msg_no.value = idx;
 		document.form1.method="POST";   		
-		document.form1.action="<c:url value='/messageGetDelete' />";   		
+		document.form1.action="<c:url value='/messageSendDelete' />";   		
 		document.form1.submit();
 	}
 }
@@ -79,7 +78,7 @@ function MessageDelete(idx){
 function MessageDetail(idx){ 
 	document.form1.msg_no.value = idx;
 	document.form1.method="POST";   		
-	document.form1.action="<c:url value='/messageDetail' />";   		
+	document.form1.action="<c:url value='/messageSendDetail' />";   		
 	document.form1.submit();
 }
 </script>
@@ -89,7 +88,7 @@ function MessageDetail(idx){
 		<div class="row">
 			<div class="col-md-12">
 				<div class="product-bit-title text-center">
-					<h2>받은 쪽지함</h2>
+					<h2>보낸 쪽지함</h2>
 				</div>
 			</div>
 		</div>
@@ -102,18 +101,16 @@ function MessageDetail(idx){
 			<!-- ************************ -->
 			<form name="form1" method="post">
 				<input type="hidden" name="msg_no" value="1">
-				<input type="hidden" name="msg_send" value="1">
 	                <table cellspacing="0" class="shop_table cart">
 	                    <thead>
 	                        <tr>
 	                        	<th style="text-align: center;">
 									<input type="checkbox" id="checkall" name="checkall" />
 								</th>
-	                            <th class="product-remove">보낸이</th>
+	                            <th class="product-remove">받는이</th>
 	                            <th class="product-thumbnail">제목</th>
-	                            <th class="product-thumbnail">시간</th>
-	                            <th class="product-quantity">답장</th>
 	                            <th class="product-quantity">삭제</th>
+	                            <th class="product-quantity">읽음여부</th>
 	                        </tr>
 	                    </thead>
 	                    <tbody>
@@ -123,30 +120,25 @@ function MessageDetail(idx){
 									<input type="checkbox" name="chk" value="${row.msg_no }">
 								</td>
 	                             <td class="product-thumbnail">
-	                                 ${row.msg_send }
+	                                 ${row.msg_get }
 	                             </td>
-	                             
 	                             <td class="product-thumbnail">
 	                             	 <a href="#" class="link" onclick="javacscript:MessageDetail('${row.msg_no }');">
-	                             	 <c:if test="${row.msg_readyn == 'N'}">
-	                                 	<sapn style="color:red;">[NEW]</sapn>
-	                                 </c:if>
 	                                 ${row.msg_name }
 	                                 </a>
 	                             </td>
 	                             <td class="product-thumbnail">
-	                                 ${row.msg_regdate }
-	                             </td>
-	                             
-	                             <td class="product-thumbnail">
-	                             	 <a href="#" class="link"  onclick="javacscript:messageSendWrite('${row.msg_send }');">
-	                                 <button type="button" class="btn btn-default btn-s-xs btnList" id="messageSendWrite">답장보내기 </button>&nbsp;
-	                            	 </a>
-	                             </td>
-	                             <td class="product-thumbnail">
-	                             	 <a href="#" class="link" onclick="javacscript:MessageDelete('${row.msg_no }');">
+	                                 <a href="#" class="link" onclick="javacscript:MessageDelete('${row.msg_no }');">
 	                                 	<button type="button" class="btn btn-default btn-s-xs btnList" id="deleteBtn">삭제 </button>&nbsp;
 	                                 </a>
+	                             </td>
+	                             <td class="product-thumbnail">
+	                             	 <c:if test="${row.msg_readyn == 'N'}">
+	                                 	읽지않음
+	                                 </c:if>
+	                                 <c:if test="${row.msg_readyn == 'Y'}">
+	                                 	읽음
+	                                 </c:if>
 	                             </td>
 	                         </tr>
 	                        </c:forEach>
@@ -156,7 +148,7 @@ function MessageDetail(idx){
 	         <hr />
 				<button type="button" class="btn btn-danger btn-s-xs btnList" id="cartDelete" onclick="MessageDel();">선택삭제 </button>&nbsp;
 				<button type="button" class="btn btn-primary btn-s-xs btnList" id="messageWrite">쪽지 작성하기 </button>
-				<button type="button" class="btn btn-warning btn-s-xs btnList" id="messageSendList">보낸쪽지함 </button>
+				<button type="button" class="btn btn-warning btn-s-xs btnList" id="messageList">받은쪽지함 </button>
 		</div>
 	</div>
 </div>

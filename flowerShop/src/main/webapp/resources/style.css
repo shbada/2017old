@@ -113,14 +113,14 @@ z-index: 999;}
     border-radius: 50%;
     color: #fff;
     display: inline-block;
-    font-size: 10px;
-    height: 20px;
-    padding-top: 2px;
+    font-size: 20px;
+    height: 40px;
+    padding-top: 6px;
     position: absolute;
     right: -10px;
     text-align: center;
     top: -10px;
-    width: 20px;
+    width: 40px;
 }
 .shopping-item i.fa {
     margin-left: 15px;

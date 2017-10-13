@@ -65,7 +65,7 @@
 	<input type="button" value="새로쓰기" onclick="setting(1, 0, '저장', '')"/>
 <!-- 댓글 리스트 -->
 	<c:if test="${commentList.size() == 0}">
-		<div width="90%" style="border:1px solid gray;">
+		<div width="90%" style="border:1px solid gray; text-align: center;">
 			등록된 댓글이 없습니다.
 		</div>
 	</c:if>
@@ -74,7 +74,7 @@
 		<c:forEach var="co" items="${commentList}">
 			<div width="95%" style="border:1px solid;">
 				<div width="90%">
-				<c:if test="${co.comment_scryn == 0}">	
+				<c:if test="${co.comment_scryn == 0 || (userVo.user_id == co.user_id || userVo.user_id == vo.user_id)}">	
 					ID: ${co.user_id} (${co.comment_regdate})
 				</c:if>
 				<c:if test="${co.comment_scryn == -1 && userVo.user_id != co.user_id && userVo.user_id != vo.user_id}">	
@@ -85,8 +85,11 @@
 				<c:set var="content" value="${fn:replace(comment_content, '<', '&lt;')}"/>
 				<c:set var="rn" value="${rn}"/>
 				<c:set var="content" value="${fn:replace(comment_content, rn, '<br/>')}"/>
+				
+				<c:if test="${userVo.user_id == co.user_id || userVo.user_id == vo.user_id}">
 				<input type="button" value="수정" onclick="setting(2, '${co.board_no}', '수정', '${comment_content}')"/>
 				<input type="button" value="삭제" onclick="setting(3, '${co.board_no}', '삭제', '${comment_content}')"/>
+				</c:if>
 				</div>
 			${co.comment_content}
 			</div>

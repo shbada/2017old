@@ -60,6 +60,11 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
+<script>
+function MessageList(){ 
+	window.open("/messageList","쪽지함","width=650, height=600, top:100, left:100");
+}
+</script>
 <body>
 
 	<div class="header-area">
@@ -120,7 +125,6 @@
 										<li><a href="#">????</a></li>
 									</ul>
 								</li>
-	
 								<li><a href="${pageContext.request.contextPath }/logout">로그아웃</a></li>
 							</ul>
 						</div>
@@ -141,6 +145,14 @@
 						</h1>
 					</div>
 				</div>
+				
+				<div class="col-sm-6">
+                    <div class="shopping-item">
+                        <a href="#" onclick="javacscript:MessageList();">Message　　 
+                        	<span class="product-count">${messageCount }</span>
+                        </a>
+                    </div>
+                </div>
 			</div>
 		</div>
 	</div>

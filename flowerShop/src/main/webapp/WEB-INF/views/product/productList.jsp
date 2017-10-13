@@ -69,7 +69,7 @@ function saleWrite(idx){
 		                    <div class="single-shop-product">
 		                        <div class="product-upper">
 		                            <a href="#" class="link" onclick="javacscript:listDetail('${row.product_no }');">
-										<img src="<c:url value="${path}/img/${row.product_url}" />" width="430px" height="550px">
+										<img src="<c:url value="${path}${row.product_url}" />" width="430px" height="550px">
 									</a>
 		                        </div> <br />
 		                        	<h2>

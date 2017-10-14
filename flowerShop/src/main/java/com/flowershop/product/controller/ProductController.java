@@ -39,13 +39,14 @@ public class ProductController {
 	public String ProductList(@ModelAttribute("ProductVo") ProductVo productVo, Model model, HttpSession session){
 		
 		Map<String, Object> map = productService.productList(productVo); 
-		
+		 String path = "C:\\Users\\prostats\\workspace\\upload\\";
 /*		String path = "C:\\project\\ganadamart\\"
                 + ".metadata\\.plugins\\org.eclipse.wst.server.core\\"
                 + "tmp0\\wtpwebapps\\flowerShop\\images\\";*/
 		
 		UserVo userVo = (UserVo)session.getAttribute("authUser");
 		model.addAttribute("userVo", userVo);
+		model.addAttribute("path", path);
 		
 		model.addAttribute("pageVO", productVo);
 		
@@ -74,9 +75,7 @@ public class ProductController {
             //String path = "C:\\Users\\doubles\\Desktop\\workspace\\gitSpring\\"
             //                + "spring02\\src\\main\\webapp\\WEB-INF\\views\\images";
             // 배포디렉토리 - 파일 업로드 경로
-            String path = "C:\\project\\flowerShopProject\\"
-                    + ".metadata\\.plugins\\org.eclipse.wst.server.core\\"
-                    + "tmp0\\wtpwebapps\\flowerShop\\resources\\img\\";
+            String path = "C:\\Users\\prostats\\workspace\\upload\\";
 
             try {
                 new File(path).mkdirs(); // 디렉토리 생성

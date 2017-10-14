@@ -25,7 +25,13 @@ public class MainController {
 
 	// 이부분 수정해서 넣어봤어요!!
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public String mainPage(@ModelAttribute MessageVo messageVo, HttpSession session, Model model) {
+	public String mainPage() {
+		
+		return "main/main";
+	}
+	
+	@RequestMapping(value = "/top", method={RequestMethod.GET, RequestMethod.POST})
+	public String mainTopPage(@ModelAttribute MessageVo messageVo, HttpSession session, Model model) {
 		
 		UserVo userVo = (UserVo)session.getAttribute("authUser");
 		String user_id = userVo.getUser_id();
@@ -34,6 +40,6 @@ public class MainController {
 		System.out.println(messageCount);
 		
 		model.addAttribute("messageCount", messageCount);
-		return "main/main";
+		return "main/top";
 	}
 }

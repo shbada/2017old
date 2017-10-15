@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="admin">
+	<!-- 전체 회원 목록 -->
+	<select id="allMemberList" resultType="com.flowershop.login.domain.UserVo">
+		SELECT 		
+			user_no,	
+			user_id,			
+			user_name,
+			user_email,
+			user_phone,
+			user_addr1,
+			user_addr2,
+			user_addr3,
+			user_addr4,
+			user_grade,
+			user_regdate,						
+			user_point,			
+			isadmin
+		FROM USERS
+		ORDER BY USER_NO asc
+	</select>
+	
+	<!-- 1:1문의 전체 목록 조회 -->
+	<select id="one_to_oneAll" resultType="com.flowershop.admin.domain.RequestVo">
+		SELECT
+			request_no,
+			user_id,
+			request_title,
+			request_content
+		FROM REQUEST
+		ORDER BY request_no asc			
+	</select>
+	
+	<!-- 1:1문의 작성 -->
+	<insert id="requestCreate">
+		INSERT INTO REQUEST (
+			request_no,			
+			user_id,
+			request_title,
+			request_content
+		) VALUES (
+			(SELECT NVL(MAX(request_no)+1, 1)FROM REQUEST),		
+			#{user_id},	
+			#{request_title},
+			#{request_content}			
+		)
+	</insert>
+	
+	<!-- 1:1문의글 상세보기 조회 -->
+	<select id="requestRead" resultType="com.flowershop.admin.domain.RequestVo">
+		SELECT * FROM REQUEST
+		WHERE request_no = #{request_no}
+	</select>
+	
+	<!-- 1:1문의 수정 -->
+	<update id="requestUpdate">
+		UPDATE REQUEST SET
+			user_id = #{user_id},
+			request_title = #{request_title},
+			request_content = #{request_content}			
+		WHERE request_no = #{request_no}			
+	</update>
+	
+	<!-- 1:1문의 삭제 -->
+	<delete id="requestDelete">
+		DELETE FROM REQUEST
+		WHERE request_no = #{request_no}
+	</delete>
+</mapper>

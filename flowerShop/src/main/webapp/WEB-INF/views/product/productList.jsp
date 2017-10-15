@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/include/header.jsp" %>
+<jsp:include page="${pageContext.request.contextPath }/top" />
 <%@ page session="true"%>
 <script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/jquery-2.1.1.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/jquery.validate.js"></script>
@@ -69,7 +70,7 @@ function saleWrite(idx){
 		                    <div class="single-shop-product">
 		                        <div class="product-upper">
 		                            <a href="#" class="link" onclick="javacscript:listDetail('${row.product_no }');">
-										<img src="<c:url value="${path}/img/${row.product_url}" />" width="430px" height="550px">
+										<img src="<c:url value="${path}${row.product_url}" />" width="430px" height="550px">
 									</a>
 		                        </div> <br />
 		                        	<h2>

@@ -1,8 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page session="true"%>
 <%@ include file="/WEB-INF/include/header.jsp" %>
+<jsp:include page="${pageContext.request.contextPath }/top" />
 <div class="slider-area">
         <div class="zigzag-bottom"></div>
         <div id="slide-list" class="carousel carousel-fade slide" data-ride="carousel">

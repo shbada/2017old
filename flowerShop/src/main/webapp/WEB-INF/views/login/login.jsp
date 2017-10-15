@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/include/header.jsp" %>
+<jsp:include page="${pageContext.request.contextPath }/top" />
 <%@ page session="true"%>
 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>

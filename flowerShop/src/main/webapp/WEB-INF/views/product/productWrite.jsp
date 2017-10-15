@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/include/header.jsp" %>
+<jsp:include page="${pageContext.request.contextPath }/top" />
 <%@ page session="true"%>
 <script>
 $(document).ready(function(){

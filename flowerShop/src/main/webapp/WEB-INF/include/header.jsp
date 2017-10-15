@@ -92,7 +92,7 @@ function MessageList(){
 								<c:when test="${not empty user && user.isadmin == 'ROLE_ADMIN'}">
 									<li><a href="${pageContext.request.contextPath }/allMemberList"><i class="fa fa-user"></i> 전체 회원 목록</a></li>
 									<li><a href="#"><i class="fa fa-heart"></i> 구매 관리</a></li>
-									<li><a href="#"><i class="fa fa-user"></i>1:1 문의목록</a></li>
+									<li><a href="${pageContext.request.contextPath }/one_to_one"><i class="fa fa-user"></i>1:1 문의목록</a></li>
 								</c:when>
 							</c:choose>
 						</ul>
@@ -148,9 +148,13 @@ function MessageList(){
 				
 				<div class="col-sm-6">
                     <div class="shopping-item">
+                    
+                    	<!-- 로그인 안했으면 로그인 필요하다는 경고창 띄우고 다시 이전화면 돌아간다 -->
                         <a href="#" onclick="javacscript:MessageList();">Message　　 
                         	<span class="product-count">${messageCount }</span>
                         </a>
+                        
+                        
                     </div>
                 </div>
 			</div>

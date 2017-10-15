@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-     <%@ include file="/WEB-INF/include/header.jsp" %>
+     <%@ include file="/WEB-INF/include/header.jsp" %>     
+     <jsp:include page="${pageContext.request.contextPath }/top" />
+     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+     <%@ page session="true"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +21,11 @@
 			var title = $("#request_title").val();
 			var content = $("#request_content").val();
 			var id = $("#user_id").val();
+			if(id == "") {
+				alert("로그인이 필요합니다.");
+				location.href="/login";
+				return;
+			}
 			if(title == "") {
 				alert("제목을 입력하세요.");
 				document.form1.request_title.focus();
@@ -38,36 +46,55 @@
 	});
 </script> 
 </head>
-<body>+
-<div align="center">
-	<h2>문의글 작성</h2>
+<body>
+<div class="container">	
+	<div class="product-big-title-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="product-bit-title text-center">
+						<h2>1:1 문 의</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<form name="form1" id="form1" method="post" action="/requestCreate">
-		<div>
-			분류
-			<select name="request_Kind">
-				<option value="1">구매관련</option>
-				<option value="2">가입관련</option>
-				<option value="3">기타문의</option>
-			</select>
-		</div>
-		<div>			
-			제목
-			<input type="text" name="request_title" id="request_title" size="78" placeholder="제목을 입력해주세요.">			
-		</div>
-		<div>
-			내용
-			<textarea rows="4" cols="80" name="request_content" id="request_content" placeholder="내용을 입력해주세요."></textarea>
-		</div>
-		<div>
-			아이디
-			<input type="text" name="user_id" id="user_id" placeholder="아이디를 입력해주세요.">
-		</div>
-		<br>
-		<div style="width:650px; text-align: center;">
-        	<button type="button" id="btnSave">확인</button>
-        	<button type="reset">취소</button>
-    	</div>
-    	<br>
+		<table class="table table-bordered">			
+			<tr>
+				<td>분류</td>
+				<td>
+					<select name="request_Kind">
+						<option value="1">구매관련</option>
+						<option value="2">가입관련</option>
+						<option value="3">기타문의</option>
+					</select>
+				</td>				
+			</tr>
+			<tr>
+				<td>제목</td>
+				<td>
+					<input type="text" name="request_title" id="request_title" size="78" class="form-control" placeholder="제목을 입력해주세요.">
+				</td>				
+			</tr>
+			<tr>
+				<td>내용</td>
+				<td>
+					<textarea rows="4" cols="80" name="request_content" id="request_content" class="form-control" placeholder="내용을 입력해주세요."></textarea>
+				</td>				
+			</tr>
+			<tr>
+				<td>아이디</td>
+				<td>
+					<input type="text" name="user_id" id="user_id" class="form-control" placeholder="아이디를 입력해주세요.">
+				</td>				
+			</tr>
+		</table>	
+		<div align="center">			
+			<!-- 로그인 해야지 작성가능 -->			
+			<input type="button" id="btnSave" class="btn btn-primary" value="확인">								
+        	<input type="reset" value="취소" class="btn btn-warning">
+		</div>													        	        
 	</form>
 </div>		
 </body>

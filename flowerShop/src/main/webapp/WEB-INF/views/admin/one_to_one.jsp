@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ include file="/WEB-INF/include/header.jsp" %>
+    <jsp:include page="${pageContext.request.contextPath }/top" />    
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
@@ -14,9 +15,19 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div align="center">
-	<h2>1:1 문의사항</h2>
-	<table border="1" width="1000px">
+<div class="container">
+	<div class="product-big-title-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="product-bit-title text-center">
+						<h2>1:1 문의목록</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<table border="1" class="table table-striped">
 		<tr>
 			<th>번호</th>			
 			<th>제목</th>

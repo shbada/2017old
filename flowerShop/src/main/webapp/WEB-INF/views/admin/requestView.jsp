@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ include file="/WEB-INF/include/header.jsp" %>
+    <jsp:include page="${pageContext.request.contextPath }/top" />
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
@@ -40,29 +41,48 @@
 </script> 
 </head>
 <body>
-<div align="center">
-	<h2>1:1문의 내용</h2>
+<div class="container">
+	<div class="product-big-title-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="product-bit-title text-center">
+						<h2>1:1 문의내용</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<form name="form1" method="post">
-		<div>
-			작성일자: <fmt:formatDate value="${dto.regdate }" pattern="yyyy-MM-dd a HH:mm:ss"/>
-		</div>
-		<div>
-			제목
-			<input type="text" name="request_title" id="request_title" size="78" value="${dto.request_title }" placeholder="제목을 입력해주세요.">
-		</div>
-		<div>
-			내용
-			<textarea rows="4" cols="80" name="request_content" id="request_content" placeholder="내용을 입력해주세요.">${dto.request_content }</textarea>
-		</div>
-		<div>
-			아이디
-			<input type="text" name="user_id" id="user_id" value="${dto.user_id }" placeholder="아이디를 입력해주세요.">
-		</div>
-		<div style="width:650px; text-align:center;">	
+		<table class="table table-bordered">
+			<tr>
+				<td>작성일자</td>
+				<td><fmt:formatDate value="${dto.regdate }" pattern="yyyy-MM-dd a HH:mm:ss"/></td>
+			</tr>	
+			<tr>
+				<td>제목</td>
+				<td>
+					<input type="text" name="request_title" id="request_title" size="78" value="${dto.request_title }" placeholder="제목을 입력해주세요.">
+				</td>
+			</tr>
+			<tr>
+				<td>내용</td>
+				<td>
+					<textarea rows="4" cols="80" name="request_content" id="request_content" placeholder="내용을 입력해주세요.">${dto.request_content }</textarea>
+				</td>
+			</tr>
+			<tr>
+				<td>아이디</td>
+				<td>
+					<input type="text" name="user_id" id="user_id" value="${dto.user_id }" placeholder="아이디를 입력해주세요.">
+				</td>
+			</tr>
+		</table>									
+		<div align="center">
 			<input type="hidden" name="request_no" value="${dto.request_no }">		
-			<button type="button" id="btnUpdate">수정</button>
-			<button type="button" id="btnDelete">삭제</button>
-		</div>
+			<input type="button" id="btnUpdate" class="btn btn-primary" value="수정">	
+			<input type="button" id="btnDelete" class="btn btn-warning" value="삭제">
+		</div>						
 	</form>
 </div>	
 </body>

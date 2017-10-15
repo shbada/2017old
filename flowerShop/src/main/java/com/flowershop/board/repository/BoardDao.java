@@ -21,7 +21,7 @@ public interface BoardDao {
 
 	void replyInsert(BoardVo vo)throws Exception;
 
-	void update(BoardVo vo)throws Exception;
+	void updateContent(BoardVo vo)throws Exception;
 
 	void deleteContent(Map map)throws Exception;
 
@@ -32,5 +32,7 @@ public interface BoardDao {
 	int getReply_count(int board_no)throws Exception;
 
 	void fixContent(Map<String, String> map)throws Exception;
+
+	void incrementCommentCount(int board_no)throws Exception;
 
 }

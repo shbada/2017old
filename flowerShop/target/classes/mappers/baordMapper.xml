@@ -50,7 +50,7 @@
 		select count(*) from board where board_before_ref = #{board_no}
 	</select>
 
-	<update id="update" parameterType="boardVO">
+	<update id="updateContent" parameterType="boardVO">
 		update board set board_title = #{board_title}, board_content = #{board_content}, board_modidate = to_char(sysdate, 'YYYY-MM-DD HH:MI') where board_no = #{board_no}
 	</update>
 	
@@ -74,6 +74,9 @@
 		select board_reply_count from board where board_no = #{board_no}
 	</select>
 		
+	<update id="incrementCommentCount" parameterType="int">
+		update board set commentcount = commentcount + 1 where board_no = #{board_no}
+	</update>
 		
 		
 </mapper>

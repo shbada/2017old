@@ -86,6 +86,7 @@ public class BoardController {
 	public String view(HttpServletRequest request, Model model, HttpSession session)throws Exception {
 		int board_no = Integer.parseInt(request.getParameter("board_no"));
 		int pageNo = Integer.parseInt(request.getParameter("pageNo"));
+		System.out.println("board_no : "+board_no);
 		model.addAttribute("vo", boardService.selectContent(board_no));
 		ArrayList<CommentVo> commentList = commentService.selectComentList(board_no);
 		UserVo userVo = (UserVo) session.getAttribute("authUser");
@@ -126,7 +127,7 @@ public class BoardController {
 	@RequestMapping("/updateOK") // 게시글 한 건을 수정한다.
 	public String updateOK(BoardVo vo,HttpServletRequest request, Model model)throws Exception {
 		int pageNo = Integer.parseInt(request.getParameter("pageNo"));
-		boardService.update(vo);
+		boardService.updateContent(vo);
 		model.addAttribute("board_no", vo.getBoard_no());
 		model.addAttribute("pageNo", pageNo);
 		return "redirect:content_view"; // 메시지를 alert 할 수 있는 jsp파일로 이동한다.

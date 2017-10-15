@@ -11,6 +11,8 @@ public interface CommentService {
 	void updateComment(CommentVo vo)throws Exception;
 
 	ArrayList<CommentVo> selectComentList(int board_no)throws Exception;
+
+	void incrementCommentCount(int board_no)throws Exception;
 	
 	
 

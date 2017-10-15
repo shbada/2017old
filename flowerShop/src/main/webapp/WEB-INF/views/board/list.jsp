@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/include/header.jsp" %>
+<jsp:include page="${pageContext.request.contextPath }/top" />
 <link rel="stylesheet" type="text/css" href="/resources/css/board.css">
 <!-- 여기서부터 jsp 소스넣기  -->
 <div class="product-big-title-area">

@@ -16,9 +16,10 @@ public interface BoardService {
 
 	void replyInsert(BoardVo vo)throws Exception;
 
-	void update(BoardVo vo)throws Exception;
+	void updateContent(BoardVo vo)throws Exception;
 
 	void deleteContent(int board_no, UserVo userVo)throws Exception;
 
+	void incrementCommentCount(int board_no)throws Exception;
 
 }

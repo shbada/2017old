@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.flowershop.board.service.BoardService;
 import com.flowershop.comment.domain.CommentVo;
 import com.flowershop.comment.repository.CommentDao;
 import com.flowershop.comment.service.CommentService;
@@ -14,6 +15,9 @@ public class CommentServiceImpl implements CommentService {
 
 	@Autowired
 	CommentDao commentDao;
+	
+	@Autowired
+	BoardService boardService;
 
 	@Override
 	public void insertComment(CommentVo vo) throws Exception {
@@ -28,6 +32,11 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public ArrayList<CommentVo> selectComentList(int board_no) throws Exception {
 		return commentDao.selectComentList(board_no);
+	}
+
+	@Override
+	public void incrementCommentCount(int board_no) throws Exception {
+		boardService.incrementCommentCount(board_no);
 	}
 	
 	

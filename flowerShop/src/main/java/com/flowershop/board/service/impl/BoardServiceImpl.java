@@ -73,8 +73,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public void update(BoardVo vo) throws Exception {
-		boardDao.update(vo);
+	public void updateContent(BoardVo vo) throws Exception {
+		boardDao.updateContent(vo);
 	}
 
 	@Override
@@ -91,6 +91,11 @@ public class BoardServiceImpl implements BoardService {
 			boardDao.fixContent(map);
 		}
 		
+	}
+
+	@Override
+	public void incrementCommentCount(int board_no) throws Exception {
+		boardDao.incrementCommentCount(board_no);
 	}
 	
 }

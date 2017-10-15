@@ -8,7 +8,11 @@ import com.flowershop.buy.service.impl.BuyServiceImpl;
 @Controller
 public class BuyController {
 	
+	
+	
 	@Autowired
 	BuyServiceImpl buyService;
+	
+	
 	
 }

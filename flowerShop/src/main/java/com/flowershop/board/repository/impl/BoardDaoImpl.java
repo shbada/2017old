@@ -53,7 +53,7 @@ public class BoardDaoImpl implements BoardDao{
 	}
 
 	@Override
-	public void update(BoardVo vo) throws Exception {
+	public void updateContent(BoardVo vo) throws Exception {
 		sqlSession.update("board.update", vo);
 	}
 
@@ -80,6 +80,11 @@ public class BoardDaoImpl implements BoardDao{
 	@Override
 	public void fixContent(Map<String, String> map) throws Exception {
 		sqlSession.update("board.fixContent", map);
+	}
+
+	@Override
+	public void incrementCommentCount(int board_no) throws Exception {
+		sqlSession.update("board.incrementCommentCount", board_no);
 	}
 
 }

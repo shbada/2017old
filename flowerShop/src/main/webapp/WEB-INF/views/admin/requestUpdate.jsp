@@ -15,48 +15,18 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/jquery-2.1.1.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/jquery.validate.js"></script>
-<script type="text/javascript">		
-
-	$("#btnUpdate").click(function() {
-		var title = $("#request_title").val();
-		var content = $("#request_content").val();
-		var id = $("#user_id").val();
-		if(title == "") {
-			alert("제목을 입력하세요");
-			document.form1.request_title.focus();
-			return;
-		}
-		if(content == "") {
-			alert("내용을 입력하세요");
-			document.form1.request_content.focus();
-			return;
-		}
-		if(id == "") {
-			alert("아이디를 입력하세요");
-			document.form1.user_id.focus();
-			return;
-		}
-		document.form1.action = "${path}/admin/requestUpdate";
-		document.form1.submit();
-					
-	});
-
+<script type="text/javascript">			
 	$(document).ready(function(){
 		var formObj = $("form[role='form']");
 		console.log(formObj);
 		
-		/* 삭제처리 */
-		$(".btn-danger").on("click", function(){
-			formObj.attr("action", "/requestDelete");
-			formObj.submit();
-		});
-		
-		/* 수정처리  */		
 		$(".btn-warning").on("click", function(){
-			formObj.attr("action", "/requestUpdate");				
+			self.location = "/one_to_one";
+		});
+		$(".btn-primary").on("click", function(){
 			formObj.submit();
 		});
-	});
+	});	
 </script> 
 </head>
 <body>
@@ -66,7 +36,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="product-bit-title text-center">
-						<h2>1:1 문의내용</h2>
+						<h2>1:1 문의수정</h2>
 					</div>
 				</div>
 			</div>
@@ -93,14 +63,14 @@
 			<tr>
 				<td>아이디</td>
 				<td>
-					<input type="text" name="user_id" id="user_id" value="${dto.user_id }" readonly="readonly" placeholder="아이디를 입력해주세요.">
+					<input type="text" name="user_id" id="user_id" value="${dto.user_id }" placeholder="아이디를 입력해주세요." readonly="readonly">
 				</td>
 			</tr>
 		</table>									
 		<div align="center">
-			<input type="hidden" name="request_no" value="${dto.request_no }">		
-			<input type="button" id="btnUpdate" class="btn btn-warning" value="수정">	
-			<input type="button" id="btnDelete" class="btn btn-danger" value="삭제">
+			<input type="hidden" name="request_no" value="${dto.request_no }" readonly="readonly">		
+			<input type="submit" class="btn btn-primary" value="저장">	
+			<input type="submit" class="btn btn-warning" value="취소">
 		</div>						
 	</form>
 </div>	

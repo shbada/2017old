@@ -13,6 +13,12 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"> 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	var result = '${msg}';
+	if(result == 'SUCCESS') {
+		alert("처리가 완료되었습니다.");
+	}
+</script>
 </head>
 <body>
 <div class="container">

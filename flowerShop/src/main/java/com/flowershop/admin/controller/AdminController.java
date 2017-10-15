@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.flowershop.admin.domain.RequestVo;
 import com.flowershop.admin.service.AdminService;
@@ -68,19 +69,28 @@ public class AdminController {
 		mav.setViewName("admin/requestView");
 		mav.addObject("dto", adminService.requestRead(request_no));
 		return mav;
-	}
+	}		
 	
 	//1:1문의 수정
+	@RequestMapping(value = "/requestUpdate", method = RequestMethod.GET)
+	public void requestUpdateGET(int request_no, Model model) throws Exception {
+		model.addAttribute(adminService.requestRead(request_no));
+	}	
 	@RequestMapping(value = "/requestUpdate", method = RequestMethod.POST)
-	public String requestUpdate(@ModelAttribute RequestVo vo) throws Exception {
+	public String requestUpdate(RequestVo vo, RedirectAttributes rttr) throws Exception {
+		
+		logger.info("mod post................");
+		
 		adminService.requestUpdate(vo);
-		return "redirect:admin/one_to_one";
+		rttr.addFlashAttribute("msg", "SUCCESS");		
+		return "redirect:/one_to_one";
 	}
 	
 	//1:1문의 삭제
 	@RequestMapping("/requestDelete")
-	public String requestDelete(@RequestParam int request_no) throws Exception {
+	public String requestDelete(@RequestParam int request_no, RedirectAttributes rttr) throws Exception {
 		adminService.requestDelete(request_no);
+		rttr.addFlashAttribute("msg", "SUCCESS");
 		return "redirect:/one_to_one";
 	}
 	

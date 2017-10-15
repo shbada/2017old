@@ -82,10 +82,10 @@
 				<td>
 					<textarea rows="4" cols="80" name="request_content" id="request_content" class="form-control" placeholder="내용을 입력해주세요."></textarea>
 				</td>				
-			</tr>
+			</tr>					
 			<tr>
 				<td>아이디</td>
-				<td>
+				<td>					
 					<input type="text" name="user_id" id="user_id" class="form-control" placeholder="아이디를 입력해주세요.">
 				</td>				
 			</tr>

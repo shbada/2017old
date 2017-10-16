@@ -32,11 +32,10 @@ public class MainController {
 	
 	@RequestMapping(value = "/top", method={RequestMethod.GET, RequestMethod.POST})
 	public String mainTopPage(@ModelAttribute MessageVo messageVo, HttpSession session, Model model) {
-		
-		if(session.getAttribute("authUer") == null){
+		if(session.getAttribute("authUser") == null){
 			return "main/top";
 		}
-		UserVo userVo = (UserVo)session.getAttribute("authUer");
+		UserVo userVo = (UserVo)session.getAttribute("authUser");
 		String user_id = userVo.getUser_id();
 		
 		int messageCount = messageService.messageNewCount(user_id);

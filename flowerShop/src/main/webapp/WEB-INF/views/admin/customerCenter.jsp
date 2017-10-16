@@ -2,8 +2,9 @@
     pageEncoding="UTF-8"%>
      <%@ include file="/WEB-INF/include/header.jsp" %>     
      <jsp:include page="${pageContext.request.contextPath }/top" />
-     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-     <%@ page session="true"%>
+     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>     
+     <%@ page session="true"%>        
+     
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,12 +21,8 @@
 		$("#btnSave").click(function() {
 			var title = $("#request_title").val();
 			var content = $("#request_content").val();
-			var id = $("#user_id").val();
-			if(id == "") {
-				alert("로그인이 필요합니다.");
-				location.href="/login";
-				return;
-			}
+			var id = $("#user_id").val();						
+			
 			if(title == "") {
 				alert("제목을 입력하세요.");
 				document.form1.request_title.focus();
@@ -65,8 +62,8 @@
 				<td>분류</td>
 				<td>
 					<select name="request_Kind">
-						<option value="1">구매관련</option>
-						<option value="2">가입관련</option>
+						<option value="1">상품문의</option>
+						<option value="2">가입문의</option>
 						<option value="3">기타문의</option>
 					</select>
 				</td>				
@@ -91,7 +88,7 @@
 			</tr>
 		</table>	
 		<div align="center">			
-			<!-- 로그인 해야지 작성가능 -->			
+			<!-- 로그인 해야지 작성가능 -->					
 			<input type="button" id="btnSave" class="btn btn-primary" value="확인">								
         	<input type="reset" value="취소" class="btn btn-warning">
 		</div>													        	        

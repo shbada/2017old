@@ -61,9 +61,9 @@
 			<tr>
 				<td>분류</td>
 				<td>
-					<select name="request_Kind">
+					<select name="request_kind">
 						<option value="1">상품문의</option>
-						<option value="2">가입문의</option>
+						<option value="2">회원문의</option>
 						<option value="3">기타문의</option>
 					</select>
 				</td>				

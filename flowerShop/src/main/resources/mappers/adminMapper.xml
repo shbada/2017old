@@ -28,23 +28,27 @@
 			request_no,
 			user_id,
 			request_title,
-			request_content
+			request_content,
+			regdate,
+			request_kind
 		FROM REQUEST
 		ORDER BY request_no asc			
 	</select>
 	
 	<!-- 1:1문의 작성 -->
 	<insert id="requestCreate">
-		INSERT INTO REQUEST (
+		INSERT INTO REQUEST (			
 			request_no,			
 			user_id,
 			request_title,
-			request_content
-		) VALUES (
+			request_content,
+			request_kind						
+		) VALUES (			
 			(SELECT NVL(MAX(request_no)+1, 1)FROM REQUEST),		
 			#{user_id},	
 			#{request_title},
-			#{request_content}			
+			#{request_content},
+			#{request_kind}						
 		)
 	</insert>
 	

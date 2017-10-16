@@ -49,7 +49,19 @@
 				<td>
 					<fmt:formatDate value="${board.regdate }" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
-				<td>${board.request_kind }</td>
+				<td>
+					<c:choose>
+						<c:when test="${board.request_kind == '1'}">
+							상품문의
+						</c:when>
+						<c:when test="${board.request_kind == '2'}">
+							회원문의
+						</c:when>
+						<c:when test="${board.request_kind == '3'}">
+							기타문의
+						</c:when>						
+					</c:choose>									
+				</td>
 			</tr>
 		</c:forEach>
 	</table>

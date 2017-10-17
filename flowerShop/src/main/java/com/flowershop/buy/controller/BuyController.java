@@ -1,17 +1,57 @@
 package com.flowershop.buy.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.flowershop.buy.service.impl.BuyServiceImpl;
+import com.flowershop.cart.controller.CartController;
+import com.flowershop.cart.domain.CartVo;
+import com.flowershop.cart.service.CartService;
+import com.flowershop.login.domain.UserVo;
 
 @Controller
 public class BuyController {
 	
-	
+	private Log log = LogFactory.getLog(BuyController.class);
 	
 	@Autowired
-	BuyServiceImpl buyService;
+	private BuyServiceImpl buyService;
+	
+	@Autowired
+	private CartService cartService;
+	
+	@RequestMapping("/buyAll")
+	public String  buyAll(HttpServletRequest request, Model model) {
+		
+		String user_id = request.getParameter("user_id"); 
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<CartVo> list = cartService.cartList(user_id);
+		
+		int sumMoney = Integer.parseInt(request.getParameter("somMoney")); 
+		int fee = sumMoney >= 50000 ? 0 : 2500;
+	
+		map.put("list", list);
+		map.put("count", list.size());
+		map.put("sumMoney", sumMoney);
+		map.put("fee", fee);
+		map.put("allSum", sumMoney + fee);
+		map.put("user_id", user_id);
+		
+		
+		model.addAttribute("map", map);
+		return "buy/buyForm";
+	}
 	
 	
 	

@@ -42,6 +42,14 @@ function CountUpdateOk(idx){
    document.form1.submit();
 }
 
+function buyAll(){
+	if (confirm("전체 구매 하시겠습니까?") == true) {
+	   document.form1.method="POST";         
+	   document.form1.action="<c:url value='/buyAll' />";         
+	   document.form1.submit();
+	} 
+}
+
 function CartDel() {
    var chkedVal = new Array(); //배열
    var chkedObj = null;
@@ -92,6 +100,8 @@ function CartDel() {
       <div class="col-md-4 col-md-offset-4 m-t-lg">
          <!-- ************************ -->
          <form name="form1" method="post" action="#">
+         	   <input type="hidden" name="user_id" value="${map.user_id }">
+         	   <input type="hidden" name="allSum" value="${map.allSum}">
                <h2 class="sidebar-title">Cart List</h2>
                    <table cellspacing="0" class="shop_table cart">
                        <thead>
@@ -185,8 +195,8 @@ function CartDel() {
                    </table>
                </form>
             <hr />
-            <button type="button" class="btn btn-lg btn-shop btn-block" id="buyAllBtn">전체구매</button>
-            <button type="button" class="btn btn-lg btn-primary btn-block" id="buyBtn">선택구매</button>
+            <button type="button" class="btn btn-lg btn-shop btn-block" id="buyAllBtn" onclick="buyAll()">전체구매</button>
+            <button type="button" class="btn btn-lg btn-primary btn-block" id="buyBtn" onclick="buyPart()">선택구매</button>
       </div>
    </div>
 </div>

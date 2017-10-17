@@ -86,7 +86,6 @@ public class BoardController {
 	public String view(HttpServletRequest request, Model model, HttpSession session)throws Exception {
 		int board_no = Integer.parseInt(request.getParameter("board_no"));
 		int pageNo = Integer.parseInt(request.getParameter("pageNo"));
-		System.out.println("board_no : "+board_no);
 		model.addAttribute("vo", boardService.selectContent(board_no));
 		ArrayList<CommentVo> commentList = commentService.selectComentList(board_no);
 		UserVo userVo = (UserVo) session.getAttribute("authUser");

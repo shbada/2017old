@@ -71,6 +71,7 @@ public class CartController {
 		map.put("sumMoney", sumMoney);
 		map.put("fee", fee);
 		map.put("allSum", sumMoney + fee);
+		map.put("user_id", user_id);
 
 		model.addAttribute("map", map);
 

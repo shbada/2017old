@@ -10,9 +10,18 @@ public class BuyVo {
 	private String buy_addr1;
 	private String buy_addr2;
 	private String buy_addr3;
+	private String buy_addr4;
 	private int buy_addPoint;
 	private int buy_usePoing;
 	private String user_id;
+	
+	
+	public String getBuy_addr4() {
+		return buy_addr4;
+	}
+	public void setBuy_addr4(String buy_addr4) {
+		this.buy_addr4 = buy_addr4;
+	}
 	public int getBuy_no() {
 		return buy_no;
 	}

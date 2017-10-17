@@ -2,5 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="buy">
-
+	<insert id="buyInsert" parameterType="buy">
+		insert into buy(buy_no, 
+						buy_totalPrice, 
+						buy_regdate, 
+						buy_name, 
+						buy_phone, 
+						buy_addr1, 
+						buy_addr2, 
+						buy_addr3, 
+						buy_addr4, 
+						buy_addpoint, 
+						buy_usepoint,
+						user_id)
+		values (buy_no_seq.nextval, 
+				#{buy_totalPrice},
+				to_char(sysdate, 'YYYY-MM-DD HH:MI'),
+				#{buy_name},
+				#{buy_phone},
+				#{buy_addr1},
+				#{buy_addr2},
+				#{buy_addr3},
+				#{buy_addr4},
+				0,
+				0,
+				#{user_id})
+	</insert>
+	
+	<select id="cartList" parameterType="String" resultType="com.flowershop.cart.domain.CartVo">
+		select * from cart where cart_no = #{cart_no}	
+	</select>
+	
 </mapper>

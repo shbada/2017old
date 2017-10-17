@@ -101,7 +101,7 @@ function CartDel() {
          <!-- ************************ -->
          <form name="form1" method="post" action="#">
          	   <input type="hidden" name="user_id" value="${map.user_id }">
-         	   <input type="hidden" name="allSum" value="${map.allSum}">
+         	   <input type="hidden" name="sumMoney" value="${map.sumMoney}">
                <h2 class="sidebar-title">Cart List</h2>
                    <table cellspacing="0" class="shop_table cart">
                        <thead>

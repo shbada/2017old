@@ -15,6 +15,16 @@ function returnCart() {
 		} 
 }
 
+function jusoCallBack(roadFullAddr, roadAddrPart1, addrDetail,
+		roadAddrPart2, engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn,
+		detBdNmList, bdNm, bdKdcd, siNm, sggNm, emdNm, liNm, rn, udrtYn,
+		buldMnnm, buldSlno, mtYn, lnbrMnnm, lnbrSlno, emdNo) {
+	document.form.buy_addr2.value = roadAddrPart1;
+	document.form.buy_addr3.value = roadAddrPart2;
+	document.form.buy_addr4.value = addrDetail;
+	document.form.buy_addr1.value = zipNo;
+}
+
 function goPopup() {
 	var pop = window.open(
 			"${pageContext.request.contextPath }/join/postPup", "pop",
@@ -22,9 +32,20 @@ function goPopup() {
 }
 
 function checkPayment() {
+	var totalCartNo = "";  
+	var cart_no = null;
+	
+	$(":text[name=cart_no]").each(function(i){
+		 cart_no = $(this).val(); 
+		 totalCartNo += cart_no+","; 
+	 });
 	if (confirm("결제 하시겠습니까?") == true) {
-		return true;
-		} 
+		document.form.totalCartNo.value = totalCartNo;
+		document.form.method="POST";   		
+		document.form.action="<c:url value='/payment' />";   		
+		document.form.submit();
+	}
+	return;
 }
 </script>
 
@@ -60,26 +81,24 @@ function checkPayment() {
 					<tbody>
 						<c:forEach var="row" items="${map.list}" varStatus="i">
 							<tr class="cart_item">
-								<td class="product-remove">${row.cart_no }</td>
-
-								<td class="product-thumbnail">${row.product_name }</td>
-
-								<td class="product-name"><a href="#" class="link"
-									onclick="javacscript:listDetail('${row.product_no }');"> <img
-										src="${pageContext.request.contextPath }/img/${row.product_url}"
-										width="145" height="145">
-								</a></td>
-
+								<td class="product-remove">
+									<input type="text" size="1" style="border: 0;" name="cart_no" value="${row.cart_no }" readonly="readonly"/> 
+								</td>
+								<td class="product-thumbnail">
+									${row.product_name }
+								</td>
+								<td class="product-name">
+									<img src="${pageContext.request.contextPath }/img/${row.product_url}" width="145" height="145">
+								</td>
 								<td class="product-quantity">
 									<div class="quantity buttons_added">
-										<input type="number" name="product_amount" size="4"
-											class="input-text qty text" title="Qty"
-											value="${row.product_amount}" readonly="readonly"> <input
-											type="hidden" name="product_no" value="${row.product_no}">
+										<input type="number" name="product_amount" size="1" class="input-text qty text" style="border: 0; text-align: center;" title="Qty" value="${row.product_amount}" readonly="readonly"> 
+										<input type="hidden" name="product_no" value="${row.product_no}">
 									</div>
 								</td>
-
-								<td class="product-subtotal">${row.product_price }</td>
+								<td class="product-subtotal">
+									<input type="number" name="product_price" size="5" style="border: 0;text-align: center;" value="${row.product_price }" readonly="readonly"/> 
+								</td>				
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -100,7 +119,9 @@ function checkPayment() {
 
 							<tr class="order-total">
 								<th>총 결제금액</th>
-								<td><strong><span class="amount">0</span></strong></td>
+								<td>
+									<strong><span class="amount">0</span></strong>
+								</td>
 							</tr>
 						</c:if>
 
@@ -120,35 +141,25 @@ function checkPayment() {
 				</table>
 			</form>
 			<hr />
-			<h2 class="sidebar-title">배송정보</h2>
-			<form name="form" id="form" action="/payment" method="post">
+			<h2 class="sidebar-title">배송정보 입력</h2>
+			<form name="form" id="form" action="#" method="post">
+				<input type="hidden" name="totalCartNo" value="1">
 				<input type="hidden" name="user_id" value="${map.user_id}">
 				<input type="hidden" name="buy_totalPrice" value="${map.allSum}">
-				<label for="user_id"></label> <input type="text" name="buy_name"
-					id="buy_name" style="width: 100%" placeholder="받는사람 이름" /> <span
-					id="duplicateResult"></span><br /> <label for="user_name"></label>
-				<input type="text" name="buy_phone" id="buy_phone"
-					style="width: 100%" placeholder="받는사람 연락처( - 포함하여 입력)" /><br /> <br />
-				<input type="text" id="buy_addr1" name="buy_addr1"
-					placeholder="우편번호" readonly
-					style="width: 100px; background-color: #e2e2e2;" />&nbsp; <input
-					type="button" class="btn btn-default btn-sm" value="주소검색"
-					onclick="goPopup()"><br /> <input type="text"
-					id="buy_addr2" placeholder="도로명" name="buy_addr2" readonly
-					style="width: 100%; background-color: #e2e2e2;" /><br /> <input
-					type="text" id="buy_addr3" placeholder="(동,읍,면)"
-					readonly="readonly" name="buy_addr3"
-					style="width: 50%; background-color: #e2e2e2;" value="" /> <input
-					type="text" id="buy_addr4" name="buy_addr4" placeholder="(상세주소)"
-					value="" /><br />
+				<label for="user_id"></label> <input type="text" name="buy_name"id="buy_name" style="width: 100%" placeholder="받는사람 이름" /> <spanid="duplicateResult"></span><br /> <label for="user_name"></label>
+				<input type="text" name="buy_phone" id="buy_phone"style="width: 100%" placeholder="받는사람 연락처( - 포함하여 입력)" /><br /> 
+				<br />
+				<input type="hidden" id="confmKey" name="confmKey" value="" />
+				<input type="text" id="buy_addr1" name="buy_addr1"placeholder="우편번호" readonly style="width: 100px; background-color: #e2e2e2;" />&nbsp; 
+				<input type="button" class="btn btn-default btn-sm" value="주소검색" onclick="goPopup()"><br /> 
+				<input type="text"id="buy_addr2" placeholder="도로명" name="buy_addr2" readonly style="width: 100%; background-color: #e2e2e2;" /><br /> 
+				<input type="text" id="buy_addr3" placeholder="(동,읍,면)" readonly="readonly" name="buy_addr3" style="width: 50%; background-color: #e2e2e2;" value="" /> 
+				<input type="text" id="buy_addr4" name="buy_addr4" placeholder="(상세주소)" value="" /><br />
 				<hr />
 				<h2 class="sidebar-title">Point 적립/할인</h2>
-				<button></button>
 				<hr />
-				<input type="submit" class="btn btn-lg btn-primary btn-block"
-					value="결제 하기" onclick="checkPayment()" /> <input type="button"
-					class="btn btn-lg btn-warning btn-block" value="장바구니로 돌아가기"
-					onclick="returnCart()" />
+				<input type="submit" class="btn btn-lg btn-primary btn-block"value="결제 하기" onclick="checkPayment()" /> 
+				<input type="button"class="btn btn-lg btn-warning btn-block" value="장바구니로 돌아가기"onclick="returnCart()" />
 			</form>
 		</div>
 	</div>

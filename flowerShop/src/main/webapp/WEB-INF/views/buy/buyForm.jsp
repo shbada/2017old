@@ -9,6 +9,32 @@
 	src="${pageContext.request.contextPath }/resources/js/jquery.validate.js"></script>
 <script type="text/javascript">
 
+function buyDeliveryCheck(obj){
+	if(obj.checked){
+	$.ajax({
+		type : 'POST',
+		url : '${pageContext.request.contextPath }/buyDeliveryCheck',
+		 contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+		 success : function(response){
+			   console.log(JSON.stringify(response.data));
+			   document.form.buy_name.value = response.data.user_name;
+			   document.form.buy_phone.value = response.data.user_phone;
+			   document.form.buy_addr1.value = response.data.user_addr1;
+			   document.form.buy_addr2.value = response.data.user_addr2;
+			   document.form.buy_addr3.value = response.data.user_addr3;
+			   document.form.buy_addr4.value = response.data.user_addr4;
+		 }
+	});
+	} else{
+		  document.form.buy_name.value = "";
+		   document.form.buy_phone.value = "";
+		   document.form.buy_addr1.value = "";
+		   document.form.buy_addr2.value = "";
+		   document.form.buy_addr3.value = "";
+		   document.form.buy_addr4.value = "";
+	}
+}
+
 function returnCart() {
 	if (confirm("장바구니로 돌아가시겠습니까? \n \"확인\" 을 누르시면 \n\"배송정보\" 는 사라 집니다.") == true) {
 		   document.location.href="/cartList";         
@@ -146,6 +172,8 @@ function checkPayment() {
 				<input type="hidden" name="totalCartNo" value="1">
 				<input type="hidden" name="user_id" value="${map.user_id}">
 				<input type="hidden" name="buy_totalPrice" value="${map.allSum}">
+				<label for="buy_delivery">구매자 정보와 동일합니다.</label>
+				<input type="checkbox" name="buy_delivery" id="buy_delivery" onclick="buyDeliveryCheck(this)" />
 				<label for="user_id"></label> <input type="text" name="buy_name"id="buy_name" style="width: 100%" placeholder="받는사람 이름" /> <spanid="duplicateResult"></span><br /> <label for="user_name"></label>
 				<input type="text" name="buy_phone" id="buy_phone"style="width: 100%" placeholder="받는사람 연락처( - 포함하여 입력)" /><br /> 
 				<br />

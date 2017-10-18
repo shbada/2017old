@@ -9,6 +9,8 @@ public interface BuyService {
 
 	void buyInsert(BuyVo buyVo)throws Exception;
 
-	List<CartVo> cartList(String[] cartNo)throws Exception;
+	void cartList(String[] cartNo, int getBuy_no)throws Exception;
+
+	int getBuy_no(String user_id)throws Exception;
 
 }

@@ -22,7 +22,7 @@ function MessageList(){
 											class="fa fa-user"></i>관리자 로그인</a></li> --%>
 								</c:when>
 								<c:when test="${not empty user && user.isadmin != 'ROLE_ADMIN'}">
-									<li><a href="#"><i class="fa fa-user"></i> 주문내역</a></li>
+									<li><a href="${pageContext.request.contextPath }/purchaseHistory"><i class="fa fa-user"></i> 주문내역</a></li>
 									<li><a href="#"><i class="fa fa-heart"></i> 관심상품</a></li>
 									<li><a href="${pageContext.request.contextPath }/cartList"><i class="fa fa-user"></i> 장바구니</a></li>
 									<li><a href="checkout.html"><i class="fa fa-user"></i> 1:1문의하기</a></li>

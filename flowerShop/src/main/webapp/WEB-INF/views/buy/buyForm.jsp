@@ -158,7 +158,7 @@ function checkPayment() {
 				<hr />
 				<h2 class="sidebar-title">Point 적립/할인</h2>
 				<hr />
-				<input type="submit" class="btn btn-lg btn-primary btn-block"value="결제 하기" onclick="checkPayment()" /> 
+				<input type="button" class="btn btn-lg btn-primary btn-block"value="결제 하기" onclick="checkPayment()" /> 
 				<input type="button"class="btn btn-lg btn-warning btn-block" value="장바구니로 돌아가기"onclick="returnCart()" />
 			</form>
 		</div>

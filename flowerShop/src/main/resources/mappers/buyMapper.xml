@@ -30,7 +30,31 @@
 	</insert>
 	
 	<select id="cartList" parameterType="String" resultType="com.flowershop.cart.domain.CartVo">
-		select * from cart where cart_no = #{cart_no}	
+		select product_amount,
+			   product_no  
+			   from cart where cart_no = #{cart_no}	
 	</select>
+	
+	<select id="getBuy_no" parameterType="com.flowershop.cart.domain.CartVo" resultType="int">
+		select max(buy_no) from buy where user_id = #{user_id}
+	</select>
+	
+	<insert id="buyInfo_insert" parameterType="java.util.HashMap">
+		insert into buy_info (buy_no, 
+							  product_no, 
+							  product_amount, 
+							  product_price
+							  ) 
+		values (#{buy_no},
+				#{product_no},
+				#{product_amount},
+				(select product_price from product where product_no = #{product_no}) 
+				)
+	</insert>
+	
+	<delete id="delete_product" parameterType="String">
+		delete from cart where cart_no = #{cart_no}
+	</delete>
+	
 	
 </mapper>

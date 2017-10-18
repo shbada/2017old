@@ -1,6 +1,8 @@
 package com.flowershop.buy.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,16 +25,23 @@ public class BuyServiceImpl implements BuyService{
 	}
 
 	@Override
-	public List<CartVo> cartList(String[] cartNo) throws Exception {
+	public void cartList(String[] cartNo, int getBuy_no) throws Exception {
 		
-		List<CartVo> cartList = null;
-		 
-//		for(int i=0; i<cartNo.length; i++) {
-//			cartList.set(i, buyDao.cartList(cartNo[i]));
-//		}
-		
-		
-		return null;
+		List<CartVo> cartVo = null;
+		Map<String, Integer> map = new HashMap<>(); 
+		for(int i=0; i<cartNo.length; i++) {
+			cartVo = buyDao.cartList(cartNo[i]);				// 해당 cart_no 로 정보 cart table의 정보를 가져온다.
+			map.put("product_amount", cartVo.get(0).getProduct_amount());
+			map.put("product_no", cartVo.get(0).getProduct_no());
+			map.put("buy_no", getBuy_no);
+			buyDao.buyInfo_insert(map);						// 가지고온 cartVo, getBuy_no를 가지고 buyInfo 에 insert 해준다.
+			buyDao.delete_product(cartNo[i]);
+		}
+	}
+
+	@Override
+	public int getBuy_no(String user_id) throws Exception {
+		return buyDao.getBuy_no(user_id);
 	}
 
 	

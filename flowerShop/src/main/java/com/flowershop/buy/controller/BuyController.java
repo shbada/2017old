@@ -100,12 +100,11 @@ public class BuyController {
 
 		return "buy/purchaseHistory";
 	}
-
+   
 	@RequestMapping("/buyDeliveryCheck")
 	@ResponseBody
 	public Object buyDeliveryCheck(HttpSession session) throws Exception {
 		UserVo userVo = (UserVo) session.getAttribute("authUser");
-		System.out.println(":::::::::::::::::::::::::::"+userVo);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("data", userVo);
 		return map;

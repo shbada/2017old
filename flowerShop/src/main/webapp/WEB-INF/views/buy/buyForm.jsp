@@ -49,7 +49,7 @@ function jusoCallBack(roadFullAddr, roadAddrPart1, addrDetail,
 	document.form.buy_addr3.value = roadAddrPart2;
 	document.form.buy_addr4.value = addrDetail;
 	document.form.buy_addr1.value = zipNo;
-}
+} 
 
 function goPopup() {
 	var pop = window.open(

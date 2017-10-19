@@ -35,13 +35,6 @@
 					 ORDER BY C.CART_NO
 	</select>
 	
-	<select id="sumMoney" parameterType="string" resultType="int">
-		SELECT NVL(SUM(PRODUCT_PRICE * PRODUCT_AMOUNT), 0) MONEY
-			FROM CART C, PRODUCT P
-				WHERE C.PRODUCT_NO = P.PRODUCT_NO
-				AND C.USER_ID = #{user_id}
-	</select>
-	
 	<update id="cartUpdate" parameterType="com.flowershop.cart.domain.CartVo">
 		UPDATE CART
 			SET 

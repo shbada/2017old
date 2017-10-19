@@ -68,7 +68,7 @@ function checkPayment() {
        
    if(nameValid.test(name) == false){
       alert("올바른 이름을 입력해주세요.");
-   } else if(phoneValid.test(콜) == false){
+   } else if(phoneValid.test(phone) == false){
       alert("올바른 연락처를 입력해주세요.");
    } else if(addr4Valid.test(addr4) == false){
       alert("올바른 주소를 입력해주세요.");
@@ -203,7 +203,7 @@ function checkPayment() {
             <hr />
             <h2 class="sidebar-title">Point 적립/할인</h2>
             <hr />
-            <input type="button" class="btn btn-lg btn-primary btn-block"value="결제 하기" onclick="checkPayment()" onsubmit="validationCheck()" /> 
+            <input type="button" class="btn btn-lg btn-primary btn-block"value="결제 하기" onclick="checkPayment()" /> 
             <input type="button"class="btn btn-lg btn-warning btn-block" value="장바구니로 돌아가기"onclick="returnCart()" />
          </form>
       </div>

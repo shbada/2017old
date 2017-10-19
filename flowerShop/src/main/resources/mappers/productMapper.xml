@@ -10,7 +10,8 @@
 			A.product_saleyn,
 			A.product_desc,
 			A.product_url,
-			B.sale_price
+			B.sale_price,
+			B.sale_percent
        FROM product A LEFT OUTER JOIN sale B
           ON A.product_no = B.product_no
                   ORDER BY product_no DESC
@@ -84,10 +85,11 @@
 			A.product_saleyn,
 			A.product_desc,
 			A.product_url,
-			B.sale_price
+			B.sale_price,
+			B.sale_percent
        FROM product A LEFT OUTER JOIN sale B
           ON A.product_no = B.product_no
-                  ORDER BY product_price ASC
+                  ORDER BY sale_price, product_price ASC
     </select>
     
     <select id="viewHighPrice" resultType="com.flowershop.product.domain.ProductVo">
@@ -98,10 +100,11 @@
 			A.product_saleyn,
 			A.product_desc,
 			A.product_url,
-			B.sale_price
+			B.sale_price,
+			B.sale_percent
        FROM product A LEFT OUTER JOIN sale B
           ON A.product_no = B.product_no
-                  ORDER BY product_price DESC
+                  ORDER BY sale_price, product_price DESC
     </select>
     
     <select id="viewName" resultType="com.flowershop.product.domain.ProductVo">
@@ -112,7 +115,8 @@
 			A.product_saleyn,
 			A.product_desc,
 			A.product_url,
-			B.sale_price
+			B.sale_price,
+			B.sale_percent
        FROM product A LEFT OUTER JOIN sale B
           ON A.product_no = B.product_no
                   ORDER BY product_name
@@ -150,7 +154,8 @@
 			A.product_saleyn,
 			A.product_desc,
 			A.product_url,
-			B.sale_price
+			B.sale_price,
+			B.sale_percent
        FROM product A, sale B
              WHERE A.product_saleyn = 'Y' AND
                    A.product_no = B.product_no 

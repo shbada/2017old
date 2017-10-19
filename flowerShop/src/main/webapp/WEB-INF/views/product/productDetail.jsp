@@ -155,7 +155,7 @@ function listReply(pageCnt){
 		                            </div>    
 		                            
 	                                <div class="quantity">
-	                                    <input type="number" name="product_amount" size="4" class="input-text qty text" title="Qty" value="1" min="0" step="1">
+	                                    <input type="number" name="product_amount" size="4" class="input-text qty text" title="Qty" value="1" min="1" step="1">
 	                                </div>&nbsp;
 										<input type="hidden" name="product_no" value="${ProductVo.product_no}">
 										<input type="hidden" name="product_name" value="${ProductVo.product_name}">

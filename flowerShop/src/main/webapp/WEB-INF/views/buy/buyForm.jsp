@@ -82,7 +82,7 @@ function checkPayment() {
 						<c:forEach var="row" items="${map.list}" varStatus="i">
 							<tr class="cart_item">
 								<td class="product-remove">
-									<input type="text" size="1" style="border: 0;" name="cart_no" value="${row.cart_no }" readonly="readonly"/> 
+									<input type="text" size="4" style="border: 0;" name="cart_no" value="${row.cart_no}" readonly="readonly"/> 
 								</td>
 								<td class="product-thumbnail">
 									${row.product_name }

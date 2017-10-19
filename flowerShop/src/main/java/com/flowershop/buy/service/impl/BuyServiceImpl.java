@@ -1,5 +1,6 @@
 package com.flowershop.buy.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +43,17 @@ public class BuyServiceImpl implements BuyService{
 	@Override
 	public int getBuy_no(String user_id) throws Exception {
 		return buyDao.getBuy_no(user_id);
+	}
+
+	@Override
+	public List<CartVo> getCartList(String[] cartNo) throws Exception {
+		List<CartVo> list = new ArrayList<CartVo>();
+		
+		for(int i = 0; i<cartNo.length; i++) {
+			list.addAll(buyDao.getCartList(cartNo[i]));
+			System.out.println("list : " + list);
+		}
+		return list;
 	}
 
 	

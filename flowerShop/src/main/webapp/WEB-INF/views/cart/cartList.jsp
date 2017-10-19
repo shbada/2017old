@@ -28,6 +28,34 @@ $(document).ready(function(){
     
 });
 
+
+function buyPart() {
+	var totalCartNo = "";  
+	var cart_no = null;
+	
+	$(":checkbox[name='chk']:checked").each(function(i){
+		 cart_no = $(this).val(); 
+		 totalCartNo += cart_no+","; 
+	 });
+	if (confirm("선택 구매 하시겠습니까?") == true) {
+		document.form1.totalCartNo.value = totalCartNo;
+		document.form1.buyChoice.value = "buyPart";
+		document.form1.method="POST";   		
+		document.form1.action="<c:url value='/buy' />";   		
+		document.form1.submit();
+	}
+	return;
+}
+
+function buyAll(){
+	if (confirm("전체 구매 하시겠습니까?") == true) {
+	   document.form1.buyChoice.value = "buyAll";	
+	   document.form1.method="POST";         
+	   document.form1.action="<c:url value='/buy' />";         
+	   document.form1.submit();
+	} 
+}
+
 function listDetail(idx){ 
    document.form1.product_no.value = idx;
    document.form1.method="POST";         
@@ -42,13 +70,6 @@ function CountUpdateOk(idx){
    document.form1.submit();
 }
 
-function buyAll(){
-	if (confirm("전체 구매 하시겠습니까?") == true) {
-	   document.form1.method="POST";         
-	   document.form1.action="<c:url value='/buyAll' />";         
-	   document.form1.submit();
-	} 
-}
 
 function CartDel() {
    var chkedVal = new Array(); //배열
@@ -100,6 +121,8 @@ function CartDel() {
       <div class="col-md-4 col-md-offset-4 m-t-lg">
          <!-- ************************ -->
          <form name="form1" method="post" action="#">
+         	   <input type="hidden" name="totalCartNo" value=" ">
+         	   <input type="hidden" name="buyChoice" value=" ">
          	   <input type="hidden" name="user_id" value="${map.user_id }">
          	   <input type="hidden" name="sumMoney" value="${map.sumMoney}">
                <h2 class="sidebar-title">Cart List</h2>
@@ -120,10 +143,10 @@ function CartDel() {
                           <c:forEach var="row" items="${map.list}" varStatus="i">
                             <tr class="cart_item">
                                <td style="text-align: center;">
-                           <input type="checkbox" name="chk" value="${row.product_no }">
+                           <input type="checkbox" name="chk" value="${row.cart_no }">
                         </td>
                                 <td class="product-remove">
-                                    ${row.cart_no }
+                                    ${row.product_no }
                                 </td>
    
                                 <td class="product-thumbnail">

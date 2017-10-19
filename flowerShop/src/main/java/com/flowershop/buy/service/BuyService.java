@@ -13,4 +13,6 @@ public interface BuyService {
 
 	int getBuy_no(String user_id)throws Exception;
 
+	List<CartVo> getCartList(String[] cartNo)throws Exception;
+
 }

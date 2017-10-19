@@ -50,7 +50,8 @@
 	</update>
 	
 	<delete id="cartListDelete" parameterType="com.flowershop.cart.domain.CartVo">
-		DELETE FROM CART WHERE PRODUCT_NO = #{product_no}
+		DELETE FROM CART WHERE CART_NO = #{cart_no}
+			
 	</delete>
 	
 	<select id="countCart" parameterType="com.flowershop.cart.domain.CartVo" resultType="int">

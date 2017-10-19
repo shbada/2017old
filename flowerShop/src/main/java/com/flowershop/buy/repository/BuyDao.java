@@ -1,5 +1,6 @@
 package com.flowershop.buy.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,5 +18,7 @@ public interface BuyDao {
 	int getBuy_no(String user_id)throws Exception;
 
 	void delete_product(String cart_no)throws Exception;
+
+	List<CartVo> getCartList(String cart_no)throws Exception;
 
 }

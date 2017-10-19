@@ -65,7 +65,7 @@ public class CartController {
 		
 		int sumMoney = cartService.sumMoney(user_id);
 		int fee = sumMoney >= 50000 ? 0 : 2500;
-
+		System.out.println(list);
 		map.put("list", list);
 		map.put("count", list.size());
 		map.put("sumMoney", sumMoney);

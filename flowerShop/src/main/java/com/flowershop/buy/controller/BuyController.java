@@ -36,21 +36,31 @@ public class BuyController {
 	@Autowired
 	private CartService cartService;
 	
-	@RequestMapping("/buyAll")
-	public String  buyAll(HttpSession session, HttpServletRequest request, Model model)throws Exception{
+	@RequestMapping("/buy")
+	public String  buy(HttpSession session, HttpServletRequest request, Model model)throws Exception{
 		if(session.getAttribute("authUser") == null) {
 			model.addAttribute("msg", "로그인 후 사용 가능합니다.");
 			model.addAttribute("url", "login");
 			return"board/alert"; 
 		}
+		String buyChoice = request.getParameter("buyChoice");				// 구매종류 선택시 필요!! 
 		
 		String user_id = request.getParameter("user_id"); 
-		Map<String, Object> map = new HashMap<String, Object>();
-		List<CartVo> list = cartService.cartList(user_id);
-		
 		int sumMoney = Integer.parseInt(request.getParameter("sumMoney")); 
 		int fee = sumMoney >= 50000 ? 0 : 2500;
-	
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<CartVo> list = null;
+		
+		if(buyChoice.trim().equals("buyAll")) {								// 전체구매시!!!
+			list = cartService.cartList(user_id);
+		} else {															// 선택 구매시!!!
+			String totalCartNo = request.getParameter("totalCartNo");      // 결제할 cart_no 를 가지고 있는 문자열  콤마로(,) 구분돼 있다.
+			String[] cartNo = totalCartNo.split(",");						// split() 메소드를 이용해서 문자열 자르기
+			list = buyService.getCartList(cartNo);
+			System.out.println("buyPart");
+		}
+		System.out.println("list2 : " + list);
 		map.put("list", list);
 		map.put("count", list.size());
 		map.put("sumMoney", sumMoney);
@@ -61,6 +71,7 @@ public class BuyController {
 		model.addAttribute("map", map);
 		return "buy/buyForm";
 	}
+	
 	
 	@RequestMapping("/payment")
 	public String payMent(HttpServletRequest request, BuyVo buyVo)throws Exception{
@@ -73,7 +84,7 @@ public class BuyController {
 		for(int i=0; i<cartNo.length; i++) {
 			System.out.println("cartNo["+ i +"] : " + cartNo[i]);
 		}
-		buyService.cartList(cartNo, getBuy_no);									// 결제할 카드 번호를 가져가서 3가지 일을 해준다 (1. 카트 번호로 해당정보 select, 
+		buyService.cartList(cartNo, getBuy_no);									// 결제할 카트 번호와 저장된 구매번호 를 가져가서 3가지 일을 해준다 (1. 카트 번호로 해당정보 select, 
 //																												 2. 해당 정보로 buy_info 에 insert
 //																												 3. 결제한 목록 장바구니에서 삭제하기)
 		return "redirect:/cartList";

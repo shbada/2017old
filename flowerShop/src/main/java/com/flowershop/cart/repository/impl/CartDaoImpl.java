@@ -21,12 +21,6 @@ public class CartDaoImpl implements CartDao{
 	public List<CartVo> cartList(String user_id) {
 		return session.selectList("cart.cartList", user_id);
 	}
-
-	@Override
-	public int sumMoney(String user_id) {
-		return session.selectOne("cart.sumMoney", user_id);
-	}
-
 	@Override
 	public void cartInsert(CartVo cartVo) {
 		session.insert("cart.cartInsert", cartVo);

@@ -8,8 +8,6 @@ public interface CartDao {
 
 	List<CartVo> cartList(String user_id);
 
-	int sumMoney(String user_id);
-
 	void cartInsert(CartVo cartVo);
 
 	void cartDelete(int product_no);
@@ -21,5 +19,4 @@ public interface CartDao {
 	void UpdateCount(CartVo cartVo);
 
 	void cartListDelete(CartVo cartVo);
-
 }

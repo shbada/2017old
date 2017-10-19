@@ -36,11 +36,6 @@ public class CartServiceImpl implements CartService {
     }
     
     @Override
-    public int sumMoney(String user_id) {
-        return cartDao.sumMoney(user_id);
-    }
-    
-    @Override
     public int countCart(int product_no, String user_id) {
         return cartDao.countCart(product_no, user_id);
     }
@@ -55,6 +50,5 @@ public class CartServiceImpl implements CartService {
 		for(int i=0; i<data.size(); i++)
 			cartDao.cartListDelete(data.get(i));
 	}
-
 
 }

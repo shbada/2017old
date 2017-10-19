@@ -21,4 +21,6 @@ public interface BuyDao {
 
 	List<CartVo> getCartList(String cart_no)throws Exception;
 
+	int getPartSumMoney(String cart_no)throws Exception;
+
 }

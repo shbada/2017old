@@ -40,23 +40,22 @@ public class BuyController {
 			return "board/alert";
 		}
 		String buyChoice = request.getParameter("buyChoice");				// 구매종류 선택시 필요!! 
-		
 		String user_id = request.getParameter("user_id"); 
-		int sumMoney = Integer.parseInt(request.getParameter("sumMoney")); 
-		int fee = sumMoney >= 50000 ? 0 : 2500;
+		int sumMoney = 0;  
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<CartVo> list = null;
 		
 		if(buyChoice.trim().equals("buyAll")) {								// 전체구매시!!!
 			list = cartService.cartList(user_id);
+			sumMoney= Integer.parseInt(request.getParameter("sumMoney"));
 		} else {															// 선택 구매시!!!
 			String totalCartNo = request.getParameter("totalCartNo");      // 결제할 cart_no 를 가지고 있는 문자열  콤마로(,) 구분돼 있다.
 			String[] cartNo = totalCartNo.split(",");						// split() 메소드를 이용해서 문자열 자르기
 			list = buyService.getCartList(cartNo);
-			System.out.println("buyPart");
+			sumMoney = buyService.getPartSumMoney(cartNo);
 		}
-		System.out.println("list2 : " + list);
+		int fee = sumMoney >= 50000 ? 0 : 2500;
 
 		map.put("list", list);
 		map.put("count", list.size());
@@ -73,22 +72,9 @@ public class BuyController {
 	public String payMent(HttpServletRequest request, BuyVo buyVo) throws Exception {
 		buyService.buyInsert(buyVo); // buy table에 insert (배송정보등등...)
 
-		int getBuy_no = buyService.getBuy_no(buyVo.getUser_id()); // buyinfo
-																	// table 에
-																	// buy_no를
-																	// 넣어주기 위해서
-																	// buy_no를
-																	// 가져온다.
-		String totalCartNo = request.getParameter("totalCartNo"); // 결제할 cart_no
-																	// 를 가지고 있는
-																	// 문자열
-																	// 콤마로(,)
-																	// 구분돼 있다.
+		int getBuy_no = buyService.getBuy_no(buyVo.getUser_id()); // buyinfo table에 buy_no를 넣어주기 위해서 buy_no를 가져온다.
+		String totalCartNo = request.getParameter("totalCartNo"); // 결제할 cart_no 를 가지고 있는 문자열을 받는다.  
 		String[] cartNo = totalCartNo.split(","); // split() 메소드를 이용해서 문자열 자르기
-
-		for (int i = 0; i < cartNo.length; i++) {
-			System.out.println("cartNo[" + i + "] : " + cartNo[i]);
-		}
 		buyService.cartList(cartNo, getBuy_no);									// 결제할 카트 번호와 저장된 구매번호 를 가져가서 3가지 일을 해준다 (1. 카트 번호로 해당정보 select, 
 //																												 2. 해당 정보로 buy_info 에 insert
 //																												 3. 결제한 목록 장바구니에서 삭제하기)

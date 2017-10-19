@@ -63,10 +63,17 @@
 			   c.product_no,
 			   p.product_name,
 			   p.product_url,
-			   p.product_price 
+			   p.product_price   
 			   from cart c, product p 
 	     where c.cart_no = #{cart_no}
 	     and   p.product_no = (select product_no from cart where cart_no = #{cart_no}) 
+	</select>
+	
+	<select id="getPartSumMoney" parameterType="String" resultType="int">
+		SELECT NVL(SUM(P.PRODUCT_PRICE * C.PRODUCT_AMOUNT), 0) MONEY
+			FROM CART C, PRODUCT P
+				WHERE C.CART_NO = #{cart_no} 
+				AND P.PRODUCT_NO = (SELECT PRODUCT_NO FROM CART WHERE CART_NO = #{cart_no})
 	</select>
 	
 	

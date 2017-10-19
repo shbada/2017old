@@ -161,7 +161,7 @@ function CartDel() {
    
                                 <td class="product-quantity">
                                     <div class="quantity buttons_added">
-                                        <input type="number" name="product_amount" size="4" class="input-text qty text" title="Qty" value="${row.product_amount}" min="0" step="1">
+                                        <input type="number" name="product_amount" size="4" class="input-text qty text" title="Qty" value="${row.product_amount}" min="1" step="1">
                                         <a href="#" class="link" onclick="javacscript:CountUpdateOk('${row.product_no }');">
                                           <button type="button" class="btn btn-default btn-s-xs btnList">확인 </button>
                                        </a>
@@ -170,7 +170,12 @@ function CartDel() {
                                 </td>
    
                                 <td class="product-subtotal">
-                                    ${row.product_price }
+                                    <c:if test="${row.product_saleyn == 'N'}">
+			                            	${row.product_price}원
+			                            </c:if>
+			                            <c:if test="${row.product_saleyn == 'Y'}">
+			                           	 ${row.sale_price}원
+			                            </c:if>
                                 </td>
                             </tr>
                            </c:forEach>

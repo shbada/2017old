@@ -39,7 +39,7 @@ public class ProductController {
 	public String ProductList(@ModelAttribute("ProductVo") ProductVo productVo, Model model, HttpSession session){
 		
 		Map<String, Object> map = productService.productList(productVo); 
-		 String path = "C:\\Users\\prostats\\workspace\\upload\\";
+		 String path = "C:\\flowershopImage\\upload\\";
 /*		String path = "C:\\project\\ganadamart\\"
                 + ".metadata\\.plugins\\org.eclipse.wst.server.core\\"
                 + "tmp0\\wtpwebapps\\flowerShop\\images\\";*/
@@ -75,7 +75,7 @@ public class ProductController {
             //String path = "C:\\Users\\doubles\\Desktop\\workspace\\gitSpring\\"
             //                + "spring02\\src\\main\\webapp\\WEB-INF\\views\\images";
             // 배포디렉토리 - 파일 업로드 경로
-            String path = "C:\\Users\\prostats\\workspace\\upload\\";
+            String path = "C:\\flowershopImage\\upload\\";
 
             try {
                 new File(path).mkdirs(); // 디렉토리 생성
@@ -93,8 +93,13 @@ public class ProductController {
 	@RequestMapping(value="/productDetail", method=RequestMethod.POST)
 	public String ProductDetail(@ModelAttribute("ProductVo") ProductVo productVo, Model model, HttpSession session){
 		
-		ProductVo list = productService.productDetail(productVo); 
+		ProductVo list = productService.productDetail(productVo);
 		int resultCnt = productService.LikeSelect(productVo); 
+		if(list.getProduct_saleyn().equals("Y")){
+			SaleVo saleVo = productService.selectSaleInfo(productVo);
+			System.out.println(saleVo);
+			model.addAttribute("SaleVo", saleVo); 
+		}
 		model.addAttribute("like", resultCnt); 
 		model.addAttribute("ProductVo", list); 
 		model.addAttribute("pageVo", productVo);

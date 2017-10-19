@@ -77,7 +77,7 @@ function saleDelete(idx){
 		                        </div> <br />
 		                        	<h2>
 										<a href="#" class="link" onclick="javacscript:listDetail('${row.product_no }');">${row.product_name}</a>
-										<a class="link" style="color:red;">SALE</a>
+										<a class="link" style="color:red;">${row.sale_percent}% SALE</a>
 									</h2>
 		                        <div class="product-carousel-price">
 		                            <ins>${row.sale_price}원</ins> <del>${row.product_price}원</del>

@@ -17,6 +17,7 @@ public class ProductVo{
 	private String user_id;
 	private int like;
 	private String sale_price;
+	private int sale_percent;
 	
 	public int getProduct_no() {
 		return product_no;
@@ -130,6 +131,15 @@ public class ProductVo{
 	public void setSale_price(String sale_price) {
 		this.sale_price = sale_price;
 	}
+	
+
+	public int getSale_percent() {
+		return sale_percent;
+	}
+
+	public void setSale_percent(int sale_percent) {
+		this.sale_percent = sale_percent;
+	}
 
 	@Override
 	public String toString() {
@@ -137,7 +147,8 @@ public class ProductVo{
 				+ product_price + ", product_desc=" + product_desc + ", product_url=" + product_url + ", product_photo="
 				+ product_photo + ", page_cnt=" + page_cnt + ", product_regdate=" + product_regdate + ", product_mod="
 				+ product_mod + ", product_buycnt=" + product_buycnt + ", product_saleyn=" + product_saleyn
-				+ ", user_id=" + user_id + ", like=" + like + ", sale_price=" + sale_price + "]";
+				+ ", user_id=" + user_id + ", like=" + like + ", sale_price=" + sale_price + ", sale_percent="
+				+ sale_percent + "]";
 	}
 	
 	

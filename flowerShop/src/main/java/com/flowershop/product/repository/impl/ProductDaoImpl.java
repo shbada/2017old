@@ -96,4 +96,9 @@ public class ProductDaoImpl implements ProductDao{
 		session.delete("product.saleDelete", product_no);
 	}
 
+	@Override
+	public SaleVo selectSaleInfo(ProductVo productVo) {
+		return session.selectOne("product.selectSaleInfo", productVo);
+	}
+
 }

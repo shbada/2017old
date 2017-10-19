@@ -43,4 +43,6 @@ public interface ProductDao {
 
 	void saleDelete(int product_no);
 
+	SaleVo selectSaleInfo(ProductVo productVo);
+
 }

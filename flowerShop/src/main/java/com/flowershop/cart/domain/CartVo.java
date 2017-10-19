@@ -9,6 +9,8 @@ public class CartVo {
 	private String product_name; //상품 이름
 	private String product_url; //상품 사진경로
 	private int product_price; //상품 가격
+	private String product_saleyn;
+	private int sale_price;
 	
 	public int getCart_no() {
 		return cart_no;
@@ -52,11 +54,27 @@ public class CartVo {
 	public void setProduct_price(int product_price) {
 		this.product_price = product_price;
 	}
+	
+	
+	public String getProduct_saleyn() {
+		return product_saleyn;
+	}
+	public void setProduct_saleyn(String product_saleyn) {
+		this.product_saleyn = product_saleyn;
+	}
+	
+	public int getSale_price() {
+		return sale_price;
+	}
+	public void setSale_price(int sale_price) {
+		this.sale_price = sale_price;
+	}
 	@Override
 	public String toString() {
 		return "CartVo [cart_no=" + cart_no + ", product_amount=" + product_amount + ", user_id=" + user_id
 				+ ", product_no=" + product_no + ", product_name=" + product_name + ", product_url=" + product_url
-				+ ", product_price=" + product_price + "]";
+				+ ", product_price=" + product_price + ", product_saleyn=" + product_saleyn + ", sale_price="
+				+ sale_price + "]";
 	}
 	
 }

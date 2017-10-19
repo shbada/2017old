@@ -170,7 +170,12 @@ function CartDel() {
                                 </td>
    
                                 <td class="product-subtotal">
-                                    ${row.product_price }
+                                    <c:if test="${row.product_saleyn == 'N'}">
+			                            	${row.product_price}원
+			                            </c:if>
+			                            <c:if test="${row.product_saleyn == 'Y'}">
+			                           	 ${row.sale_price}원
+			                            </c:if>
                                 </td>
                             </tr>
                            </c:forEach>

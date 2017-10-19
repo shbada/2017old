@@ -24,6 +24,7 @@
 			P.PRODUCT_NO,
 			P.PRODUCT_NAME,
 			P.PRODUCT_URL,
+			P.PRODUCT_SALEYN,
 			C.PRODUCT_AMOUNT,
 			P.PRODUCT_PRICE,
 			(PRODUCT_PRICE * PRODUCT_AMOUNT) MONEY
@@ -50,7 +51,8 @@
 	</update>
 	
 	<delete id="cartListDelete" parameterType="com.flowershop.cart.domain.CartVo">
-		DELETE FROM CART WHERE PRODUCT_NO = #{product_no}
+		DELETE FROM CART WHERE CART_NO = #{cart_no}
+			
 	</delete>
 	
 	<select id="countCart" parameterType="com.flowershop.cart.domain.CartVo" resultType="int">

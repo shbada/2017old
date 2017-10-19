@@ -41,4 +41,6 @@ public interface ProductService {
 
 	void saleDelete(int product_no);
 
+	SaleVo selectSaleInfo(ProductVo productVo);
+
 }

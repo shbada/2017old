@@ -64,6 +64,7 @@ function saleWrite(idx){
 					<br /><br /><br /> <br />
 				<form name="viewTable" onsubmit="return flase;">
 					<input type="hidden" name="product_no" value="1">
+					<input type="hidden" name="sale_price" value="${row.sale_price}">
 					
 					<c:forEach var="row" items="${list}">
 						<div class="col-md-3 col-sm-6" style="text-align:center;">

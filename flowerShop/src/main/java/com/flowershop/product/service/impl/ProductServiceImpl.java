@@ -134,4 +134,9 @@ public class ProductServiceImpl implements ProductService {
 		productDao.saleDelete(product_no);
 	}
 
+	@Override
+	public SaleVo selectSaleInfo(ProductVo productVo) {
+		return productDao.selectSaleInfo(productVo);
+	}
+
 }

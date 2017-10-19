@@ -150,9 +150,14 @@ function listReply(pageCnt){
 		                    <div class="col-sm-6">
 		                        <div class="product-inner">
 		                            <h2 class="product-name">${ProductVo.product_name}</h2>
-		                            <div class="product-inner-price">
-		                                <ins>${ProductVo.product_price}</ins> <del>${ProductVo.product_price}</del>
-		                            </div>    
+		                            <div class="product-carousel-price">
+			                        	<c:if test="${ProductVo.product_saleyn == 'N'}">
+			                            	<ins>${ProductVo.product_price}원</ins>
+			                            </c:if>
+			                            <c:if test="${ProductVo.product_saleyn == 'Y'}">
+			                           	 <ins>${SaleVo.sale_price}원</ins> <del>${ProductVo.product_price}원</del>
+			                            </c:if>
+		                        	</div> <br /> 
 		                            
 	                                <div class="quantity">
 	                                    <input type="number" name="product_amount" size="4" class="input-text qty text" title="Qty" value="1" min="1" step="1">
@@ -161,6 +166,7 @@ function listReply(pageCnt){
 										<input type="hidden" name="product_name" value="${ProductVo.product_name}">
 										<input type="hidden" name="product_url" value="${ProductVo.product_url}">
 										<input type="hidden" name="product_price" value="${ProductVo.product_price}">
+										<input type="hidden" name="product_price" value="${SaleVo.sale_price}">
 	
 										<button type="button" class="add_to_cart_button" id="btnAdd">장바구니에 담기</button>
 		                            <hr>

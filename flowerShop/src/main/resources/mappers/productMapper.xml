@@ -21,6 +21,14 @@
 		SELECT COUNT(product_no)
 			 FROM product
 	</select>
+	
+	<select id="selectSaleInfo" parameterType="com.flowershop.product.domain.ProductVo" resultType="com.flowershop.product.domain.SaleVo">
+		SELECT 
+			SALE_PRICE,
+			SALE_PERCENT
+		FROM SALE
+			WHERE product_no = #{product_no}
+	</select>
     
     <select id="productDetail" resultType="com.flowershop.product.domain.ProductVo">
         SELECT 
@@ -28,7 +36,8 @@
             product_name, 
             product_price,
             product_url,
-            product_desc
+            product_desc,
+            product_saleyn
         FROM PRODUCT 
         	WHERE product_no = #{product_no}
     </select>

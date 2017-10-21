@@ -9,6 +9,7 @@
 		<typeAlias alias="commentVo" type="com.flowershop.comment.domain.CommentVo" />
 		<typeAlias alias="product" type="com.flowershop.product.domain.ProductVo" />
 		<typeAlias alias="buy" type="com.flowershop.buy.domain.BuyVo" />
+		<typeAlias alias="point" type="com.flowershop.point.domain.PointVo" />
 	</typeAliases>
 
 </configuration>

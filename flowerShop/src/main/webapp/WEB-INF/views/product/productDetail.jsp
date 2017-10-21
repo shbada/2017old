@@ -142,7 +142,7 @@ function listReply(pageCnt){
 		                    <div class="col-sm-6">
 		                        <div class="product-images">
 		                            <div class="product-main-img">
-		                               <img src="<c:url value="${path }/img/${ProductVo.product_url}" />" width="430px" height="550px">
+		                               <img src="<c:url value="/img/${ProductVo.product_url}" />" width="430px" height="550px">
 		                            </div>
 		                        </div>
 		                    </div>

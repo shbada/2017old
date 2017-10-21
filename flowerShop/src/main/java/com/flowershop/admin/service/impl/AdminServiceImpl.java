@@ -69,5 +69,12 @@ public class AdminServiceImpl implements AdminService {
 		
 		adminDAO.requestDelete(request_no);
 	}
+
+	@Override
+	public void allListDelete(List<UserVo> data) throws Exception {
+		for(int i=0; i<data.size(); i++)
+			adminDAO.allListDelete(data.get(i));
+		
+	}
 	
 }

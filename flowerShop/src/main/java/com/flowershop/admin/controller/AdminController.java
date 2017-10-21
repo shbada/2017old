@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.flowershop.admin.domain.RequestVo;
 import com.flowershop.admin.service.AdminService;
+import com.flowershop.cart.domain.CartVo;
 import com.flowershop.login.domain.UserVo;
 
 @Controller
@@ -92,6 +94,18 @@ public class AdminController {
 		adminService.requestDelete(request_no);
 		rttr.addFlashAttribute("msg", "SUCCESS");
 		return "redirect:/one_to_one";
+	}
+	@RequestMapping("/requestDelete2")
+	public String requestDelete2(@RequestParam int user_no, RedirectAttributes rttr) throws Exception {
+		adminService.requestDelete(user_no);
+		rttr.addFlashAttribute("msg", "SUCCESS");
+		return "redirect:/allMemberList";
+	}
+	
+	//관리자모드 회원 삭제
+	@RequestMapping(value="/allListDelete", method=RequestMethod.POST, consumes="application/json")	 
+	public void allListDelete(@RequestBody List<UserVo> data) throws Exception {
+		adminService.allListDelete(data);
 	}
 	
 }

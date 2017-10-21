@@ -26,5 +26,8 @@ public interface AdminDAO {
 			
 	//1:1문의 수정
 	public void requestUpdate(RequestVo vo) throws Exception;
+	
+	//전체 목록
+	public void allListDelete(UserVo userVo) throws Exception;
 		
 }

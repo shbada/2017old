@@ -47,6 +47,11 @@ public class BuyDaoImpl implements BuyDao {
 		return sqlSession.selectList("buy.getCartList", cart_no);
 	}
 
+	@Override
+	public int getPartSumMoney(String cart_no) throws Exception {
+		return sqlSession.selectOne("buy.getPartSumMoney", cart_no);
+	}
+
 	
 	
 }

@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.flowershop.cart.domain.CartVo;
 import com.flowershop.cart.service.CartService;
 import com.flowershop.login.domain.UserVo;
+import com.flowershop.product.domain.ProductVo;
+import com.flowershop.product.domain.SaleVo;
+import com.flowershop.product.service.ProductService;
 
 @Controller
 public class CartController {
@@ -29,6 +32,9 @@ public class CartController {
 
 	@Autowired
 	private CartService cartService;
+	
+	@Autowired
+	private ProductService productService;
 	
 	@RequestMapping("/cartInsert")
     @ResponseBody
@@ -63,8 +69,26 @@ public class CartController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<CartVo> list = cartService.cartList(user_id);
 		
-		int sumMoney = cartService.sumMoney(user_id);
+		int OriginalMoney = 0; //세일x
+		int saleSumMoney = 0;//세일o
+		
+		for (CartVo cartVo : list) { //list: 장바구니 목록을 list형식으로 담았음, 이 list를 cartVo에 반복문으로 담아서 ,
+			if(cartVo.getProduct_saleyn().equals("Y")){ //세일상품이면?
+				ProductVo productVo = new ProductVo();
+				productVo.setProduct_no(cartVo.getProduct_no()); //상품 번호를 productVo에 담고,
+ 				SaleVo saleVo = productService.selectSaleInfo(productVo); //담은 번호를 파라미터로 보내서 세일상품의 가격을 조회해와서,
+ 				cartVo.setSale_price(saleVo.getSale_price()); //조회된 세일가격을 cartVo에 담음
+ 				saleSumMoney += cartVo.getSale_price() * cartVo.getProduct_amount();
+			}
+			
+			if(cartVo.getProduct_saleyn().equals("N")){
+				OriginalMoney += cartVo.getProduct_price() * cartVo.getProduct_amount();
+			}
+		}
+		
+		int sumMoney = saleSumMoney + OriginalMoney;
 		int fee = sumMoney >= 50000 ? 0 : 2500;
+		
 		System.out.println(list);
 		map.put("list", list);
 		map.put("count", list.size());

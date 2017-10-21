@@ -56,6 +56,16 @@ public class BuyServiceImpl implements BuyService{
 		return list;
 	}
 
+	@Override
+	public int getPartSumMoney(String[] cartNo) throws Exception {
+		int sumMoney = 0;
+		for(int i=0; i<cartNo.length; i++) {
+			sumMoney += buyDao.getPartSumMoney(cartNo[i]);			// cart_no 로 상품의 개수 * 상품가격을 해서 가져온다 (상품종류 1건씩) 
+		}
+		
+		return sumMoney;
+	}
+
 	
 	
 }

@@ -8,8 +8,6 @@ public interface CartService {
 
 	List<CartVo> cartList(String user_id);
 
-	int sumMoney(String user_id);
-	
 	void cartDelete(int product_no);
 	
 	void cartInsert(CartVo cartVo);

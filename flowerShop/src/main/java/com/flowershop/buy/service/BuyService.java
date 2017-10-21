@@ -15,4 +15,6 @@ public interface BuyService {
 
 	List<CartVo> getCartList(String[] cartNo)throws Exception;
 
+	int getPartSumMoney(String[] cartNo)throws Exception;
+
 }

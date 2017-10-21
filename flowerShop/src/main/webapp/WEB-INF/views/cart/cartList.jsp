@@ -77,7 +77,7 @@ function CartDel() {
    
    $(":checkbox[name='chk']:checked").each(function(i){
        chkedObj = new Object();
-       chkedObj.product_no = $(this).val(); 
+       chkedObj.cart_no = $(this).val(); 
        chkedVal[i] = chkedObj; 
     });
    if(chkedVal.length == 0){

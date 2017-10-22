@@ -53,8 +53,19 @@ function MessageList(){
 				<c:if test="${not empty user}">
 					<div class="col-md-4">
 						<div class="header-right">
+								<ul class="list-unstyled list-inline">
+								<li class="dropdown dropdown-small">
+								
+								<a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#">
+								<span class="value">${user.user_point } 포인트  </span><b class="caret"></b></a>
+									<ul class="dropdown-menu">
+										<li><a href="${pageContext.request.contextPath }/pointList">포인트 내역</a></li>							
+									</ul>
+								</li>
+							</ul>
 							<ul class="list-unstyled list-inline">
 								<li class="dropdown dropdown-small">
+								
 								<a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#">
 									<span class="value">${user.user_id } 님  </span><b class="caret"></b></a> 
 									<ul class="dropdown-menu">

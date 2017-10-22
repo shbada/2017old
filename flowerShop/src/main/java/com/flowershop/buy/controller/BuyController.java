@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.flowershop.buy.domain.BuyVo;
@@ -29,6 +30,10 @@ public class BuyController {
 	private Log log = LogFactory.getLog(BuyController.class);
 
 	public static final float rate = 0.05f;
+	
+	int buy_addPoint;
+	
+	int limitPoint;
 	
 	@Autowired
 	private BuyService buyService;
@@ -50,10 +55,10 @@ public class BuyController {
 		String user_id = request.getParameter("user_id"); 
 		String totalCartNo = request.getParameter("totalCartNo");      // 콤마(,) 를 구분자로해서 cart_no를 가지고 있다.  
 		String[] cartNo = totalCartNo.split(",");						// split() 메소드를 이용해서 문자열 자르기
-		int sumMoney = 0;  
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<CartVo> list = null;
-		
+		int sumMoney = 0;  
 		if(buyChoice.trim().equals("buyAll")) {								// 전체구매시!!!
 			list = buyService.getCartList(cartNo);
 			for(int i=0; i<list.size(); i++) {								// 구매시 세일상품&일반상품을 합산하는 과정
@@ -85,11 +90,12 @@ public class BuyController {
 		map.put("user_id", user_id);
 
 		model.addAttribute("map", map);
+		limitPoint = sumMoney;
 		return "buy/buyForm";
 		}
 	
 	@RequestMapping(value="/payment")
-	public String payMent(HttpServletRequest request, BuyVo buyVo,HttpSession session,PointVo pointVo) throws Exception {
+	public String payMent(HttpServletRequest request, BuyVo buyVo,HttpSession session,PointVo pointVo, Model model) throws Exception {
 		buyService.buyInsert(buyVo); // buy table에 insert (배송정보등등...)
 		
 		int getBuy_no = buyService.getBuy_no(buyVo.getUser_id()); // buyinfo table에 buy_no를 넣어주기 위해서 buy_no를 가져온다.
@@ -102,7 +108,12 @@ public class BuyController {
 		int userPoint = pointService.getPoint(userVo.getUser_id());
 		int buyTotalPrice = Integer.parseInt(request.getParameter("buy_totalPrice"));
 		int usedPoint = Integer.parseInt(request.getParameter("point"));
-		int buy_addPoint = (int)(buyTotalPrice * rate);
+		int deliveryPrice = Integer.parseInt(request.getParameter("deliveryPrice"));
+		if(deliveryPrice == 2500){
+			buyTotalPrice = buyTotalPrice - 2500;
+			this.buy_addPoint = (int)(buyTotalPrice * rate);
+		}
+		this.buy_addPoint = (int)(buyTotalPrice * rate);
 		if(usedPoint > 0){
 			//포인트를 사용 할 경우
 			pointVo.setPoint_yn("Y");
@@ -123,7 +134,6 @@ public class BuyController {
 		map.put("pointVo", pointVo);
 		map.put("userVo", userVo);
 		pointService.recordPoint(map);
-
 		return "redirect:/cartList";
 	}
 
@@ -144,6 +154,16 @@ public class BuyController {
 		UserVo userVo = (UserVo) session.getAttribute("authUser");
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("data", userVo);
+		return map;
+	}
+	
+
+	@RequestMapping(value="/getlimitpoint", method = RequestMethod.POST)
+	@ResponseBody
+	public Object getLimitPoint()throws Exception{
+		int limitPoint1 = (int) (limitPoint * 0.1);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("data", limitPoint1);
 		return map;
 	}
 

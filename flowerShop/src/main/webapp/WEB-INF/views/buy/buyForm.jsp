@@ -15,8 +15,19 @@ $.ajax({
 	url : '${pageContext.request.contextPath }/getpoint',
 	success : function(response){
 		$("#my_point").text(response.data);
+		$("#hiddenMyPoint").val(response.data);
 	}
 })
+
+$.ajax({
+	type : 'POST',
+	url : '${pageContext.request.contextPath }/getlimitpoint',
+	success : function(response){
+		$("#limit_point").text(response.data);
+		$("#hiddenLimitPoint").val(response.data);
+	}
+})
+
 
 function buyDeliveryCheck(obj){
    if(obj.checked){
@@ -70,21 +81,31 @@ function checkPayment() {
    var name = document.form.buy_name.value;
    var phone = document.form.buy_phone.value;
    var addr4 = document.form.buy_addr4.value;
-   var point = document.form.point.value;
+   var usePoint1 = document.form.point.value;
+   var myPoint1 = document.form.hiddenMyPoint.value;
+   var limitPoint1 = document.form.hiddenLimitPoint.value;
    var nameValid = /^[가-힣]{2,4}$/;
    var phoneValid = /^01([0|1|6|7|8|9]?)-([0-9]{3,4})-([0-9]{4})$/;
    var addr4Valid = /^[ㄱ-ㅎ|가-힣|0-9|\*]+$/;   
-       
+   
+   var usePoint = parseInt(usePoint1);
+   var myPoint = parseInt(myPoint1);
+   var limitPoint = parseInt(limitPoint1);
+   
    if(nameValid.test(name) == false){
       alert("올바른 이름을 입력해주세요.");
    } else if(phoneValid.test(phone) == false){
       alert("올바른 연락처를 입력해주세요.");
    } else if(addr4Valid.test(addr4) == false){
       alert("올바른 주소를 입력해주세요.");
-   } else if(point < 0){
+   } else if(usePoint < 0){
 	  alert("포인트를 올바르게 입력해주세요.");  
+   } else if(myPoint < usePoint){
+	  alert("포인트가 부족합니다.");
+   } else if(limitPoint < usePoint){
+	   alert("총 구매금액에 사용 가능 포인트를 넘어섰습니다.");
    } else{
-      
+   
       var totalCartNo = "";  
       var cart_no = null;
       
@@ -205,6 +226,7 @@ function checkPayment() {
             <input type="hidden" name="totalCartNo" value="1">
             <input type="hidden" name="user_id" value="${map.user_id}">
             <input type="hidden" name="buy_totalPrice" value="${map.allSum}">
+            <input type="hidden" name="deliveryPrice" value="${map.fee }">
             <label for="buy_delivery">구매자 정보와 동일합니다.</label>
             <input type="checkbox" name="buy_delivery" id="buy_delivery" onclick="buyDeliveryCheck(this)" />
             <label for="user_id"></label> <input type="text" name="buy_name"id="buy_name" style="width: 100%" placeholder="받는사람 이름" /> <spanid="duplicateResult"></span><br /> <label for="user_name"></label>
@@ -219,9 +241,13 @@ function checkPayment() {
             <hr />
             <h2 class="sidebar-title">Point 적립/할인</h2>
             <label for="point">사용 할 포인트 :&nbsp;</label>
-            <input type="text" id="point" name="point" value="0"/>       
-                        나의 포인트 :<p id="my_point"/> 
-                        사용 가능 포인트:<p id="pos_point"/>
+            <input type="text" id="point" name="point" value="0" style="height:15px;"/><br></br>     
+            	<p id="my_point_text" style="float:left; padding-right:5px">나의 포인트 :</p>
+            	<p id="my_point"></p>
+            <input type="text" id="hiddenMyPoint" value=""/><br></br>	
+            	<p id="my_point_text" style="float:left; padding-right:5px">사용 가능 포인트(총 결제금액의 10% 이하) :</p>
+            	<p id="limit_point"/></p><br></br>
+            <input type="text" id="hiddenLimitPoint" value=""/><br></br>	
             <hr />
             <input type="button" class="btn btn-lg btn-primary btn-block"value="결제 하기" onclick="checkPayment()" /> 
             <input type="button"class="btn btn-lg btn-warning btn-block" value="장바구니로 돌아가기"onclick="returnCart()" />

@@ -15,9 +15,18 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/jquery.validate.js"></script>
 	<script type="text/javascript">
 	$(document).ready(function() {
-	    $("#change").click(function(){
-	        
-	    });			    
+		 //최상단 체크박스 클릭
+	    $("#checkall").click(function(){
+	        //클릭되었으면
+	        if($("#checkall").prop("checked")){
+	            //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
+	            $("input[name=chk]").prop("checked",true);
+	            //클릭이 안되있으면
+	        }else{
+	            //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
+	            $("input[name=chk]").prop("checked",false);
+	        }
+	    });		    
 	});
 	
 	function AdminDel() {
@@ -102,8 +111,7 @@
 				<td>${member.user_regdate }</td>
 				<td>${member.user_point }</td>				
 				<td>					
-					${member.isadmin }			
-					<input type="button" value="변경" class="btn btn-success" id="change">																																			
+					<button type="button" class="btn btn-info">${member.isadmin }</button>																																										
 				</td>				
 			</tr>
 		</c:forEach> <!-- 컨트롤러의 addAttribute의 list -->		

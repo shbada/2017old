@@ -29,9 +29,6 @@ public class BuyController {
 	@Autowired
 	private BuyService buyService;
 
-	@Autowired
-	private CartService cartService;
-	
 	@RequestMapping("/buy")
 	public String  buy(HttpSession session, HttpServletRequest request, Model model)throws Exception{
 		if(session.getAttribute("authUser") == null) {
@@ -41,19 +38,32 @@ public class BuyController {
 		}
 		String buyChoice = request.getParameter("buyChoice");				// 구매종류 선택시 필요!! 
 		String user_id = request.getParameter("user_id"); 
+		String totalCartNo = request.getParameter("totalCartNo");      // 콤마(,) 를 구분자로해서 cart_no를 가지고 있다.  
+		String[] cartNo = totalCartNo.split(",");						// split() 메소드를 이용해서 문자열 자르기
 		int sumMoney = 0;  
-		
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<CartVo> list = null;
 		
 		if(buyChoice.trim().equals("buyAll")) {								// 전체구매시!!!
-			list = cartService.cartList(user_id);
-			sumMoney= Integer.parseInt(request.getParameter("sumMoney"));
-		} else {															// 선택 구매시!!!
-			String totalCartNo = request.getParameter("totalCartNo");      // 결제할 cart_no 를 가지고 있는 문자열  콤마로(,) 구분돼 있다.
-			String[] cartNo = totalCartNo.split(",");						// split() 메소드를 이용해서 문자열 자르기
 			list = buyService.getCartList(cartNo);
-			sumMoney = buyService.getPartSumMoney(cartNo);
+			for(int i=0; i<list.size(); i++) {								// 구매시 세일상품&일반상품을 합산하는 과정
+				if(list.get(i).getProduct_saleyn().equals("Y")) {
+					list.get(i).setSale_price(buyService.getSalePrice(list.get(i).getProduct_no()));
+					sumMoney += list.get(i).getSale_price() * list.get(i).getProduct_amount();
+				} else {
+					sumMoney += list.get(i).getProduct_price() * list.get(i).getProduct_amount();
+				}
+			}
+		} else {															// 선택 구매시!!!
+			list = buyService.getCartList(cartNo);
+			for(int i=0; i<list.size(); i++) {								//  구매시 세일상품&일반상품을 합산하는 과정
+				if(list.get(i).getProduct_saleyn().equals("Y")) {
+					list.get(i).setSale_price(buyService.getSalePrice(list.get(i).getProduct_no()));
+					sumMoney += list.get(i).getSale_price() * list.get(i).getProduct_amount();
+				} else {
+					sumMoney += list.get(i).getProduct_price() * list.get(i).getProduct_amount();
+				}
+			}
 		}
 		int fee = sumMoney >= 50000 ? 0 : 2500;
 
@@ -77,7 +87,7 @@ public class BuyController {
 		String[] cartNo = totalCartNo.split(","); // split() 메소드를 이용해서 문자열 자르기
 		buyService.cartList(cartNo, getBuy_no);									// 결제할 카트 번호와 저장된 구매번호 를 가져가서 3가지 일을 해준다 (1. 카트 번호로 해당정보 select, 
 //																												 2. 해당 정보로 buy_info 에 insert
-//																												 3. 결제한 목록 장바구니에서 삭제하기)
+//						 																						 3. 결제한 목록 장바구니에서 삭제하기)
 		return "redirect:/cartList";
 	}
 

@@ -48,7 +48,15 @@ function buyPart() {
 }
 
 function buyAll(){
+	var totalCartNo = "";  
+	var cart_no = null;
+	
+	$(":checkbox[name='chk']").each(function(i){
+		 cart_no = $(this).val(); 
+		 totalCartNo += cart_no+","; 
+	 });
 	if (confirm("전체 구매 하시겠습니까?") == true) {
+	   document.form1.totalCartNo.value = totalCartNo;	
 	   document.form1.buyChoice.value = "buyAll";	
 	   document.form1.method="POST";         
 	   document.form1.action="<c:url value='/buy' />";         

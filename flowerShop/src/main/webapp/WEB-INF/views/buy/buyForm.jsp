@@ -140,7 +140,12 @@ function checkPayment() {
                            </div>
                         </td>
                         <td class="product-subtotal">
-                           <input type="number" name="product_price" size="5" style="border: 0;text-align: center;" value="${row.product_price }" readonly="readonly"/> 
+                           <c:if test="${row.product_saleyn == 'N'}">
+                           	<input type="number" name="product_price" size="5" style="border: 0;text-align: center;" value="${row.product_price }" readonly="readonly"/> 
+                       	   </c:if>
+                       	   <c:if test="${row.product_saleyn == 'Y'}">
+                            <input type="number" name="product_price" size="5" style="border: 0;text-align: center;" value="${row.sale_price }" readonly="readonly"/>
+                           </c:if> 
                         </td>            
                      </tr>
                   </c:forEach>

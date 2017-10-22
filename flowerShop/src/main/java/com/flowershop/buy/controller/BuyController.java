@@ -49,6 +49,7 @@ public class BuyController {
 		if(buyChoice.trim().equals("buyAll")) {								// 전체구매시!!!
 			list = cartService.cartList(user_id);
 			sumMoney= Integer.parseInt(request.getParameter("sumMoney"));
+			
 		} else {															// 선택 구매시!!!
 			String totalCartNo = request.getParameter("totalCartNo");      // 결제할 cart_no 를 가지고 있는 문자열  콤마로(,) 구분돼 있다.
 			String[] cartNo = totalCartNo.split(",");						// split() 메소드를 이용해서 문자열 자르기
@@ -68,10 +69,12 @@ public class BuyController {
 		return "buy/buyForm";
 		}
 	
-	@RequestMapping("/payment")
+	@RequestMapping(value="/payment")
 	public String payMent(HttpServletRequest request, BuyVo buyVo) throws Exception {
 		buyService.buyInsert(buyVo); // buy table에 insert (배송정보등등...)
-
+		int buyTotalPrice = Integer.parseInt(request.getParameter("buy_totalPrice"));
+		System.out.println("buyTotalPrice : "  + buyTotalPrice);
+		
 		int getBuy_no = buyService.getBuy_no(buyVo.getUser_id()); // buyinfo table에 buy_no를 넣어주기 위해서 buy_no를 가져온다.
 		String totalCartNo = request.getParameter("totalCartNo"); // 결제할 cart_no 를 가지고 있는 문자열을 받는다.  
 		String[] cartNo = totalCartNo.split(","); // split() 메소드를 이용해서 문자열 자르기

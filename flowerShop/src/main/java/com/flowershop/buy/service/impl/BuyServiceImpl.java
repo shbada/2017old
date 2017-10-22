@@ -64,8 +64,6 @@ public class BuyServiceImpl implements BuyService{
 		}
 		
 		return sumMoney;
-	}
-
-	
+	}	
 	
 }

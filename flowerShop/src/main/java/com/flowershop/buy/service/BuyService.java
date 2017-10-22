@@ -1,6 +1,7 @@
 package com.flowershop.buy.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.flowershop.buy.domain.BuyVo;
 import com.flowershop.cart.domain.CartVo;
@@ -17,4 +18,6 @@ public interface BuyService {
 
 	int getPartSumMoney(String[] cartNo)throws Exception;
 
+	
+	
 }

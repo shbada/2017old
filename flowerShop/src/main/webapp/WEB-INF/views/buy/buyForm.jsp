@@ -2,6 +2,7 @@
    pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/include/header.jsp"%>
 <jsp:include page="${pageContext.request.contextPath }/top" />
+</style>
 <link href='/resources/css/buy.css' rel='stylesheet' type='text/css'>
 <script type="text/javascript"
    src="${pageContext.request.contextPath }/resources/js/jquery-2.1.1.js"></script>
@@ -69,10 +70,10 @@ function checkPayment() {
    var name = document.form.buy_name.value;
    var phone = document.form.buy_phone.value;
    var addr4 = document.form.buy_addr4.value;
-   var point = document.form.my_point.value;
+   var point = document.form.point.value;
    var nameValid = /^[가-힣]{2,4}$/;
    var phoneValid = /^01([0|1|6|7|8|9]?)-([0-9]{3,4})-([0-9]{4})$/;
-    var addr4Valid = /^[ㄱ-ㅎ|가-힣|0-9|\*]+$/;   
+   var addr4Valid = /^[ㄱ-ㅎ|가-힣|0-9|\*]+$/;   
        
    if(nameValid.test(name) == false){
       alert("올바른 이름을 입력해주세요.");
@@ -83,7 +84,7 @@ function checkPayment() {
    } else if(point < 0){
 	  alert("포인트를 올바르게 입력해주세요.");  
    } else{
-    
+      
       var totalCartNo = "";  
       var cart_no = null;
       
@@ -213,8 +214,9 @@ function checkPayment() {
             <hr />
             <h2 class="sidebar-title">Point 적립/할인</h2>
             <label for="point">사용 할 포인트 :&nbsp;</label>
-            <input type="text" id="point" name="point"/>
-                        나의 포인트 :<p id="my_point"/>
+            <input type="text" id="point" name="point" value="0"/>       
+                        나의 포인트 :<p id="my_point"/> 
+                        사용 가능 포인트:<p id="pos_point"/>
             <hr />
             <input type="button" class="btn btn-lg btn-primary btn-block"value="결제 하기" onclick="checkPayment()" /> 
             <input type="button"class="btn btn-lg btn-warning btn-block" value="장바구니로 돌아가기"onclick="returnCart()" />

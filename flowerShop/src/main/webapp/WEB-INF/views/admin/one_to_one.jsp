@@ -65,9 +65,7 @@
 			</tr>
 		</c:forEach>
 	</table>
-	<div class="col-sm-3">
-		<button class="btn btn-success btn-block" id="" onclick="">작성</button>
-	</div>				
+	<button class="btn btn-info pull-right" id="" onclick="">작성</button>					
 </div>	
 <br>
 </body>

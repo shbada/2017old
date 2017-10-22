@@ -59,7 +59,5 @@ public class BuyServiceImpl implements BuyService{
 	public int getSalePrice(int product_no) throws Exception {
 		return buyDao.getSalePrice(product_no);
 	}
-
-	
 	
 }

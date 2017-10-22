@@ -88,6 +88,13 @@ public class BuyVo {
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
+	@Override
+	public String toString() {
+		return "BuyVo [buy_no=" + buy_no + ", buy_totalPrice=" + buy_totalPrice + ", buy_regDate=" + buy_regDate
+				+ ", buy_name=" + buy_name + ", buy_phone=" + buy_phone + ", buy_addr1=" + buy_addr1 + ", buy_addr2="
+				+ buy_addr2 + ", buy_addr3=" + buy_addr3 + ", buy_addr4=" + buy_addr4 + ", buy_addPoint=" + buy_addPoint
+				+ ", buy_usePoing=" + buy_usePoing + ", user_id=" + user_id + "]";
+	}
 	
 	
 }

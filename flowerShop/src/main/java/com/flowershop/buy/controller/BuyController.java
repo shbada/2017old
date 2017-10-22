@@ -20,14 +20,24 @@ import com.flowershop.buy.service.BuyService;
 import com.flowershop.cart.domain.CartVo;
 import com.flowershop.cart.service.CartService;
 import com.flowershop.login.domain.UserVo;
+import com.flowershop.point.domain.PointVo;
+import com.flowershop.point.service.impl.PointServiceImpl;
 
 @Controller
 public class BuyController {
 
 	private Log log = LogFactory.getLog(BuyController.class);
 
+	public static final float rate = 0.05f;
+	
 	@Autowired
 	private BuyService buyService;
+
+	@Autowired
+	private PointServiceImpl pointService;
+	
+	@Autowired
+	private CartService cartService;
 
 	@RequestMapping("/buy")
 	public String  buy(HttpSession session, HttpServletRequest request, Model model)throws Exception{
@@ -78,16 +88,42 @@ public class BuyController {
 		return "buy/buyForm";
 		}
 	
-	@RequestMapping("/payment")
-	public String payMent(HttpServletRequest request, BuyVo buyVo) throws Exception {
+	@RequestMapping(value="/payment")
+	public String payMent(HttpServletRequest request, BuyVo buyVo,HttpSession session,PointVo pointVo) throws Exception {
 		buyService.buyInsert(buyVo); // buy table에 insert (배송정보등등...)
-
+		
 		int getBuy_no = buyService.getBuy_no(buyVo.getUser_id()); // buyinfo table에 buy_no를 넣어주기 위해서 buy_no를 가져온다.
 		String totalCartNo = request.getParameter("totalCartNo"); // 결제할 cart_no 를 가지고 있는 문자열을 받는다.  
 		String[] cartNo = totalCartNo.split(","); // split() 메소드를 이용해서 문자열 자르기
 		buyService.cartList(cartNo, getBuy_no);									// 결제할 카트 번호와 저장된 구매번호 를 가져가서 3가지 일을 해준다 (1. 카트 번호로 해당정보 select, 
 //																												 2. 해당 정보로 buy_info 에 insert
-//						 																						 3. 결제한 목록 장바구니에서 삭제하기)
+//																												 3. 결제한 목록 장바구니에서 삭제하기)
+		UserVo userVo = (UserVo)session.getAttribute("authUser");
+		int userPoint = pointService.getPoint(userVo.getUser_id());
+		int buyTotalPrice = Integer.parseInt(request.getParameter("buy_totalPrice"));
+		int usedPoint = Integer.parseInt(request.getParameter("point"));
+		int buy_addPoint = (int)(buyTotalPrice * rate);
+		if(usedPoint > 0){
+			//포인트를 사용 할 경우
+			pointVo.setPoint_yn("Y");
+			pointVo.setPoint(usedPoint);
+			userVo.setUser_point(userPoint - usedPoint + buy_addPoint);
+			buyTotalPrice = buyTotalPrice - usedPoint;
+			buyVo.setBuy_no(getBuy_no);
+			pointService.updatePoint(userVo);
+		} else {
+			//포인트를 사용하지 않을 경우
+			buyVo.setBuy_no(getBuy_no);
+			pointVo.setPoint_yn("N");
+			userVo.setUser_point(userPoint + buy_addPoint);
+			pointService.updatePoint(userVo);
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("buyVo", buyVo);
+		map.put("pointVo", pointVo);
+		map.put("userVo", userVo);
+		pointService.recordPoint(map);
+
 		return "redirect:/cartList";
 	}
 

@@ -41,6 +41,10 @@
 			document.form1.submit();
 		});
 	});
+	
+	function goPage() {
+		location.href="/mailForm";		
+	}
 </script> 
 </head>
 <body>
@@ -67,7 +71,7 @@
 						<option value="3">기타문의</option>
 					</select>
 				</td>				
-			</tr>
+			</tr>		
 			<tr>
 				<td>제목</td>
 				<td>
@@ -89,10 +93,11 @@
 		</table>	
 		<div align="center">			
 			<!-- 로그인 해야지 작성가능 -->					
-			<input type="button" id="btnSave" class="btn btn-primary" value="확인">								
-        	<input type="reset" value="취소" class="btn btn-warning">
+			<input type="button" id="btnSave" class="btn btn-primary btn btn-block" value="확인">								
+        	<input type="reset" value="취소" class="btn btn-warning btn btn-block">        	
 		</div>													        	        
 	</form>
+	<button onclick="goPage()" class="btn btn-success btn btn-block">메일 보내기</button>
 </div>		
 </body>
 </html>

@@ -244,10 +244,10 @@ function checkPayment() {
             <input type="text" id="point" name="point" value="0" style="height:15px;"/><br></br>     
             	<p id="my_point_text" style="float:left; padding-right:5px">나의 포인트 :</p>
             	<p id="my_point"></p>
-            <input type="text" id="hiddenMyPoint" value=""/><br></br>	
+            <input type="hidden" id="hiddenMyPoint" value=""/><br></br>	
             	<p id="my_point_text" style="float:left; padding-right:5px">사용 가능 포인트(총 결제금액의 10% 이하) :</p>
             	<p id="limit_point"/></p><br></br>
-            <input type="text" id="hiddenLimitPoint" value=""/><br></br>	
+            <input type="hidden" id="hiddenLimitPoint" value=""/><br></br>	
             <hr />
             <input type="button" class="btn btn-lg btn-primary btn-block"value="결제 하기" onclick="checkPayment()" /> 
             <input type="button"class="btn btn-lg btn-warning btn-block" value="장바구니로 돌아가기"onclick="returnCart()" />

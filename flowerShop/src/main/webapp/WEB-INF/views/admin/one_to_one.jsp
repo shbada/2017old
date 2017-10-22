@@ -33,7 +33,7 @@
 			</div>
 		</div>
 	</div>
-	<table border="1" class="table table-striped">
+	<table class="table table-board">
 		<tr>
 			<th>번호</th>			
 			<th>제목</th>
@@ -65,7 +65,10 @@
 			</tr>
 		</c:forEach>
 	</table>
-</div>
+	<div class="col-sm-3">
+		<button class="btn btn-success btn-block" id="" onclick="">작성</button>
+	</div>				
+</div>	
 <br>
 </body>
 </html>

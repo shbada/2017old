@@ -4,7 +4,20 @@
 <mapper namespace="point">
 	
 	<select id="getPoint" parameterType="String" resultType="Integer" >
-	  select point from point where user_id = #{user_id}
+	  select user_point from users where user_id = #{user_id}
 	</select>
 
+	<insert id="recordPoint" parameterType="hashmap">
+		insert into POINT (
+				   buy_no, 
+                   user_id, 
+                   point_regdate, 
+                   point_yn, 
+                   point )
+            values(#{buyVo.buy_no}, #{userVo.user_id}, sysdate, #{pointVo.point_yn}, #{pointVo.point})
+	</insert>
+	
+	<update id="updatePoint" parameterType="login">
+		update users set user_point = #{user_point} where user_id = #{user_id}
+	</update>
 </mapper>

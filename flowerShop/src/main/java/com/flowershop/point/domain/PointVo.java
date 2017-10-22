@@ -4,6 +4,11 @@ public class PointVo {
 	private String point_yn;
 	private String point_regdate;
 	private Integer point;
+	
+	public PointVo(){
+		this.point = 0;
+	}
+	
 	public String getPoint_yn() {
 		return point_yn;
 	}

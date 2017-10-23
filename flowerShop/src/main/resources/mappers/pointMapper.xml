@@ -14,7 +14,7 @@
                    point_regdate, 
                    point_yn, 
                    point )
-            values(#{buyVo.buy_no}, #{userVo.user_id}, TO_DATE(SYSDATE, 'YYYY/MM/DD HH24:MI:SS'), #{pointVo.point_yn}, #{pointVo.point})
+            values(#{buyVo.buy_no}, #{userVo.user_id}, to_char(sysdate, 'YYYY-MM-DD HH:MI'), #{pointVo.point_yn}, #{pointVo.point})
 	</insert>
 	
 	<update id="updatePoint" parameterType="login">

@@ -38,7 +38,7 @@ public class AfterReplyController {
     	}
 		
 		UserVo userVo = (UserVo)session.getAttribute("authUser");
-		String user_id = userVo.getUser_id();
+		afterReplyVo.setUser_id(userVo.getUser_id());
 		
 		System.out.println(afterReplyVo);
 		

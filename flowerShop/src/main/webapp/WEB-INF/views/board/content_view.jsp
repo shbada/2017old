@@ -15,20 +15,20 @@
 	}
 	
 	function delete_content() {
-		if(confirm("정말 삭제 하시겠습니까?")) {
-			document.location.href="delete?pageNo=${pageNo}&board_no=${vo.board_no}";
-		} else {
-			
+		if(confirm("게시글을 삭제 하시겠습니까?")) {
+			document.form1.method="POST";   		
+			document.form1.action="<c:url value='/del_content' />";   		
+			document.form1.submit();
+		} 
+	}
+	function del_comment(comment_no) {
+		if(confirm("댓글을 삭제 하시겠습니까?")) {
+			document.commentform.comment_no.value = comment_no;
+			document.commentform.method="POST";   		
+			document.commentform.action="<c:url value='/del_comment' />";   		
+			document.commentform.submit();
 		}
 	}
-	
-// 	function delete_comment_content() {
-// 		if(confirm("정말 삭제 하시겠습니까?")) {
-// 			document.location.href="delete?pageNo=${pageNo}&board_no=${vo.board_no}";
-// 		} else {
-			
-// 		}
-// 	}
 	
 </script>
 <div class="product-big-title-area">
@@ -44,10 +44,11 @@
 </div>
 <div class="row m-n">
 	<div class="col-md-4 col-md-offset-4 m-t-lg">
-		<form action="reply?pageNo=${pageNo}&board_no=${vo.board_no}" method="post">
+		<form name="form1" action="reply?pageNo=${pageNo}&board_no=${vo.board_no}" method="post">
 			<input type="hidden" name="board_start_ref" value="${vo.board_start_ref}"/>
 			<input type="hidden" name="board_lev" value="${vo.board_lev}"/>
 			<input type="hidden" name="board_seq" value="${vo.board_seq}"/>
+			<input type="hidden" name="board_reply_count" value="${vo.board_reply_count}"/>
 		<table width="100%" border="1" align="center">
 			<tr>
 				<td>
@@ -83,8 +84,8 @@
 		<form action="commentOK" name="commentform" method="post" onsubmit="return commentChk();">
 			<input type="hidden" name="board_no" value="${vo.board_no}"/>   
 			<input type="hidden" name="pageNo" value="${pageNo}"/>
-			<input type="hidden" name="comment_no" value="00"/>
 			<input type="hidden" name="user_id" value="${userVo.user_id}">
+			<input type="hidden" name="comment_no" value="-1">
 			<!-- 댓글 리스트 -->
 			<c:if test="${commentList.size() == 0}">
 				<div width="90%" style="border:1px solid gray; text-align: center;">
@@ -96,24 +97,33 @@
 				<c:forEach var="co" items="${commentList}">
 					<div width="95%" style="border:1px solid;">
 						<div width="90%">
-						<c:if test="${co.comment_scryn == 0 || (userVo.user_id == co.user_id || userVo.user_id == vo.user_id)}">	
-							ID: ${co.user_id} (${co.comment_regdate})
+							<c:if test="${co.comment_lev > 0}">
+								<c:forEach var="i" begin="1" end="${co.comment_lev}" step="1">
+									&nbsp;&nbsp;&nbsp;
+								</c:forEach>
+								RE :&nbsp;&nbsp;
+							</c:if>
+							ID&nbsp; ${co.user_id} (${co.comment_regdate})
+							<c:set var="content" value="${co.comment_content}"/>
+							<c:set var="content" value="${fn:replace(comment_content, '>', '&gt;')}"/>
+							<c:set var="content" value="${fn:replace(comment_content, '<', '&lt;')}"/>
+							<c:set var="rn" value="${rn}"/>
+							<c:set var="content" value="${fn:replace(comment_content, rn, '<br/>')}"/>
+							<c:if test="${userVo.user_id == co.user_id}">
+								<input type="button" name="co_delete" value="삭제" onclick="javacscript:del_comment('${co.comment_no}')"/>
+								<input type="button" name="co_update" value="수정" onclick=""/>
+							</c:if>
+								<input type="button" name="comment_reply" value="답글" onclick=""/>
+						</div>
+						<c:if test="${co.comment_scryn == 0 || (userVo.user_id == co.user_id || userVo.user_id == vo.user_id)}">
+							<c:forEach var="i" begin="1" end="${co.comment_lev}" step="1">
+									&nbsp;&nbsp;&nbsp;
+							</c:forEach>
+							${co.comment_content}
 						</c:if>
 						<c:if test="${co.comment_scryn == -1 && userVo.user_id != co.user_id && userVo.user_id != vo.user_id}">	
 							비밀 댓글 입니다.
 						</c:if>
-						<c:set var="content" value="${co.comment_content}"/>
-						<c:set var="content" value="${fn:replace(comment_content, '>', '&gt;')}"/>
-						<c:set var="content" value="${fn:replace(comment_content, '<', '&lt;')}"/>
-						<c:set var="rn" value="${rn}"/>
-						<c:set var="content" value="${fn:replace(comment_content, rn, '<br/>')}"/>
-						
-						<c:if test="${userVo.user_id == co.user_id || userVo.user_id == vo.user_id}">
-						<input type="button" value="수정" />
-						<input type="button" value="삭제" />
-						</c:if>
-						</div>
-					${co.comment_content}
 					</div>
 				</c:forEach>
 				</div>

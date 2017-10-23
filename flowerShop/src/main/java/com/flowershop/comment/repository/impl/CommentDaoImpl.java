@@ -31,5 +31,21 @@ public class CommentDaoImpl implements CommentDao{
 		return (ArrayList) sqlSession.selectList("comment.selectComentList", board_no);
 	}
 
+	@Override
+	public void del_comment(int comment_no) throws Exception {
+		sqlSession.delete("comment.del_comment", comment_no);
+	}
+
+	@Override
+	public void fix_comment(int comment_no) throws Exception {
+		sqlSession.update("comment.fix_comment", comment_no);
+	}
+
+	@Override
+	public void del_comment_count(int board_no) throws Exception {
+		sqlSession.update("comment.del_comment_count", board_no);
+	}
+
+
 
 }

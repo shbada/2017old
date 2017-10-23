@@ -30,6 +30,11 @@ $(document).ready(function(){
 
 
 function buyPart() {
+	if("${count}" == 0) {
+		alert("결제할 상품이 없습니다.")
+		return;
+	}
+	
 	var totalCartNo = "";  
 	var cart_no = null;
 	
@@ -48,6 +53,10 @@ function buyPart() {
 }
 
 function buyAll(){
+	if("${count}" == 0) {
+		alert("결제할 상품이 없습니다.");
+		return;
+	}
 	var totalCartNo = "";  
 	var cart_no = null;
 	

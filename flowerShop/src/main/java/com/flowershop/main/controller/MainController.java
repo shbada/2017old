@@ -24,7 +24,7 @@ public class MainController {
 	private MessageService messageService;
 
 	// 이부분 수정해서 넣어봤어요!!
-	@RequestMapping(value = "/main", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String mainPage() {
 		
 		return "main/main";

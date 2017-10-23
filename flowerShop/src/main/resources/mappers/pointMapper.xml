@@ -10,11 +10,11 @@
 	<insert id="recordPoint" parameterType="hashmap">
 		insert into POINT (
 				   buy_no, 
-                   user_id, 
+                   user_id,
                    point_regdate, 
                    point_yn, 
                    point )
-            values(#{buyVo.buy_no}, #{userVo.user_id}, sysdate, #{pointVo.point_yn}, #{pointVo.point})
+            values(#{buyVo.buy_no}, #{userVo.user_id}, TO_DATE(SYSDATE, 'YYYY/MM/DD HH24:MI:SS'), #{pointVo.point_yn}, #{pointVo.point})
 	</insert>
 	
 	<update id="updatePoint" parameterType="login">

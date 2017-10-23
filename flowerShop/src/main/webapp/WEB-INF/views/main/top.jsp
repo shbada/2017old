@@ -119,6 +119,7 @@ function MessageList(){
 					</button>
 				</div>
 				<div class="navbar-collapse collapse">
+					<c:set var="user" value="${authUser }" scope="session" />
 					<ul class="nav navbar-nav">
 						<li class="active"><a href="main">Home</a></li>
 						<li><a href="${path }/productList">Shop page</a></li> <!-- 상품 페이지 -->
@@ -126,8 +127,10 @@ function MessageList(){
 						<li><a href="checkout.html">Checkout</a></li>
 						<li><a href="#">Category</a></li>
 						<li><a href="/productSaleList">SALE</a></li>
-						<li><a href="list">자유게시판</a></li>												
-						<li><a href="${path }/customerCenter">고객센터</a></li>
+						<li><a href="list">자유게시판</a></li>																			
+						<li>
+							<a href="${path }/customerCenter">고객센터</a>						
+						</li>										
 					</ul>
 				</div>
 			</div>

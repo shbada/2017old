@@ -18,7 +18,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/jquery.validate.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		$("#btnSave").click(function() {
+		$("#btnSave").click(function() {			
 			var title = $("#request_title").val();
 			var content = $("#request_content").val();
 			var id = $("#user_id").val();						
@@ -34,8 +34,8 @@
 				return;
 			}
 			if(id == "") {
-				alert("아이디를 입력하세요.");
-				document.form1.user_id.focus();
+				alert("로그인이 필요합니다.");
+				location.href="/login";
 				return;
 			}
 			document.form1.submit();
@@ -83,19 +83,27 @@
 				<td>
 					<textarea rows="4" cols="80" name="request_content" id="request_content" class="form-control" placeholder="내용을 입력해주세요."></textarea>
 				</td>				
-			</tr>					
-			<tr>
-				<td>아이디</td>
-				<td>					
-					<input type="text" name="user_id" id="user_id" class="form-control" placeholder="아이디를 입력해주세요.">
-				</td>				
-			</tr>
-		</table>	
-		<div align="center">			
-			<!-- 로그인 해야지 작성가능 -->					
+			</tr>		
+			<c:set var="user" value="${authUser }" scope="session" />
+			<c:choose>
+				<c:when test="${empty user}">
+					<tr>
+						<td>아이디</td>
+						<td><input type="text" name="user_id" id="user_id" size="78" class="form-control" readonly/></td>				
+					</tr>
+				</c:when>
+				<c:otherwise>
+					<tr>
+						<td>아이디</td>
+						<td><input type="text" name="user_id" id="user_id" size="78" class="form-control" value="${user.user_id }" readonly/></td>				
+					</tr>
+				</c:otherwise>
+			</c:choose>																										     							
+		</table>									
+		<div align="center">
 			<input type="button" id="btnSave" class="btn btn-primary btn btn-block" value="확인">								
-        	<input type="reset" value="취소" class="btn btn-warning btn btn-block">        	
-		</div>													        	        
+        	<input type="reset" value="취소" class="btn btn-warning btn btn-block">
+		</div>							        	      
 	</form>
 	<button onclick="goPage()" class="btn btn-success btn btn-block">메일 보내기</button>
 </div>		

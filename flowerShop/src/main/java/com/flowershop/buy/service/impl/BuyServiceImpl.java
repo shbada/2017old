@@ -59,5 +59,10 @@ public class BuyServiceImpl implements BuyService{
 	public int getSalePrice(int product_no) throws Exception {
 		return buyDao.getSalePrice(product_no);
 	}
+
+	@Override
+	public void buyUsedPoint(int usedPoint, int buyNo) throws Exception {
+		buyDao.buyUsedPoint(usedPoint, buyNo);
+	}
 	
 }

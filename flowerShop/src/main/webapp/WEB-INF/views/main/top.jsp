@@ -59,7 +59,7 @@ function MessageList(){
 								<a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#">
 								<span class="value">${user.user_point } 포인트  </span><b class="caret"></b></a>
 									<ul class="dropdown-menu">
-										<li><a href="${pageContext.request.contextPath }/pointList">포인트 내역</a></li>							
+										<li><a href="${pageContext.request.contextPath }/point/point_list">포인트 내역</a></li>							
 									</ul>
 								</li>
 							</ul>

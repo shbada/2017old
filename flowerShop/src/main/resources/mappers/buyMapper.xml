@@ -24,7 +24,7 @@
 				#{buy_addr2},
 				#{buy_addr3},
 				#{buy_addr4},
-				0,
+				#{buy_addPoint},
 				0,
 				#{user_id})
 	</insert>
@@ -84,5 +84,8 @@
 			WHERE product_no = #{product_no}
 	</select>
 	
+	<update id="buyUsedPoint" parameterType="hashmap">
+		update buy set BUY_USEPOINT = #{usedPoint} where buy_no = #{buyNo}
+	</update>
 	
 </mapper>

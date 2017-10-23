@@ -32,7 +32,7 @@ public class BuyController {
 	public static final float rate = 0.05f;
 	
 	int buy_addPoint;
-	
+	int cart_addPoint;
 	int limitPoint;
 	
 	@Autowired
@@ -91,13 +91,14 @@ public class BuyController {
 
 		model.addAttribute("map", map);
 		limitPoint = sumMoney;
+		cart_addPoint = (int) (sumMoney * rate);
 		return "buy/buyForm";
 		}
 	
 	@RequestMapping(value="/payment")
 	public String payMent(HttpServletRequest request, BuyVo buyVo,HttpSession session,PointVo pointVo, Model model) throws Exception {
+		buyVo.setBuy_addPoint(cart_addPoint);
 		buyService.buyInsert(buyVo); // buy table에 insert (배송정보등등...)
-		
 		int getBuy_no = buyService.getBuy_no(buyVo.getUser_id()); // buyinfo table에 buy_no를 넣어주기 위해서 buy_no를 가져온다.
 		String totalCartNo = request.getParameter("totalCartNo"); // 결제할 cart_no 를 가지고 있는 문자열을 받는다.  
 		String[] cartNo = totalCartNo.split(","); // split() 메소드를 이용해서 문자열 자르기
@@ -113,6 +114,7 @@ public class BuyController {
 			buyTotalPrice = buyTotalPrice - 2500;
 			this.buy_addPoint = (int)(buyTotalPrice * rate);
 		}
+		buyService.buyUsedPoint(usedPoint, getBuy_no);
 		this.buy_addPoint = (int)(buyTotalPrice * rate);
 		if(usedPoint > 0){
 			//포인트를 사용 할 경우

@@ -1,6 +1,6 @@
 package com.flowershop.buy.repository.impl;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +19,7 @@ public class BuyDaoImpl implements BuyDao {
 	SqlSession sqlSession;
 
 	public void buyInsert(BuyVo buyVo)throws Exception{
+		System.out.println(buyVo);
 		sqlSession.insert("buy.buyInsert", buyVo);
 	}
 
@@ -50,6 +51,14 @@ public class BuyDaoImpl implements BuyDao {
 	@Override
 	public int getSalePrice(int product_no) throws Exception {
 		return sqlSession.selectOne("buy.getSalePrice", product_no);
+	}
+
+	@Override
+	public void buyUsedPoint(int usedPoint, int buyNo) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("usedPoint", usedPoint);
+		map.put("buyNo", buyNo);
+		sqlSession.update("buy.buyUsedPoint", map);	
 	}
 
 	

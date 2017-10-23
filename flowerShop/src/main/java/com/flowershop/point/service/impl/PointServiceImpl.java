@@ -1,11 +1,13 @@
 package com.flowershop.point.service.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.flowershop.login.domain.UserVo;
+import com.flowershop.point.domain.ListVo;
 import com.flowershop.point.repository.impl.PointDaoImpl;
 import com.flowershop.point.service.PointService;
 
@@ -29,6 +31,11 @@ public class PointServiceImpl implements PointService {
 	public void updatePoint(UserVo userVo) throws Exception {
 		pointDao.updatePoint(userVo);
 
+	}
+
+	@Override
+	public List<ListVo> getPointList(String user_id) throws Exception {
+		return pointDao.getPointList(user_id);
 	}
 
 }

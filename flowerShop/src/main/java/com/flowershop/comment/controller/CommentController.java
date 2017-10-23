@@ -25,7 +25,6 @@ public class CommentController {
 	
 	@RequestMapping("/commentOK") // 댓글의 입력을 수행한다.
 	public String commentOK(CommentVo commentVo, HttpServletRequest request, Model model)throws Exception {
-		System.out.println("commentOK()");
 		int pageNo = Integer.parseInt(request.getParameter("pageNo"));
 		int board_no = Integer.parseInt(request.getParameter("board_no"));
 		
@@ -39,6 +38,23 @@ public class CommentController {
 		// return "redirect:view"; // @RequestMapping("/view") 메소드를 호출한다.
 	}
 	
+	@RequestMapping("/del_comment")
+	public String del_co(CommentVo commentVo,HttpServletRequest request, Model model)throws Exception{
+		int pageNo = Integer.parseInt(request.getParameter("pageNo")); 
+		System.out.println("commentVo : " + commentVo);
+		commentService.del_comment(commentVo);
+		model.addAttribute("board_no", commentVo.getBoard_no());
+		model.addAttribute("pageNo", pageNo);
+		return "redirect:content_view";
+	}
+	
 	
 	
 }
+
+
+
+
+
+
+

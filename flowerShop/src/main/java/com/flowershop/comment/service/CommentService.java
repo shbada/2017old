@@ -13,6 +13,8 @@ public interface CommentService {
 	ArrayList<CommentVo> selectComentList(int board_no)throws Exception;
 
 	void incrementCommentCount(int board_no)throws Exception;
+
+	void del_comment(CommentVo commentVo)throws Exception;
 	
 	
 

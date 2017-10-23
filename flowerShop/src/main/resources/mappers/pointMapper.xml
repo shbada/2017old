@@ -2,22 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="point">
-	
-	<select id="getPoint" parameterType="String" resultType="Integer" >
-	  select user_point from users where user_id = #{user_id}
+
+	<select id="getPoint" parameterType="String" resultType="Integer">
+		select user_point from users where user_id = #{user_id}
 	</select>
 
 	<insert id="recordPoint" parameterType="hashmap">
 		insert into POINT (
-				   buy_no, 
-                   user_id,
-                   point_regdate, 
-                   point_yn, 
-                   point )
-            values(#{buyVo.buy_no}, #{userVo.user_id}, to_char(sysdate, 'YYYY-MM-DD HH:MI'), #{pointVo.point_yn}, #{pointVo.point})
+		buy_no,
+		user_id,
+		point_regdate,
+		point_yn,
+		point )
+		values(#{buyVo.buy_no}, #{userVo.user_id}, to_char(sysdate, 'YYYY-MM-DD HH:MI'),
+		#{pointVo.point_yn}, #{pointVo.point})
 	</insert>
-	
+
 	<update id="updatePoint" parameterType="login">
-		update users set user_point = #{user_point} where user_id = #{user_id}
+		update users set
+		user_point = #{user_point} where user_id = #{user_id}
 	</update>
+
+	<select id="getPointList" parameterType="String" resultType="com.flowershop.point.domain.ListVo">
+		select p.BUY_NO, p.POINT_REGDATE, p.POINT_YN, p.USER_ID, p.point, b.BUY_ADDPOINT, b.BUY_USEPOINT
+		from point p inner join buy b on p.buy_no = b.buy_no where b.USER_ID =
+		#{user_id} ORDER by b.BUY_REGDATE desc
+	</select>
 </mapper>

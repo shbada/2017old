@@ -23,4 +23,5 @@ public interface BuyDao {
 
 	int getSalePrice(int product_no)throws Exception;
 
+	public void buyUsedPoint(int usedPoint, int buyNo) throws Exception;
 }

@@ -12,7 +12,7 @@ public class BuyVo {
 	private String buy_addr3;
 	private String buy_addr4;
 	private int buy_addPoint;
-	private int buy_usePoing;
+	private int buy_usePoint;
 	private String user_id;
 	
 	
@@ -77,10 +77,10 @@ public class BuyVo {
 		this.buy_addPoint = buy_addPoint;
 	}
 	public int getBuy_usePoing() {
-		return buy_usePoing;
+		return buy_usePoint;
 	}
 	public void setBuy_usePoing(int buy_usePoing) {
-		this.buy_usePoing = buy_usePoing;
+		this.buy_usePoint = buy_usePoing;
 	}
 	public String getUser_id() {
 		return user_id;
@@ -93,7 +93,7 @@ public class BuyVo {
 		return "BuyVo [buy_no=" + buy_no + ", buy_totalPrice=" + buy_totalPrice + ", buy_regDate=" + buy_regDate
 				+ ", buy_name=" + buy_name + ", buy_phone=" + buy_phone + ", buy_addr1=" + buy_addr1 + ", buy_addr2="
 				+ buy_addr2 + ", buy_addr3=" + buy_addr3 + ", buy_addr4=" + buy_addr4 + ", buy_addPoint=" + buy_addPoint
-				+ ", buy_usePoing=" + buy_usePoing + ", user_id=" + user_id + "]";
+				+ ", buy_usePoint=" + buy_usePoint + ", user_id=" + user_id + "]";
 	}
 	
 	

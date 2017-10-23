@@ -25,7 +25,7 @@ function MessageList(){
 									<li><a href="${pageContext.request.contextPath }/purchaseHistory"><i class="fa fa-user"></i> 주문내역</a></li>
 									<li><a href="#"><i class="fa fa-heart"></i> 관심상품</a></li>
 									<li><a href="${pageContext.request.contextPath }/cartList"><i class="fa fa-user"></i> 장바구니</a></li>
-									<li><a href="checkout.html"><i class="fa fa-user"></i> 1:1문의하기</a></li>
+									<li><a href="${path }/customerCenter"><i class="fa fa-user"></i> 1:1문의하기</a></li>
 								</c:when>
 								<c:when test="${not empty user && user.isadmin == 'ROLE_ADMIN'}">
 									<li><a href="${path }/allMemberList"><i class="fa fa-user"></i> 전체 회원 목록</a></li>
@@ -59,7 +59,7 @@ function MessageList(){
 								<a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#">
 								<span class="value">${user.user_point } 포인트  </span><b class="caret"></b></a>
 									<ul class="dropdown-menu">
-										<li><a href="${pageContext.request.contextPath }/pointList">포인트 내역</a></li>							
+										<li><a href="${pageContext.request.contextPath }/point/point_list">포인트 내역</a></li>							
 									</ul>
 								</li>
 							</ul>
@@ -118,19 +118,28 @@ function MessageList(){
 							class="icon-bar"></span>
 					</button>
 				</div>
-				<div class="navbar-collapse collapse">
-					<c:set var="user" value="${authUser }" scope="session" />
+				<div class="navbar-collapse collapse">					
 					<ul class="nav navbar-nav">
+						<c:set var="user" value="${authUser }" scope="session" />
 						<li class="active"><a href="main">Home</a></li>
 						<li><a href="${path }/productList">Shop page</a></li> <!-- 상품 페이지 -->
 						<li><a href="single-product.html">Single product</a></li>
 						<li><a href="checkout.html">Checkout</a></li>
 						<li><a href="#">Category</a></li>
 						<li><a href="/productSaleList">SALE</a></li>
-						<li><a href="list">자유게시판</a></li>																			
-						<li>
-							<a href="${path }/customerCenter">고객센터</a>						
-						</li>										
+						<li><a href="list">자유게시판</a></li>		
+						<c:choose>
+							<c:when test="${not empty user && user.isadmin != 'ROLE_ADMIN'}">
+								<li>
+									<a href="${path }/one_to_one">고객센터</a>						
+								</li>
+							</c:when>
+							<c:when test="${user.isadmin == 'ROLE_ADMIN' }">
+								<li>
+									<a href="${path }/customerCenter">고객센터</a>						
+								</li>
+							</c:when>
+						</c:choose>																																	
 					</ul>
 				</div>
 			</div>

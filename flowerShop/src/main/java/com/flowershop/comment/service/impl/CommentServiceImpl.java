@@ -38,7 +38,18 @@ public class CommentServiceImpl implements CommentService {
 	public void incrementCommentCount(int board_no) throws Exception {
 		boardService.incrementCommentCount(board_no);
 	}
-	
+
+	@Override
+	public void del_comment(CommentVo commentVo) throws Exception {
+		
+		if(commentVo.getComment_reply_count() == 0) {
+			System.out.println("commentVo.getComment_no() : " + commentVo.getComment_no());
+			commentDao.del_comment(commentVo.getComment_no());
+			commentDao.del_comment_count(commentVo.getBoard_no());
+		} else {
+			commentDao.fix_comment(commentVo.getComment_no());
+		}
+	}
 	
 
 	

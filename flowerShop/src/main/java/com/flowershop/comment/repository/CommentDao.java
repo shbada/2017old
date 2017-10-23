@@ -11,6 +11,12 @@ public interface CommentDao {
 	void updateComment(CommentVo vo)throws Exception;
 
 	ArrayList<CommentVo> selectComentList(int board_no)throws Exception;
-	
+
+	void del_comment(int comment_no)throws Exception;
+
+	void fix_comment(int comment_no)throws Exception;
+
+	void del_comment_count(int board_no)throws Exception;
+
 	
 }

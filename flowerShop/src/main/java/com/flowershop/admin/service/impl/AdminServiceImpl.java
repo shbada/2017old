@@ -34,13 +34,11 @@ public class AdminServiceImpl implements AdminService {
 
 	//1:1문의글 작성
 	@Override
-	public void requestCreate(RequestVo vo) throws Exception {
-		String user_id = vo.getUser_id();
+	public void requestCreate(RequestVo vo) throws Exception {				
 		int request_no = vo.getRequest_no();
 		String request_title = vo.getRequest_title();
 		String request_content = vo.getRequest_content();
-		String request_kind = vo.getRequest_kind();
-		vo.setUser_id(user_id);
+		String request_kind = vo.getRequest_kind();		
 		vo.setRequest_no(request_no);
 		vo.setRequest_title(request_title);
 		vo.setRequest_content(request_content);

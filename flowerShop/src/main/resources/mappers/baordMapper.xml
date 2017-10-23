@@ -54,12 +54,16 @@
 		update board set board_title = #{board_title}, board_content = #{board_content}, board_modidate = to_char(sysdate, 'YYYY-MM-DD HH:MI') where board_no = #{board_no}
 	</update>
 	
-	<delete id="deleteContent" parameterType="java.util.Map">
-		delete from board where board_no = to_number(#{board_no}) and user_id = #{user_id}
+	<delete id="deleteContent" parameterType="int">
+		delete from board where board_no = #{board_no} 
 	</delete>
 	
-	<update id="fixContent">
-		update board set board_writer = ' ' , board_title = '삭제된 게시글 입니다.', board_content = ' ', board_deldate = 'deleted' where board_no = to_number(#{board_no}) and user_id = #{user_id}  
+	<update id="fixContent" parameterType="int">
+		update board set board_writer = ' ' , 
+						 board_title = '삭제된 게시글 입니다.', 
+						 board_content = ' ', 
+						 board_deldate = 'to_char(sysdate, 'YYYY-MM-DD HH:MI')' 
+		where board_no = #{board_no} 
 	</update>
 	
 	<update id="incrementBRC" parameterType="int">

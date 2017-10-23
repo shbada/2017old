@@ -133,12 +133,10 @@ public class BoardController {
 		// return "redirect:list"; // @RequestMapping("/list") 메소드를 호출한다.
 	}
 	
-	@RequestMapping("/delete") // 게시글 한 건을 삭제하는 페이지를 불러온다.
-	public String delete(HttpSession session, HttpServletRequest request, Model model)throws Exception {
-		int board_no = Integer.parseInt(request.getParameter("board_no"));
+	@RequestMapping("/del_content") // 게시글 한 건을 삭제하는 페이지를 불러온다.
+	public String delete(BoardVo boardVo, HttpServletRequest request, Model model)throws Exception {
 		int pageNo = Integer.parseInt(request.getParameter("pageNo"));
-		UserVo userVo = (UserVo)session.getAttribute("authUser");
-		boardService.deleteContent(board_no, userVo);
+		boardService.deleteContent(boardVo);
 		model.addAttribute("pageNo", pageNo);
 		return "redirect:list";
 	}

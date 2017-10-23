@@ -58,8 +58,8 @@ public class BoardDaoImpl implements BoardDao{
 	}
 
 	@Override
-	public void deleteContent(Map map) throws Exception {
-		sqlSession.delete("board.deleteContent", map);
+	public void deleteContent(int board_no) throws Exception {
+		sqlSession.delete("board.deleteContent", board_no);
 	}
 
 	@Override
@@ -78,8 +78,8 @@ public class BoardDaoImpl implements BoardDao{
 	}
 
 	@Override
-	public void fixContent(Map<String, String> map) throws Exception {
-		sqlSession.update("board.fixContent", map);
+	public void fixContent(int board_no) throws Exception {
+		sqlSession.update("board.fixContent", board_no);
 	}
 
 	@Override

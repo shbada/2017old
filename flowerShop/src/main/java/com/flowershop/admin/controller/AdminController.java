@@ -48,7 +48,7 @@ public class AdminController {
 	
 	//고객 센터 문의 작성 화면
 	@RequestMapping(value = "/customerCenter", method = RequestMethod.GET)
-	public String customerCenter() {
+	public String customerCenter() throws Exception {		
 		return "admin/customerCenter";
 	}
 	

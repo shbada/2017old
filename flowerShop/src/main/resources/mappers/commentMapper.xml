@@ -15,7 +15,32 @@
 	</update>
 	
 	<select id="selectComentList" parameterType="int" resultType="commentVo">
-		select * from board_comment where board_no = #{board_no}
+		select * from board_comment where board_no = #{board_no} order by comment_start_ref desc, comment_seq
 	</select>
-<!-- 	COMMENT_START_REF DESC, COMMENT_SEQ -->
+	
+	<!-- <select id="getBoardlist" parameterType="java.util.Map" resultType="boardVo">
+		<![CDATA[
+			select * from (
+			select rownum rnum, T.* from (select * from board order by board_start_ref desc, board_seq) 
+			T where rownum <= #{endNo}) where rnum >= #{startNo}
+		]]>
+	</select> -->
+	
+	<delete id="del_comment" parameterType="int">
+		delete from board_comment where comment_no = #{comment_no}
+	</delete>
+	
+	<update id="fix_comment" parameterType="int">
+		update board_comment set comment_content = '삭제된 게시글 입니다.', 
+						 comment_deldate = to_char(sysdate, 'YYYY-MM-DD HH:MI'), 
+		where comment_no = #{comment_no} 
+	</update>
+	
+	<update id="del_comment_count" parameterType="int">
+		update board set commentCount = commentCount - 1
+		where board_no = #{board_no} 
+	</update>
+	
+	
+	
 </mapper>

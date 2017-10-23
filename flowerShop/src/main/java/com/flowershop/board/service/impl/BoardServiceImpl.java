@@ -78,17 +78,12 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public void deleteContent(int board_no, UserVo userVo) throws Exception {
+	public void deleteContent(BoardVo boardVo) throws Exception {
 		
-		BoardVo vo = (BoardVo) boardDao.selectContent(board_no);
-		String user_id = userVo.getUser_id();
-		Map<String, String> map = new HashMap<>();
-		map.put("user_id", user_id);
-		map.put("board_no", board_no+"");
-		if(vo.getBoard_reply_count() == 0) {
-			boardDao.deleteContent(map);
+		if(boardVo.getBoard_reply_count() == 0) {
+			boardDao.deleteContent(boardVo.getBoard_no());
 		} else {
-			boardDao.fixContent(map);
+			boardDao.fixContent(boardVo.getBoard_no());
 		}
 		
 	}

@@ -98,8 +98,6 @@ public class AfterReplyController {
 		
 		AfterReplyVo afterReplyVo = new AfterReplyVo(); 
 		
-		System.out.println(after_no);
-		System.out.println(after_content);
 		/** .jsp에서 입력된 수정할 데이터들을 Vo에 담아온다. */
 		afterReplyVo.setAfter_no(after_no);
 		afterReplyVo.setAfter_content(after_content);

@@ -1,6 +1,7 @@
 package com.flowershop.comment.repository.impl;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,8 @@ public class CommentDaoImpl implements CommentDao{
 	}
 
 	@Override
-	public void updateComment(CommentVo vo) throws Exception {
-		sqlSession.update("comment.updateComment", vo);
+	public void updateComment(Map<String, String> map) throws Exception {
+		sqlSession.update("comment.updateComment", map);
 	}
 
 	@Override

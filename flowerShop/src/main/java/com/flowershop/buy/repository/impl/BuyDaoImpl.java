@@ -19,7 +19,6 @@ public class BuyDaoImpl implements BuyDao {
 	SqlSession sqlSession;
 
 	public void buyInsert(BuyVo buyVo)throws Exception{
-		System.out.println(buyVo);
 		sqlSession.insert("buy.buyInsert", buyVo);
 	}
 

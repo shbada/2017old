@@ -1,6 +1,7 @@
 package com.flowershop.comment.service.impl;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,8 +26,8 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public void updateComment(CommentVo vo) throws Exception {
-		commentDao.updateComment(vo);
+	public void updateComment(Map<String, String> map) throws Exception {
+		commentDao.updateComment(map);
 	}
 
 	@Override
@@ -40,14 +41,13 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public void del_comment(CommentVo commentVo) throws Exception {
+	public void del_comment(int comment_no, int board_no, int comment_reply_count) throws Exception {
 		
-		if(commentVo.getComment_reply_count() == 0) {
-			System.out.println("commentVo.getComment_no() : " + commentVo.getComment_no());
-			commentDao.del_comment(commentVo.getComment_no());
-			commentDao.del_comment_count(commentVo.getBoard_no());
+		if(comment_reply_count == 0) {
+			commentDao.del_comment(comment_no);
+			commentDao.del_comment_count(board_no);
 		} else {
-			commentDao.fix_comment(commentVo.getComment_no());
+			commentDao.fix_comment(comment_no);
 		}
 	}
 	

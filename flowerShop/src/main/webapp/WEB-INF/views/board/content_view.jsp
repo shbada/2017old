@@ -3,32 +3,42 @@
 <!-- 여기서부터 jsp 소스넣기  -->
 <jsp:include page="${pageContext.request.contextPath }/top" />
 <script type="text/javascript">
-	function commentChk() {
-		f = document.commentform;
-		if(!f.comment_content.value || f.comment_content.trim().length == 0) {
-			alert('내용을 넣어 주세요');
-			f.comment_content.value = "";
-			f.comment_content.focus();
-			return false;
-		}
-		return true;
-	}
+
+function ReplyUpdate(after_no, paramText){
+	var after_content = paramText.replace(/<br>/g, '\n');
 	
-	function delete_content() {
-		if(confirm("게시글을 삭제 하시겠습니까?")) {
-			document.form1.method="POST";   		
-			document.form1.action="<c:url value='/del_content' />";   		
-			document.form1.submit();
-		} 
+	var tag = "<textarea class='form-control replyTextarea' maxlength='20000' name='comment_content' id='comment_content'>" + comment_content + "</textarea>";
+	tag += "<button type='button' class='btn btn-sm btn-success btnReplySuccess' onclick='javascript:replyOneUpdate(" + comment_no + ");'>수정확인</button>";
+	tag += "<button type='button' class='btn btn-sm btn-danger btnReplyCancle' onclick='javascript:replyOneBack();'>취소</button>";
+	$("." + after_no).html(tag); //.은 만약에 20번 댓글이면 20번 댓글을 찾음
+}
+
+function commentChk() {
+	f = document.commentform;
+	if(!f.comment_content.value || f.comment_content.trim().length == 0) {
+		alert('내용을 넣어 주세요');
+		f.comment_content.value = "";
+		f.comment_content.focus();
+		return false;
 	}
-	function del_comment(comment_no) {
-		if(confirm("댓글을 삭제 하시겠습니까?")) {
-			document.commentform.comment_no.value = comment_no;
-			document.commentform.method="POST";   		
-			document.commentform.action="<c:url value='/del_comment' />";   		
-			document.commentform.submit();
-		}
+	return true;
+}
+
+function delete_content() {
+	if(confirm("게시글을 삭제 하시겠습니까?")) {
+		document.form1.method="POST";   		
+		document.form1.action="<c:url value='/del_content' />";   		
+		document.form1.submit();
+	} 
+}
+function del_comment(comment_no) {
+	if(confirm("댓글을 삭제 하시겠습니까?")) {
+		document.commentform.comment_no.value = comment_no;
+		document.commentform.method="POST";   		
+		document.commentform.action="<c:url value='/del_comment' />";   		
+		document.commentform.submit();
 	}
+}
 	
 </script>
 <div class="product-big-title-area">
@@ -81,12 +91,18 @@
 		</table>
 		</form>
 		<hr></br>
+		<div class="related-products-wrapper">
+           	<h2 class="related-products-title">Member Review</h2>
+           	<div>
+				<div class="table-responsive" id="listReply"></div>
+			</div>
+        </div>
 		<form action="commentOK" name="commentform" method="post" onsubmit="return commentChk();">
 			<input type="hidden" name="board_no" value="${vo.board_no}"/>   
 			<input type="hidden" name="pageNo" value="${pageNo}"/>
 			<input type="hidden" name="user_id" value="${userVo.user_id}">
 			<input type="hidden" name="comment_no" value="-1">
-			<!-- 댓글 리스트 -->
+			 <!-- 댓글 리스트 -->
 			<c:if test="${commentList.size() == 0}">
 				<div width="90%" style="border:1px solid gray; text-align: center;">
 					등록된 댓글이 없습니다.
@@ -111,7 +127,7 @@
 							<c:set var="content" value="${fn:replace(comment_content, rn, '<br/>')}"/>
 							<c:if test="${userVo.user_id == co.user_id}">
 								<input type="button" name="co_delete" value="삭제" onclick="javacscript:del_comment('${co.comment_no}')"/>
-								<input type="button" name="co_update" value="수정" onclick=""/>
+								<input type="button" name="co_update" value="수정" onclick="javascript:AfterReplyUpdate('${co.comment_no }', '${co.comment_content }');"/>
 							</c:if>
 								<input type="button" name="comment_reply" value="답글" onclick=""/>
 						</div>

@@ -3,7 +3,19 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script>
 
-function AddPage(){ //더보기 클릭 시!
+function isbtnChk(obj) {
+	if(obj.checked) {
+        //클릭되었으면
+        document.getElementById("ismsg").innerHTML = "비밀글은 게시글의 글쓴이와 자신만 볼 수 있습니다.";
+        document.getElementById("comment_scryn").value = -1;
+            //클릭이 안되있으면
+	} else {
+		document.getElementById("ismsg").innerHTML = "";
+		document.getElementById("comment_scryn").value = 0;
+	}
+}
+
+function AddPage(){ 
 	listReply();
 }
 
@@ -14,22 +26,22 @@ function commentDelete(comment_no, board_no, comment_reply_count){
 			url : "/commentDelete?comment_no="+comment_no+"&board_no="+board_no+"&comment_reply_count="+comment_reply_count,
 			success : function(){
 				listReply();
-				alert("정상적으로 삭제되었습니다.");
 			}
 		});
 	}
 }
 
 function commentOneUpdate(comment_no){
+	
+	listReply();
+	
 	if (confirm("댓글을 수정하시겠습니까?") == true){
 		document.getElementById("comment_content").value = $('#comment_content').val().replace(/\n/g, "<br>"); 
 		$.ajax({
 			type : 'put',
-			
-			url : "/commentUpdate?comment_no=" + comment_no + "&comment_content=" + $("#comment_content").val(),
+			url : "/commentUpdate?comment_no=" + comment_no + "&comment_content=" + $("#comment_content").val() + "&comment_scryn=" + $("#comment_scryn").val(),
 			success : function(){
 				listReply();
-				alert("정상적으로 수정 되었습니다.");
 			}
 		});
 	}else{
@@ -37,24 +49,49 @@ function commentOneUpdate(comment_no){
 	}
 }
 
-function commentReply(comment_no){
+
+function commentReplyInsert(comment_no) {
 	
-	var tag = "<textarea class='form-control replyTextarea' maxlength='20000' name='comment_content' id='comment_content'></textarea>";
-	tag += "<button type='button' class='btn btn-sm btn-success btnReplySuccess' onclick='javascript:commentOneUpdate(" + comment_no + ");'>등록</button>";
+	
+	
+	if(confirm("댓글을 등록하시겠습니까?")==true){
+		document.getElementById("comment_contentT").value = $('#comment_contentT').val().replace(/\n/g, "<br>");
+		$.ajax({
+			type : 'put',
+			url : "/commentReplyInsert?comment_no=" + comment_no + "&comment_content=" + $("#comment_contentT").val() + "&comment_scryn=" + $("#comment_scryn").val(),
+			success : function(){ 
+				listReply();
+			}
+		});
+	}
+	return;
+}
+function commentReply(comment_no){
+	var tag = "<textarea class='form-control replyTextarea' maxlength='20000' name='comment_contentT' id='comment_contentT' placeholder='내용을 입력하세요'></textarea>";
+	tag += "<button type='button' class='btn btn-sm btn-success btnReplySuccess' onclick='javascript:commentReplyInsert("+ comment_no+");'>등록</button>";
 	tag += "<button type='button' class='btn btn-sm btn-danger btnReplyCancle' onclick='javascript:AddPage();'>취소</button>";
-	$("." + comment_no + " .commentReplyPoint").html(tag); //.은 만약에 20번 댓글이면 20번 댓글을 찾음
+	tag += "비밀글 &nbsp; <input type='checkbox' id='comment_scryn' name='comment_scryn' value='0' onclick='isbtnChk(this)'/>";
+	tag += "<p type='text' class='ismsg' id='ismsg' name='ismsg' value='' readonly='readonly' style='width:400px;color:red;' />";
+	$("." + comment_no + " .commentReplyPoint").html(tag); //.은 클레스
 }
 
 
-function commentUpdate(comment_no, paramText){
-	var comment_content = paramText.replace(/<br>/g, '\n');
+function commentUpdate(comment_no, paramText, comment_scryn){
 	
+	
+	var comment_content = paramText.replace(/<br>/g, '\n');
 	var tag = "<textarea class='form-control replyTextarea' maxlength='20000' name='comment_content' id='comment_content'>" + comment_content + "</textarea>";
 	tag += "<button type='button' class='btn btn-sm btn-success btnReplySuccess' onclick='javascript:commentOneUpdate(" + comment_no + ");'>수정확인</button>";
 	tag += "<button type='button' class='btn btn-sm btn-danger btnReplyCancle' onclick='javascript:AddPage();'>취소</button>";
+	if(comment_scryn == 0) {
+		tag += "비밀글 &nbsp; <input type='checkbox' id='comment_scryn' name='comment_scryn' value='0' onclick='isbtnChk(this)'/>";
+		tag += "<p type='text' class='ismsg' id='ismsg' name='ismsg' value='' readonly='readonly' style='width:400px;color:red;' />";
+	}else{
+		tag += "비밀 &nbsp; <input type='checkbox' checked='checked' id='comment_scryn' name='comment_scryn' value='0' onclick='isbtnChk(this)'/>";
+		tag += "<p type='text' class='ismsg' id='ismsg' name='ismsg' value='' readonly='readonly' style='width:400px;color:red;' />";
+	}
 	$("." + comment_no).html(tag); //.은 만약에 20번 댓글이면 20번 댓글을 찾음
 }
-
 </script>
 <table study = 'width:100%' border="0">
 	<c:if test="${commentList.size() == 0}">
@@ -81,17 +118,17 @@ function commentUpdate(comment_no, paramText){
 					<c:set var="content" value="${fn:replace(comment_content, rn, '<br/>')}"/>
 					<c:if test="${userVo.user_id == co.user_id}">
 						<input type="button" class="btn btn-sm btn-success btnReplyDelete" name="co_delete" value="삭제" onclick="javascript:commentDelete('${co.comment_no}','${board_no }', '${co.comment_reply_count }');"/>
-						<input type="button" class="btn btn-sm btn-primary btnReplyUpdate" name="co_update" value="수정" onclick="javascript:commentUpdate('${co.comment_no }', '${co.comment_content }');"/>
+						<input type="button" class="btn btn-sm btn-primary btnReplyUpdate" name="co_update" value="수정" onclick="javascript:commentUpdate('${co.comment_no }', '${co.comment_content }','${co.comment_scryn}');"/>
 					</c:if>
-						<input type="button" class="btn btn-sm btn-success btnReplyDelete" name="comment_reply" value="답글" onclick="javascript:commentReply('${co.comment_no}')"/>
+					<input type="button" class="btn btn-sm btn-success btnReplyDelete" name="comment_reply" value="답글" onclick="javascript:commentReply('${co.comment_no}');"/>
 				</div>
-				<c:if test="${co.comment_scryn == 0 || (userVo.user_id == co.user_id || userVo.user_id == vo.user_id)}">
+				<c:if test="${co.comment_scryn == 0 || (userVo.user_id == co.user_id || userVo.user_id == board_no_userId)}">
 					<c:forEach var="i" begin="1" end="${co.comment_lev}" step="1">
 							&nbsp;&nbsp;&nbsp;
 					</c:forEach>
 					${co.comment_content}
 				</c:if>
-				<c:if test="${co.comment_scryn == -1 && userVo.user_id != co.user_id && userVo.user_id != vo.user_id}">	
+				<c:if test="${co.comment_scryn == -1 && userVo.user_id != co.user_id && userVo.user_id != board_no_userId}">	
 					비밀 댓글 입니다.
 				</c:if>
 				<div class="commentReplyPoint"></div>
@@ -100,23 +137,4 @@ function commentUpdate(comment_no, paramText){
 		</c:forEach>
 		</div>
 	</c:if> 
-	<%-- <c:forEach var="row" items="${replyList }">
-		<tr>
-			<td class="replyId ${row.after_no }">
-				${row.user_id }님의 리뷰
-				&nbsp;
-				<br /><br />
-				<span>${row.after_content }</span>
-				<c:if test="${row.user_id == sessionUser_id }"> 
-					<button type="button" class="btn btn-sm btn-primary btnReplyUpdate" onclick="javascript:AfterReplyUpdate('${row.after_no }', '${row.after_content }');">수정</button>
-					<button type="button" class="btn btn-sm btn-success btnReplyDelete" onclick="javascript:AfterReplyDelete('${row.after_no }');">삭제</button>
-					<button type="button" class="btn btn-sm btn-primary btnReplyUpdate" onclick="javascript:AfterReplyUpdate('${row.after_no }', ${row.after_level }', '${row.after_content }');">수정</button>
-				</c:if>
-				<c:if test="${row.user_id != sessionUser_id && userVo.isadmin == 'ROLE_ADMIN'}">
-						<button type="button" class="btn btn-sm btn-success btnReplyDelete" onclick="javascript:AfterReplyDelete('${row.after_no }');">삭제</button>
-				</c:if>
-				<hr>
-			</td>
-		</tr>
-	</c:forEach> --%>
 </table>

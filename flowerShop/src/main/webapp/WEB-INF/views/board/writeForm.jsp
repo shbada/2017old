@@ -30,8 +30,10 @@
 		</div>
 	</div>
 </div>
+<hr/>
 <div class="row m-n">
 	<div class="col-md-4 col-md-offset-4 m-t-lg">
+		<a href="/list"><h3>목록으로 돌아가기</h3></a>
 		<form action="writeOK" method="post" onsubmit="return chk();" >
 		   <input type="hidden" name="board_writer" value="${userVo.user_name}">
 		   <input type="hidden" name="user_id" value="${userVo.user_id}">

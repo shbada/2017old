@@ -16,6 +16,10 @@ public interface CommentService {
 	void incrementCommentCount(int board_no)throws Exception;
 
 	void del_comment(int comment_no, int borad_no, int comment_reply_count)throws Exception;
+
+	CommentVo getCommentVo(int comment_no)throws Exception;
+
+	void commentReplyInsert(CommentVo commentVo)throws Exception;
 	
 	
 

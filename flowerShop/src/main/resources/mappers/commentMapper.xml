@@ -4,27 +4,39 @@
 <mapper namespace="comment">
 
 	<insert id="insertComment" parameterType="commentVo">
-		insert into board_Comment(board_no, comment_no, comment_start_ref, comment_before_ref, comment_reply_count, comment_lev, comment_seq,
-								  comment_content, comment_regdate, comment_modidate, comment_scryn, user_id) 
-		values (#{board_no}, comment_no_seq.nextval, comment_no_seq.currval, -1, 0, 0, 0, #{comment_content}, to_char(sysdate, 'YYYY-MM-DD HH:MI'), 
-				to_char(sysdate, 'YYYY-MM-DD HH:MI'), #{comment_scryn}, #{user_id})
+		insert into board_Comment(board_no, 
+								  comment_no, 
+								  comment_start_ref, 
+								  comment_before_ref, 
+								  comment_reply_count, 
+								  comment_lev, 
+								  comment_seq,
+								  comment_content, 
+								  comment_regdate, 
+								  comment_modidate, 
+								  comment_scryn, 
+								  user_id) 
+		values (#{board_no}, 
+				comment_no_seq.nextval, 
+				comment_no_seq.currval, 
+				-1, 
+				0, 
+				0, 
+				0, 
+				#{comment_content}, 
+				to_char(sysdate, 'YYYY-MM-DD HH:MI'), 
+				to_char(sysdate, 'YYYY-MM-DD HH:MI'), 
+				#{comment_scryn}, 
+				#{user_id})
 	</insert>
 
 	<update id="updateComment" parameterType="java.util.Map">
-		update board_Comment set comment_content = #{comment_content}, comment_modidate = to_char(sysdate, 'YYYY-MM-DD HH:MI') where comment_no = #{comment_no}
+		update board_Comment set comment_scryn = #{comment_scryn} ,comment_content = #{comment_content}, comment_modidate = to_char(sysdate, 'YYYY-MM-DD HH:MI') where comment_no = #{comment_no}
 	</update>
 	
 	<select id="selectComentList" parameterType="int" resultType="commentVo">
 		select * from board_comment where board_no = #{board_no} order by comment_start_ref asc, comment_seq
 	</select>
-	
-	<!-- <select id="getBoardlist" parameterType="java.util.Map" resultType="boardVo">
-		<![CDATA[
-			select * from (
-			select rownum rnum, T.* from (select * from board order by board_start_ref desc, board_seq) 
-			T where rownum <= #{endNo}) where rnum >= #{startNo}
-		]]>
-	</select> -->
 	
 	<delete id="del_comment" parameterType="int">
 		delete from board_comment where comment_no = #{comment_no}
@@ -32,7 +44,7 @@
 	
 	<update id="fix_comment" parameterType="int">
 		update board_comment set comment_content = '삭제된 게시글 입니다.', 
-						 comment_deldate = to_char(sysdate, 'YYYY-MM-DD HH:MI'), 
+						 comment_modidate = to_char(sysdate, 'YYYY-MM-DD HH:MI') 
 		where comment_no = #{comment_no} 
 	</update>
 	
@@ -40,6 +52,62 @@
 		update board set commentCount = commentCount - 1
 		where board_no = #{board_no} 
 	</update>
+	
+	<select id="getCommentVo" parameterType="int" resultType="commentVo">
+		select * from board_comment where comment_no = #{comment_no}
+	</select>
+	
+	<update id="incrementCRC" parameterType="int" >
+		update board_comment set comment_reply_count = comment_reply_count + 1 where comment_no = #{comment_no}
+	</update>
+	
+	<update id="subCRC" parameterType="int">
+		update board_comment set comment_reply_count = comment_reply_count - 1 where comment_no = #{comment_no}
+	</update>
+	
+	<select id="getBefore_ref" parameterType="int" resultType="int">
+		select comment_before_ref from board_comment where comment_no = #{comment_no}
+	</select>
+	
+	<select id="getReply_count" parameterType="int" resultType="int">
+		select comment_reply_count from board_comment where comment_no = #{comment_no} 
+	</select>
+	
+	<update id="incrementCommentSeq" parameterType="commentVo">
+		<![CDATA[
+			update board_comment set comment_seq = comment_seq + 1 
+				where comment_start_ref = #{comment_start_ref} 
+				and comment_seq > (#{comment_seq} + #{comment_reply_count})
+		]]>
+	</update>
+	
+	<insert id="commentReplyInsert" parameterType="commentVo">
+		insert into board_Comment(board_no, 
+								  comment_no, 
+								  comment_start_ref, 
+								  comment_before_ref, 
+								  comment_reply_count, 
+								  comment_lev, 
+								  comment_seq,
+								  comment_content, 
+								  comment_regdate, 
+								  comment_modidate, 
+								  comment_scryn, 
+								  user_id) 
+		values (#{board_no}, 
+				comment_no_seq.nextval, 
+				#{comment_start_ref}, 
+				#{comment_no}, 
+				0, 
+				#{comment_lev}+1, 
+				(#{comment_seq} + #{comment_reply_count}),
+				#{comment_content}, 
+				to_char(sysdate, 'YYYY-MM-DD HH:MI'), 
+				to_char(sysdate, 'YYYY-MM-DD HH:MI'), 
+				#{comment_scryn}, 
+				#{user_id})
+	</insert>
+	
 	
 	
 	

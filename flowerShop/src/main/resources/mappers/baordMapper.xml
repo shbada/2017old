@@ -3,12 +3,36 @@
 
 <mapper namespace="board">
 	<insert id="write" parameterType="boardVo">
-		insert into board(board_no, board_start_ref, board_before_ref, board_reply_count, board_lev, board_seq, board_writer, 
-		                  board_title, board_content, board_viewcnt, board_regdate, 
-		                  board_modidate, board_deldate, user_id, commentcount)
-		values (board_no_seq.nextval, board_no_seq.currval, -1, 0, 0, 0, #{board_writer}, 
-				#{board_title}, #{board_content}, 0, to_char(sysdate, 'YYYY-MM-DD HH:MI'),
-				to_char(sysdate, 'YYYY-MM-DD HH:MI'), 'notdeleted', #{user_id}, 0)
+		insert into board(board_no, 
+						  board_start_ref, 
+						  board_before_ref, 
+						  board_reply_count, 
+						  board_lev, 
+						  board_seq, 
+						  board_writer, 
+		                  board_title, 
+		                  board_content, 
+		                  board_viewcnt, 
+		                  board_regdate, 
+		                  board_modidate, 
+		                  board_deldate, 
+		                  user_id, 
+		                  commentcount)
+		values (board_no_seq.nextval, 
+				board_no_seq.currval, 
+				-1, 
+				0, 
+				0, 
+				0, 
+				#{board_writer}, 
+				#{board_title}, 
+				#{board_content}, 
+				0, 
+				to_char(sysdate, 'YYYY-MM-DD HH:MI'),
+				to_char(sysdate, 'YYYY-MM-DD HH:MI'), 
+				'notdeleted', 
+				#{user_id}, 
+				0)
 	</insert>
 
 	<select id="totalCount" resultType="int">
@@ -27,31 +51,60 @@
 		update board set board_viewcnt = board_viewcnt + 1 where board_no = #{board_no}
 	</update>
 	
-	<select id="selectContent" parameterType="int" resultType="boardVO">
+	<select id="selectContent" parameterType="int" resultType="boardVo">
 		select * from board where board_no = #{board_no}
 	</select>
 
-	<update id="incrementSeq" parameterType="boardVO">
+	<update id="incrementSeq" parameterType="boardVo">
 		<![CDATA[
-			update board set board_seq = board_seq + 1 where board_start_ref = #{board_start_ref} and board_seq > (#{board_seq} + #{board_reply_count})
+			update board set board_seq = board_seq + 1 
+				where board_start_ref = #{board_start_ref} 
+				and board_seq > (#{board_seq} + #{board_reply_count})
 		]]>
 	 </update>
 
-	<insert id="replyInsert" parameterType="boardVO">
-		insert into board(board_no, board_start_ref, board_before_ref, board_reply_count, board_lev, board_seq, board_writer, 
-		                  board_title, board_content, board_viewcnt, board_regdate, 
-		                  board_modidate, board_deldate, user_id, commentcount)
-		values (board_no_seq.nextval, #{board_start_ref}, #{board_no}, 0, #{board_lev}+1, (#{board_seq} + #{board_reply_count}), #{board_writer}, 
-				#{board_title}, #{board_content}, 0, to_char(sysdate, 'YYYY-MM-DD HH:MI'),
-				to_char(sysdate, 'YYYY-MM-DD HH:MI'), 'notdeleted', #{user_id}, 0)
+	<insert id="replyInsert" parameterType="boardVo">
+		insert into board(board_no, 
+						  board_start_ref, 
+						  board_before_ref, 
+						  board_reply_count, 
+						  board_lev, 
+						  board_seq, 
+						  board_writer, 
+		                  board_title, 
+		                  board_content, 
+		                  board_viewcnt, 
+		                  board_regdate, 
+		                  board_modidate, 
+		                  board_deldate, 
+		                  user_id, 
+		                  commentcount)
+		values (board_no_seq.nextval, 
+				#{board_start_ref}, 
+				#{board_no},
+				0, 
+				#{board_lev}+1, 
+				(#{board_seq} + #{board_reply_count}), 
+				#{board_writer}, 
+				#{board_title}, 
+				#{board_content}, 
+				0, 
+				to_char(sysdate, 'YYYY-MM-DD HH:MI'),
+				to_char(sysdate, 'YYYY-MM-DD HH:MI'), 
+				'notdeleted', 
+				#{user_id}, 
+				0)
 	</insert>
 	
-	<select id="getReplyCount" parameterType="boardVO" resultType="int">
+	<select id="getReplyCount" parameterType="boardVo" resultType="int">
 		select count(*) from board where board_before_ref = #{board_no}
 	</select>
 
-	<update id="updateContent" parameterType="boardVO">
-		update board set board_title = #{board_title}, board_content = #{board_content}, board_modidate = to_char(sysdate, 'YYYY-MM-DD HH:MI') where board_no = #{board_no}
+	<update id="updateContent" parameterType="boardVo">
+		update board set board_title = #{board_title}, 
+						 board_content = #{board_content}, 
+						 board_modidate = to_char(sysdate, 'YYYY-MM-DD HH:MI') 
+		where board_no = #{board_no}
 	</update>
 	
 	<delete id="deleteContent" parameterType="int">
@@ -62,13 +115,17 @@
 		update board set board_writer = ' ' , 
 						 board_title = '삭제된 게시글 입니다.', 
 						 board_content = ' ', 
-						 board_deldate = 'to_char(sysdate, 'YYYY-MM-DD HH:MI')' 
+						 board_deldate = to_char(sysdate, 'YYYY-MM-DD HH:MI') 
 		where board_no = #{board_no} 
 	</update>
 	
 	<update id="incrementBRC" parameterType="int">
 		update board set board_reply_count = board_reply_count + 1 where board_no = #{board_no}
 	</update>
+		
+	<update id="subBRC" parameterType="int">
+		update board set board_reply_count = board_reply_count - 1 where board_no = #{board_no} 	
+	</update>	
 		
 	<select id="getBefore_ref" parameterType="int" resultType="int">
 		select board_before_ref from board where board_no = #{board_no}
@@ -82,5 +139,8 @@
 		update board set commentcount = commentcount + 1 where board_no = #{board_no}
 	</update>
 		
+	<select id="getboard_no_userId" parameterType="int" resultType="String">
+		select user_id from board where board_no = #{board_no}
+	</select>	
 		
 </mapper>

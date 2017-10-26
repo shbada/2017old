@@ -54,7 +54,7 @@ public class BoardDaoImpl implements BoardDao{
 
 	@Override
 	public void updateContent(BoardVo vo) throws Exception {
-		sqlSession.update("board.update", vo);
+		sqlSession.update("board.updateContent", vo);
 	}
 
 	@Override
@@ -85,6 +85,16 @@ public class BoardDaoImpl implements BoardDao{
 	@Override
 	public void incrementCommentCount(int board_no) throws Exception {
 		sqlSession.update("board.incrementCommentCount", board_no);
+	}
+
+	@Override
+	public void subBRC(int board_no) throws Exception {
+		sqlSession.update("board.subBRC", board_no);
+	}
+
+	@Override
+	public String getboard_no_userId(int board_no) throws Exception {
+		return sqlSession.selectOne("board.getboard_no_userId", board_no);
 	}
 
 }

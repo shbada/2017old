@@ -81,6 +81,11 @@ public class BoardServiceImpl implements BoardService {
 	public void deleteContent(BoardVo boardVo) throws Exception {
 		
 		if(boardVo.getBoard_reply_count() == 0) {
+			int board_no = boardDao.getBefore_ref(boardVo.getBoard_no());
+			if(board_no != -1){
+				boardDao.subBRC(board_no);
+				board_no = boardDao.getBefore_ref(board_no);
+			}
 			boardDao.deleteContent(boardVo.getBoard_no());
 		} else {
 			boardDao.fixContent(boardVo.getBoard_no());
@@ -91,6 +96,11 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void incrementCommentCount(int board_no) throws Exception {
 		boardDao.incrementCommentCount(board_no);
+	}
+
+	@Override
+	public String getboard_no_userId(int board_no) throws Exception {
+		return boardDao.getboard_no_userId(board_no);
 	}
 	
 }

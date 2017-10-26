@@ -35,4 +35,8 @@ public interface BoardDao {
 
 	void incrementCommentCount(int board_no)throws Exception;
 
+	void subBRC(int board_no)throws Exception;
+
+	String getboard_no_userId(int board_no)throws Exception;
+
 }

@@ -47,6 +47,41 @@ public class CommentDaoImpl implements CommentDao{
 		sqlSession.update("comment.del_comment_count", board_no);
 	}
 
+	@Override
+	public CommentVo getCommentVo(int comment_no) throws Exception {
+		return (CommentVo) sqlSession.selectOne("comment.getCommentVo", comment_no);
+	}
+
+	@Override
+	public void incrementCRC(int comment_no) throws Exception {
+		sqlSession.update("comment.incrementCRC", comment_no);
+	}
+
+	@Override
+	public int getBefore_ref(int comment_no) throws Exception {
+		return sqlSession.selectOne("comment.getBefore_ref", comment_no);
+	}
+
+	@Override
+	public int getReply_count(int comment_no) throws Exception {
+		return sqlSession.selectOne("comment.getReply_count", comment_no);
+	}
+
+	@Override
+	public void incrementCommentSeq(CommentVo commentVo) throws Exception {
+		sqlSession.update("comment.incrementCommentSeq", commentVo);
+	}
+
+	@Override
+	public void commentReplyInsert(CommentVo commentVo) throws Exception {
+		sqlSession.insert("comment.commentReplyInsert", commentVo);
+	}
+
+	@Override
+	public void subCRC(int comment_no2) throws Exception {
+		sqlSession.update("comment.subCRC", comment_no2);
+	}
+
 
 
 }

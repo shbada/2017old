@@ -75,7 +75,7 @@ function delete_content() {
 				<input type="button" class="btn btn-sm btn-success btnReplyDelete" onclick="delete_content();" value="삭제하기"/>
 			<%-- </c:if> --%>
 			</div>
-			<form name="form1" action="#" method="post">
+			<form name="form1" action="/reply" method="post">
 				<input type="hidden" name="pageNo" value="${pageNo}"/>
 				<input type="hidden" name="board_no" value="${vo.board_no}"/>
 				<input type="hidden" name="board_start_ref" value="${vo.board_start_ref}"/>

@@ -29,6 +29,54 @@
 				#{user_id})
 	</insert>
 	
+	<select id="purchaseHistory" parameterType="String" resultType="com.flowershop.buy.domain.BuyVo">
+		select
+				B.buy_no, 
+				B.buy_totalPrice, 
+				B.buy_regdate, 
+				B.buy_name, 
+				B.buy_phone, 
+				B.buy_addr1, 
+				B.buy_addr2, 
+				B.buy_addr3, 
+				B.buy_addr4, 
+				B.buy_addpoint, 
+				B.buy_usepoint,
+				B.user_id,
+				I.product_no, 
+				I.product_amount, 
+				I.product_price,
+                P.product_name,
+                P.product_url
+			FROM BUY B JOIN BUY_INFO I ON B.buy_no = I.buy_no 
+                 JOIN PRODUCT P ON I.product_no = P.product_no AND B.user_id = #{user_id}
+			ORDER BY B.buy_no DESC
+	</select>
+	
+	<select id="buyDetail" parameterType="com.flowershop.buy.domain.BuyVo" resultType="com.flowershop.buy.domain.BuyVo">
+		select
+				B.buy_no, 
+				B.buy_totalPrice, 
+				B.buy_regdate, 
+				B.buy_name, 
+				B.buy_phone, 
+				B.buy_addr1, 
+				B.buy_addr2, 
+				B.buy_addr3, 
+				B.buy_addr4, 
+				B.buy_addpoint, 
+				B.buy_usepoint,
+				B.user_id,
+				I.product_no, 
+				I.product_amount, 
+				I.product_price,
+                P.product_name,
+                P.product_url
+			FROM BUY B JOIN BUY_INFO I ON B.buy_no = I.buy_no 
+                 JOIN PRODUCT P ON I.product_no = P.product_no AND B.buy_no = #{buy_no}
+			ORDER BY B.buy_no DESC
+	</select>
+	
 	<select id="cartList" parameterType="String" resultType="com.flowershop.cart.domain.CartVo">
 		select product_amount,
 			   product_no  

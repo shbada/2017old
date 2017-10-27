@@ -136,17 +136,23 @@ public class BuyController {
 		map.put("pointVo", pointVo);
 		map.put("userVo", userVo);
 		pointService.recordPoint(map);
-		return "redirect:/cartList";
+		return "redirect:/purchaseHistory";
 	}
 
 	@RequestMapping("/purchaseHistory")
 	public String PurchaseHistory(HttpSession session, Model model) {
-		if (session.getAttribute("authUser") == null) {
-			model.addAttribute("msg", "로그인 후 사용 가능합니다.");
-			model.addAttribute("url", "login");
-			return "board/alert";
-		}
+		
+		UserVo userVo = (UserVo)session.getAttribute("authUser");
+		String user_id = userVo.getUser_id();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<CartVo> list = buyService.purchaseHistory(user_id);
+		
+		map.put("list", list);
+		map.put("user_id", user_id);
 
+		model.addAttribute("map", map);
+		
 		return "buy/purchaseHistory";
 	}
    
@@ -168,5 +174,12 @@ public class BuyController {
 		map.put("data", limitPoint1);
 		return map;
 	}
-
+	
+	@RequestMapping(value="/buyDetail", method=RequestMethod.POST)
+	public String BuyDetail(@ModelAttribute("BuyVo") BuyVo buyVo, Model model, HttpSession session){
+		BuyVo list = buyService.buyDetail(buyVo); 
+		model.addAttribute("BuyVo", list);
+		
+		return "buy/buyDetail";
+	}
 }

@@ -59,6 +59,15 @@ public class BuyDaoImpl implements BuyDao {
 		map.put("buyNo", buyNo);
 		sqlSession.update("buy.buyUsedPoint", map);	
 	}
+	
+	@Override
+	public List<CartVo> purchaseHistory(String user_id) {
+		return sqlSession.selectList("buy.purchaseHistory", user_id);
+	}
 
+	@Override
+	public BuyVo buyDetail(BuyVo buyVo) {
+		return sqlSession.selectOne("buy.buyDetail", buyVo);
+	}
 	
 }

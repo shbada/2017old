@@ -65,4 +65,14 @@ public class BuyServiceImpl implements BuyService{
 		buyDao.buyUsedPoint(usedPoint, buyNo);
 	}
 	
+	@Override
+	public List<CartVo> purchaseHistory(String user_id) {
+		return buyDao.purchaseHistory(user_id);
+	}
+
+	@Override
+	public BuyVo buyDetail(BuyVo buyVo) {
+		return buyDao.buyDetail(buyVo);
+	}
+	
 }

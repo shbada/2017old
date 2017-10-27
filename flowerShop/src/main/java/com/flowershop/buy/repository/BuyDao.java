@@ -24,4 +24,8 @@ public interface BuyDao {
 	int getSalePrice(int product_no)throws Exception;
 
 	public void buyUsedPoint(int usedPoint, int buyNo) throws Exception;
+	
+	List<CartVo> purchaseHistory(String user_id);
+
+	BuyVo buyDetail(BuyVo buyVo);
 }

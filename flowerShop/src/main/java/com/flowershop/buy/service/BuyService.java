@@ -20,4 +20,8 @@ public interface BuyService {
 
 	public void buyUsedPoint(int usedPoint, int buyNo) throws Exception;
 	
+	List<CartVo> purchaseHistory(String user_id);
+
+	BuyVo buyDetail(BuyVo buyVo);
+	
 }

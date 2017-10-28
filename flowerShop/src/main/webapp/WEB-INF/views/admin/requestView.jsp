@@ -47,7 +47,7 @@
 		
 		/* 삭제처리 */
 		$(".btn-danger").on("click", function(){
-			formObj.attr("action", "/requestDelete");
+			formObj.attr("action", "/requestDelete"); //action속성에 /requestDelete인곳이 대상
 			formObj.submit();
 		});
 		

@@ -14,6 +14,10 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/jquery-2.1.1.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/jquery.validate.js"></script>
 	<script type="text/javascript">
+	var result = '${msg}';
+	if(result == 'SUCCESS') {
+		alert("처리가 완료되었습니다.");
+	}
 	$(document).ready(function() {
 		 //최상단 체크박스 클릭
 	    $("#checkall").click(function(){
@@ -60,6 +64,10 @@
 		      }
 		   }
 		}
+	
+	function change() {
+		location.href="/usersUpdate";		
+	}
 </script> 
  <title>전체 회원 목록</title>
 </head>
@@ -77,7 +85,7 @@
 	</div>
 	<br>	<!-- 부트스트랩으로 디자인 개선 -->
 	<div class="container">
-		<table border="1" class="table table-striped">
+		<table class="table table-striped">
 		<tr>
 			<!-- 체크박스 추가하여 체크에 따라 회원 강제 삭제 -->
 			<td><input type="checkbox" id="checkall" name="checkall" /></td>
@@ -111,7 +119,7 @@
 				<td>${member.user_regdate }</td>
 				<td>${member.user_point }</td>				
 				<td>					
-					<button type="button" class="btn btn-info">${member.isadmin }</button>																																										
+					<button type="button" class="btn btn-default" onclick="change()">${member.isadmin }</button>																																										
 				</td>				
 			</tr>
 		</c:forEach> <!-- 컨트롤러의 addAttribute의 list -->		

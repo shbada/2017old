@@ -29,5 +29,8 @@ public interface AdminDAO {
 	
 	//전체 목록
 	public void allListDelete(UserVo userVo) throws Exception;
+	
+	//회원 등급 수정
+	public void usersUpdate(UserVo vo) throws Exception;
 		
 }

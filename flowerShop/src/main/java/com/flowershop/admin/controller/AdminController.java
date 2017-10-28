@@ -1,5 +1,6 @@
 package com.flowershop.admin.controller;
 
+import java.io.File;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -35,7 +37,7 @@ public class AdminController {
 	AdminService adminService; //서비스 객체 자동 주입
 	
 	@Autowired
-	private JavaMailSender mailSender;
+	private JavaMailSender mailSender; //메일 전송 라이브러리 객체
 	
 	//전체 회원 관리
 	@RequestMapping("/allMemberList")
@@ -44,6 +46,17 @@ public class AdminController {
 		model.addAttribute("list", list);
 		
 		return "admin/allMemberList";
+	}
+	
+	//회원 등급 수정
+	@RequestMapping(value = "/usersUpdate")
+	public String usersUpdate(UserVo vo, RedirectAttributes rttr) throws Exception {
+		
+		logger.info("mod GET................");
+		
+		adminService.usersUpdate(vo);
+		rttr.addFlashAttribute("msg", "SUCCESS");		
+		return "redirect:/allMemberList";
 	}
 	
 	//고객 센터 문의 작성 화면
@@ -60,12 +73,13 @@ public class AdminController {
 	//고객 센터 메일 전송
 	@RequestMapping(value = "/mailSending")
 	public String mailSending(HttpServletRequest request) {
-		String setfrom = "cksthddl92@gmail.com";     			
+		String setfrom = "cksthddl92@gmail.com"; //보내는사람 이메일    			
 	    String tomail  = request.getParameter("tomail");     // 받는 사람 이메일	    
 	    String title   = request.getParameter("request_title");      // 제목
 	    String content = request.getParameter("request_content");    // 내용	    	    
 	    String id = request.getParameter("user_id"); //아이디
 	    
+	    //메세지 전송 처리 객체 생성후 호출하여 설정(messageHelper)
 	    try {
 	        MimeMessage message = mailSender.createMimeMessage();
 	        MimeMessageHelper messageHelper 
@@ -80,7 +94,7 @@ public class AdminController {
 	      } catch(Exception e){
 	        System.out.println(e);
 	      }
-	    return "redirect:/customerCenter";
+	    return "redirect:/customerCenter"; //전송 완료하면 다시 원래 화면
 	}
 	
 	//고객센터 문의 처리
@@ -122,7 +136,7 @@ public class AdminController {
 		logger.info("mod post................");
 		
 		adminService.requestUpdate(vo);
-		rttr.addFlashAttribute("msg", "SUCCESS");		
+		rttr.addFlashAttribute("msg", "SUCCESS");	//별도의 url호출 없이 바로 전송되게 한다.	
 		return "redirect:/one_to_one";
 	}
 	
@@ -144,6 +158,16 @@ public class AdminController {
 	@RequestMapping(value="/allListDelete", method=RequestMethod.POST, consumes="application/json")	 
 	public void allListDelete(@RequestBody List<UserVo> data) throws Exception {
 		adminService.allListDelete(data);
+	}
+	
+	//파일 업로드
+	@RequestMapping(value = "/action")
+	public String action(@RequestParam("uploadFile") MultipartFile file ,HttpServletRequest request, Model model) throws Exception {
+	     
+	     File f = new File("C:\\Users\\uploads\\"+file.getOriginalFilename());
+	     file.transferTo(f);
+	             
+	    return "redirect:/customerCenter";
 	}
 	
 }

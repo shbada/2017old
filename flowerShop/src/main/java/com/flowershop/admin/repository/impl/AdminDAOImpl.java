@@ -64,6 +64,12 @@ public class AdminDAOImpl implements AdminDAO {
 	public void allListDelete(UserVo userVo) throws Exception {
 		sqlSession.delete("admin.allListDelete", userVo);
 		
+	}
+
+	@Override
+	public void usersUpdate(UserVo vo) throws Exception {
+		sqlSession.update("admin.usersUpdate", vo);
+		
 	}	
 
 

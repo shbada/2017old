@@ -15,7 +15,7 @@
 	</div>
 </div>
 <div class="container">	
-	<table style="width:100%;" border="1">
+	<table style="width:100%;" class="table table-striped">
 		<tr>
 			<td colspan="5" align="right">
 				${R.totalCount}개

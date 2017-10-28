@@ -33,7 +33,7 @@
 			</div>
 		</div>
 	</div>
-	<table class="table table-board">
+	<table class="table table-striped">
 		<tr>
 			<th>번호</th>			
 			<th>제목</th>
@@ -41,31 +41,60 @@
 			<th>등록일</th>
 			<th>분류</th>
 		</tr>
+		
+		<!-- 회원이 쓴것만 보여주기 -->
 		<c:forEach var="board" items="${one_to_one }">
-			<tr>
-				<td>${board.request_no }</td>
-				<td><a href="/requestView?request_no=${board.request_no}">${board.request_title }</a></td>				
-				<td>${board.request_content }</td>
-				<td>
-					<fmt:formatDate value="${board.regdate }" pattern="yyyy-MM-dd HH:mm:ss"/>
-				</td>
-				<td>
-					<c:choose>
-						<c:when test="${board.request_kind == '1'}">
-							상품문의
-						</c:when>
-						<c:when test="${board.request_kind == '2'}">
-							회원문의
-						</c:when>
-						<c:when test="${board.request_kind == '3'}">
-							기타문의
-						</c:when>						
-					</c:choose>									
-				</td>
-			</tr>
+			<c:set var="user" value="${authUser }" scope="session" />
+			<c:choose>
+				<c:when test="${user.user_id == board.user_id}">
+					<tr>
+						<td>${board.request_no }</td>
+						<td><a href="/requestView?request_no=${board.request_no}">${board.request_title }</a></td>				
+						<td>${board.request_content }</td>
+						<td>
+							<fmt:formatDate value="${board.regdate }" pattern="yyyy-MM-dd HH:mm:ss"/>
+						</td>
+						<td>
+							<c:choose>
+								<c:when test="${board.request_kind == '1'}">
+									상품문의
+								</c:when>
+								<c:when test="${board.request_kind == '2'}">
+									회원문의
+								</c:when>
+								<c:when test="${board.request_kind == '3'}">
+									기타문의
+								</c:when>						
+							</c:choose>									
+						</td>
+					</tr>
+				</c:when>			
+				<c:when test="${user.isadmin  == 'ROLE_ADMIN'}">
+					<tr>
+						<td>${board.request_no }</td>
+						<td><a href="/requestView?request_no=${board.request_no}">${board.request_title }</a></td>				
+						<td>${board.request_content }</td>
+						<td>
+							<fmt:formatDate value="${board.regdate }" pattern="yyyy-MM-dd HH:mm:ss"/>
+						</td>
+						<td>
+							<c:choose>
+								<c:when test="${board.request_kind == '1'}">
+									상품문의
+								</c:when>
+								<c:when test="${board.request_kind == '2'}">
+									회원문의
+								</c:when>
+								<c:when test="${board.request_kind == '3'}">
+									기타문의
+								</c:when>						
+							</c:choose>									
+						</td>
+					</tr>
+				</c:when>				
+			</c:choose>		
 		</c:forEach>
-	</table>
-	<button class="btn btn-info pull-right" id="" onclick="">작성</button>					
+	</table>					
 </div>	
 <br>
 </body>

@@ -90,7 +90,7 @@ function MessageList(){
 				<div class="col-sm-6">
 					<div class="logo">
 						<h1>
-							<a href="${pageContext.request.contextPath }/main">F<span>lowerShop</span></a>
+							<a href="${pageContext.request.contextPath }/">F<span>lowerShop</span></a>
 						</h1>
 					</div>
 				</div>
@@ -121,7 +121,7 @@ function MessageList(){
 				<div class="navbar-collapse collapse">					
 					<ul class="nav navbar-nav">
 						<c:set var="user" value="${authUser }" scope="session" />
-						<li class="active"><a href="main">Home</a></li>
+						<li class="active"><a href="/">Home</a></li>
 						<li><a href="${path }/productList">Shop page</a></li> <!-- 상품 페이지 -->
 						<li><a href="single-product.html">Single product</a></li>
 						<li><a href="checkout.html">Checkout</a></li>

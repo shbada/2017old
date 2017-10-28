@@ -22,6 +22,14 @@
 		ORDER BY USER_NO asc
 	</select>
 	
+	<!-- 전체 회원 등급 수정 -->
+	<update id="usersUpdate">
+		UPDATE USERS 
+			SET 
+		isadmin = #{isadmin} 
+		where user_id = #{user_id}	
+	</update>
+	
 	<delete id="allListDelete" parameterType="com.flowershop.login.domain.UserVo">
 		DELETE FROM USERS WHERE USER_NO = #{user_no}
 			

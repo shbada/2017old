@@ -2,10 +2,7 @@ package com.flowershop.admin.service;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import com.flowershop.admin.domain.RequestVo;
-import com.flowershop.cart.domain.CartVo;
 import com.flowershop.login.domain.UserVo;
 
 public interface AdminService {
@@ -30,5 +27,8 @@ public interface AdminService {
 		
 		//전체 목록
 		public void allListDelete(List<UserVo> data) throws Exception;
+		
+		//회원 등급 변경
+		public void usersUpdate(UserVo vo) throws Exception;
 				
 }

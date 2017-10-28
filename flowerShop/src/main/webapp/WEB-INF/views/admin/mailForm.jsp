@@ -18,7 +18,7 @@
 <div class="container">
   <h4>메일 보내기</h4>
   <form action="${pageContext.request.contextPath}/mailSending" method="post">  	
-  	<c:set var="user" value="${authUser }" scope="session" />
+  	<c:set var="user" value="${authUser }" scope="session" /> <!-- 세션에 아이디가져와 설정 -->
     <div align="center"><!-- 받는 사람 이메일 -->
       <input type="text" name="tomail" size="120" style="width:100%" placeholder="상대의 이메일" class="form-control" >
     </div>     
@@ -29,7 +29,7 @@
       <textarea name="request_content" cols="120" rows="12" style="width:100%; resize:none" placeholder="내용을 입력해주세요" class="form-control"></textarea>
     </div>
     <div align="center"><!-- 아이디 --> 
-      <input type="text" name="user_id" id="user_id" size="78" class="form-control" value="${user.user_id }" readonly/>
+      <input type="text" name="user_id" id="user_id" size="78" class="form-control" value="${user.user_id }" readonly/> <!-- 로그인한 아이디 설정 -->
     </div>      
     <div align="center">
       <input type="submit" value="전송" class="btn btn-warning">

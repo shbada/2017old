@@ -74,5 +74,12 @@ public class AdminServiceImpl implements AdminService {
 			adminDAO.allListDelete(data.get(i));
 		
 	}
+
+	//회원 등급 수정
+	@Override
+	public void usersUpdate(UserVo vo) throws Exception {
+		adminDAO.usersUpdate(vo);
+		
+	}
 	
 }

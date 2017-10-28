@@ -90,11 +90,11 @@ function memberUp(idx){
 }
 
 function listDetail(idx){ 
-	   document.form1.user_id.value = idx;
-	   document.form1.method="POST";         
-	   document.form1.action="<c:url value='/memberDetail' />";         
-	   document.form1.submit();
-
+   document.form1.user_id.value = idx;
+   document.form1.method="POST";         
+   document.form1.action="<c:url value='/memberDetail' />";         
+   document.form1.submit();
+  }
 </script> 
  <title>전체 회원 목록</title>
 </head>

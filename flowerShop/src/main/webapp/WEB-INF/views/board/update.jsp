@@ -30,28 +30,31 @@ function chk(){
 		</div>
 	</div>
 </div>
-<div class="row m-n">
-	<div class="col-md-4 col-md-offset-4 m-t-lg">
-		<form method="post" name="form1" action="updateOK?pageNo=${pageNo}&board_no=${vo.board_no}">
-			<table width="100%" border="1" align="center">
-				<tr>
-				    <td>
-						<input type="text" name="board_title" size="100" value="${vo.board_title}"/> 
-				    </td>
-				</tr>
-				<tr>
-				    <td>
-						 <textarea rows="10" cols="100" name="board_content" >${vo.board_content}</textarea>
-				    </td>
-				</tr>
-				<tr>
-				    <td align="right">
-						<input type="submit" value="저장하기">
-						<input style="width: 110px; height: 45px;" type="button" value="돌아가기" onclick="location.href='content_view?pageNo=${pageNo}&board_no=${vo.board_no}'"/>
-				    </td>
-				</tr>
-			</table>
-		</form>
+<div class="single-product-area">
+	<div class="row m-n">
+		<div class="col-md-4 col-md-offset-4 m-t-lg">
+         	<a href="/list"><h3>목록으로 돌아가기</h3></a><br/>
+			<form method="post" name="form1" action="updateOK?pageNo=${pageNo}&board_no=${vo.board_no}">
+				<table class="shop_table cart">
+					<tr>
+					    <td>
+							<input type="text" name="board_title" size="100" value="${vo.board_title}"/> 
+					    </td>
+					</tr>
+					<tr>
+					    <td>
+							 <textarea rows="10" cols="100" name="board_content" >${vo.board_content}</textarea>
+					    </td>
+					</tr>
+					<tr>
+					    <td align="right">
+							<input type="submit" class="btn btn-danger" value="저장하기">
+					    </td>
+					</tr>
+				</table>
+			</form>
+			<input type="button" class="btn btn-primary" value="돌아가기" onclick="location.href='content_view?pageNo=${pageNo}&board_no=${vo.board_no}'"/>
+		</div>
 	</div>
 </div>
 <%@ include file="/WEB-INF/include/footer.jsp" %>

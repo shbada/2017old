@@ -41,9 +41,11 @@
 	
 	<select id="getBoardlist" parameterType="java.util.Map" resultType="boardVo">
 		<![CDATA[
-			select * from (
-			select rownum rnum, T.* from (select * from board order by board_start_ref desc, board_seq) 
-			T where rownum <= #{endNo}) where rnum >= #{startNo}
+			select * from 
+			(select rownum rnum, T.* 
+				from (select * from board order by board_start_ref desc, board_seq) T 
+					where rownum <= #{endNo}) 
+						where rnum >= #{startNo}
 		]]>
 	</select>
 

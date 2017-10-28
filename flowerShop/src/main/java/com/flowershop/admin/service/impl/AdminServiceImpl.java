@@ -19,12 +19,6 @@ public class AdminServiceImpl implements AdminService {
 	@Inject
 	AdminDAO adminDAO;
 	
-	@Override
-	public List<UserVo> allMemberList() throws Exception {
-		
-		return adminDAO.allMemberList();
-	}
-	
 	//1:1문의글 전체 목록
 	@Override
 	public List<RequestVo> one_to_oneAll() throws Exception {
@@ -69,17 +63,37 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
+	public List<UserVo> allMemberList() throws Exception {
+		
+		return adminDAO.allMemberList();
+	}
+
+	@Override
 	public void allListDelete(List<UserVo> data) throws Exception {
 		for(int i=0; i<data.size(); i++)
 			adminDAO.allListDelete(data.get(i));
 		
 	}
 
-	//회원 등급 수정
 	@Override
-	public void usersUpdate(UserVo vo) throws Exception {
-		adminDAO.usersUpdate(vo);
-		
+	public UserVo memberDetail(UserVo userVo) {
+		return adminDAO.memberDetail(userVo);
 	}
+
+	@Override
+	public void memberDelete(UserVo userVo) {
+		adminDAO.memberDelete(userVo);
+	}
+
+	@Override
+	public void memberDown(UserVo userVo) {
+		adminDAO.memberDown(userVo);
+	}
+
+	@Override
+	public void memberUp(UserVo userVo) {
+		adminDAO.memberUp(userVo);
+	}
+
 	
 }

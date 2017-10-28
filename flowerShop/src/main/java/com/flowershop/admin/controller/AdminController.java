@@ -39,26 +39,6 @@ public class AdminController {
 	@Autowired
 	private JavaMailSender mailSender; //메일 전송 라이브러리 객체
 	
-	//전체 회원 관리
-	@RequestMapping("/allMemberList")
-	public String allMemberList(Model model) throws Exception {
-		List<UserVo> list = adminService.allMemberList();
-		model.addAttribute("list", list);
-		
-		return "admin/allMemberList";
-	}
-	
-	//회원 등급 수정
-	@RequestMapping(value = "/usersUpdate")
-	public String usersUpdate(UserVo vo, RedirectAttributes rttr) throws Exception {
-		
-		logger.info("mod GET................");
-		
-		adminService.usersUpdate(vo);
-		rttr.addFlashAttribute("msg", "SUCCESS");		
-		return "redirect:/allMemberList";
-	}
-	
 	//고객 센터 문의 작성 화면
 	@RequestMapping(value = "/customerCenter", method = RequestMethod.GET)
 	public String customerCenter() throws Exception {		
@@ -154,12 +134,6 @@ public class AdminController {
 		return "redirect:/allMemberList";
 	}
 	
-	//관리자모드 회원 삭제
-	@RequestMapping(value="/allListDelete", method=RequestMethod.POST, consumes="application/json")	 
-	public void allListDelete(@RequestBody List<UserVo> data) throws Exception {
-		adminService.allListDelete(data);
-	}
-	
 	//파일 업로드
 	@RequestMapping(value = "/action")
 	public String action(@RequestParam("uploadFile") MultipartFile file ,HttpServletRequest request, Model model) throws Exception {
@@ -168,6 +142,40 @@ public class AdminController {
 	     file.transferTo(f);
 	             
 	    return "redirect:/customerCenter";
+	}
+	
+	@RequestMapping("/allMemberList")
+	public String allMemberList(Model model) throws Exception {
+		List<UserVo> list = adminService.allMemberList();
+		model.addAttribute("list", list);
+		
+		return "admin/allMemberList";
+	}
+
+	@RequestMapping(value="/memberDetail", method=RequestMethod.POST)
+	public String MemberDetail(@ModelAttribute("UserVo") UserVo userVo, Model model, HttpSession session){
+		UserVo list = adminService.memberDetail(userVo); 
+		model.addAttribute("UserVo", list);
+		
+		return "admin/memberDetail";
+	}
+	
+	@RequestMapping(value="/memberDelete", method=RequestMethod.POST)
+	public String MemberDelete(@ModelAttribute("UserVo") UserVo userVo, Model model, HttpSession session){
+		adminService.memberDelete(userVo); 
+		return "redirect:/allMemberList";
+	}
+	
+	@RequestMapping(value="/memberDown", method=RequestMethod.POST)
+	public String MemberDown(@ModelAttribute("UserVo") UserVo userVo, Model model, HttpSession session){
+		adminService.memberDown(userVo); 
+		return "redirect:/allMemberList";
+	}
+	
+	@RequestMapping(value="/memberUp", method=RequestMethod.POST)
+	public String MemberUp(@ModelAttribute("UserVo") UserVo userVo, Model model, HttpSession session){
+		adminService.memberUp(userVo); 
+		return "redirect:/allMemberList";
 	}
 	
 }

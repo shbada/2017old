@@ -19,12 +19,6 @@ public class AdminDAOImpl implements AdminDAO {
 	@Inject
 	SqlSession sqlSession; //마이바티스 xml 연동 객체 자동 주입
 
-	@Override
-	public List<UserVo> allMemberList() throws Exception {
-		
-		return sqlSession.selectList("admin.allMemberList");
-	}
-
 	//1:1전체 목록
 	@Override
 	public List<RequestVo> one_to_oneAll() throws Exception {
@@ -59,12 +53,39 @@ public class AdminDAOImpl implements AdminDAO {
 		
 		sqlSession.update("admin.requestUpdate", vo);
 	}
+	
+	@Override
+	public List<UserVo> allMemberList() throws Exception {
+		
+		return sqlSession.selectList("admin.allMemberList");
+	}
 
 	@Override
 	public void allListDelete(UserVo userVo) throws Exception {
-		sqlSession.delete("admin.allListDelete", userVo);
+		sqlSession.update("admin.allListDelete", userVo);
 		
+	}
+
+	@Override
+	public UserVo memberDetail(UserVo userVo) {
+		return sqlSession.selectOne("admin.memberDetail", userVo);
+	}
+
+	@Override
+	public void memberDelete(UserVo userVo) {
+		sqlSession.update("admin.memberDelete", userVo);
+	}
+
+	@Override
+	public void memberDown(UserVo userVo) {
+		sqlSession.update("admin.memberDown", userVo);
+	}
+
+	@Override
+	public void memberUp(UserVo userVo) {
+		sqlSession.update("admin.memberUp", userVo);
 	}	
+
 
 
 }

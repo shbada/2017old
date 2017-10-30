@@ -71,10 +71,10 @@ function delete_content() {
 			<hr/>
 			<div align="right">
 			<%-- <c:if test="${userVo.user_id == vo.user_id}"> --%>
-				<input type="button" class="btn btn-sm btn-primary btnReplyUpdate" onclick="location.href='update?pageNo=${pageNo}&board_no=${vo.board_no}'" value="수정하기"/>
+				<input type="button" class="btn btn-sm btn-primary btnReplyUpdate" onclick="location.href='update?pageNo=${pageNo}&board_no=${vo.board_no}'" value="수정하기"/>&nbsp;
 				<input type="button" class="btn btn-sm btn-success btnReplyDelete" onclick="delete_content();" value="삭제하기"/>
 			<%-- </c:if> --%>
-			</div>
+			</div><br />
 			<form name="form1" action="/reply" method="post">
 				<input type="hidden" name="pageNo" value="${pageNo}"/>
 				<input type="hidden" name="board_no" value="${vo.board_no}"/>
@@ -82,18 +82,18 @@ function delete_content() {
 				<input type="hidden" name="board_lev" value="${vo.board_lev}"/>
 				<input type="hidden" name="board_seq" value="${vo.board_seq}"/>
 				<input type="hidden" name="board_reply_count" value="${vo.board_reply_count}"/>
-			<table width="100%" border="1" align="center">
+			<table class="shop_table cart">
 				<tr>
 					<td>
-						제목 &nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;${vo.board_title}
+						작성자 : &nbsp; ${vo.board_writer} 
 					</td>
-					<td style="text-align:right;">
-						${vo.board_regdate}
+					<td>
+						작성시간: ${vo.board_regdate}
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2">
-						작성자 : &nbsp; ${vo.board_writer} 
+						제목 &nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;${vo.board_title}
 					</td>
 				</tr>
 				<tr>

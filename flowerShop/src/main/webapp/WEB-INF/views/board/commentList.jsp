@@ -110,7 +110,7 @@ function commentUpdate(comment_no, paramText, comment_scryn){
 						</c:forEach>
 						RE :&nbsp;&nbsp;
 					</c:if>
-					ID&nbsp; ${co.user_id} (${co.comment_regdate})
+					${co.user_id} (${co.comment_regdate})
 					<c:set var="content" value="${co.comment_content}"/>
 					<c:set var="content" value="${fn:replace(comment_content, '>', '&gt;')}"/>
 					<c:set var="content" value="${fn:replace(comment_content, '<', '&lt;')}"/>
@@ -120,16 +120,21 @@ function commentUpdate(comment_no, paramText, comment_scryn){
 						<input type="button" class="btn btn-sm btn-success btnReplyDelete" name="co_delete" value="삭제" onclick="javascript:commentDelete('${co.comment_no}','${board_no }', '${co.comment_reply_count }');"/>
 						<input type="button" class="btn btn-sm btn-primary btnReplyUpdate" name="co_update" value="수정" onclick="javascript:commentUpdate('${co.comment_no }', '${co.comment_content }','${co.comment_scryn}');"/>
 					</c:if>
-					<input type="button" class="btn btn-sm btn-success btnReplyDelete" name="comment_reply" value="답글" onclick="javascript:commentReply('${co.comment_no}');"/>
+					<input type="button" class="btn btn-sm btn-danger btnReplyDelete" name="comment_reply" value="답글" onclick="javascript:commentReply('${co.comment_no}');"/>
 				</div>
 				<c:if test="${co.comment_scryn == 0 || (userVo.user_id == co.user_id || userVo.user_id == board_no_userId)}">
 					<c:forEach var="i" begin="1" end="${co.comment_lev}" step="1">
 							&nbsp;&nbsp;&nbsp;
 					</c:forEach>
+					<c:if test="${co.comment_scryn == -1 }">	
+					<sapn class="link" style="color:red;">${co.comment_content}</sapn>
+					</c:if>
+					<c:if test="${co.comment_scryn != -1 }">	
 					${co.comment_content}
+					</c:if>
 				</c:if>
 				<c:if test="${co.comment_scryn == -1 && userVo.user_id != co.user_id && userVo.user_id != board_no_userId}">	
-					비밀 댓글 입니다.
+					<p style="color:red;">비밀 댓글은 댓글 작성자와 게시글 작성자만 볼 수 있습니다.</p>
 				</c:if>
 				<div class="commentReplyPoint"></div>
 				<hr/>

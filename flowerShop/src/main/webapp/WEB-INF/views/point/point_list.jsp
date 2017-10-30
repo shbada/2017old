@@ -44,29 +44,32 @@ $.ajax({
 </script>
 </head>
 <body>
-	<div class="product-big-title-area">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="product-bit-title text-center">
-						<h2>포인트 적립/사용 목록</h2>
-					</div>
+<div class="product-big-title-area">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="product-bit-title text-center">
+					<h2>포인트 내역</h2>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 	<br>
 	<!-- 부트스트랩으로 디자인 개선 -->
-	<div class="container">
-		<table id="list-select" border="1" class="table table-striped">
-			<tr >
-				<!-- 체크박스 추가하여 체크에 따라 회원 강제 삭제 -->
-				<th>구매번호</th>
-				<th>적립 날짜</th>
-				<th>적립 포인트</th>
-				<th>사용한 포인트</th>
-			</tr>
-		</table>
+<div class="single-product-area">
+     <div class="container">
+         <div class="row">
+			<table id="list-select" border="1" class="shop_table cart">
+				<tr >
+					<!-- 체크박스 추가하여 체크에 따라 회원 강제 삭제 -->
+					<th>구매번호</th>
+					<th>적립 날짜</th>
+					<th>적립 포인트</th>
+					<th>사용한 포인트</th>
+				</tr>
+			</table>
+		</div>
 	</div>
-</body>
+</div>
 <%@ include file="/WEB-INF/include/footer.jsp"%>

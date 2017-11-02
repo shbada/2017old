@@ -178,4 +178,10 @@ public class AdminController {
 		return "redirect:/allMemberList";
 	}
 	
+	//관리자 답글
+	@RequestMapping("/adminReply")
+	public String adminReply() {
+		return "admin/adminReply";
+	}
+	
 }

@@ -57,6 +57,10 @@
 			formObj.submit();
 		});
 	});
+	
+	function adminReply() {
+		location.href="/adminReply";
+	}
 </script> 
 </head>
 <body>
@@ -97,10 +101,16 @@
 				</td>
 			</tr>
 		</table>									
-		<div align="center">
+		<div align="center"> 
+			<c:set var="user" value="${authUser }" scope="session" />
 			<input type="hidden" name="request_no" value="${dto.request_no }">		
 			<input type="button" id="btnUpdate" class="btn btn-warning" value="수정">	
 			<input type="button" id="btnDelete" class="btn btn-danger" value="삭제">
+			<c:choose> 
+				<c:when test="${user.isadmin == 'ROLE_ADMIN' }">
+					<input type="button" onclick="adminReply()" class="btn btn-primary" value="답글">
+				</c:when>				
+			</c:choose>			
 		</div>						
 	</form>
 </div>	

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="message">
+    <insert id="MessageWriteSave" parameterType="com.flowershop.message.domain.MessageVo">
+		INSERT INTO MESSAGE(
+			MSG_NO, 
+			MSG_SEND, 
+			MSG_REGDATE, 
+			MSG_GET,
+			MSG_NAME,
+			MSG_DESC
+		) VALUES (
+			MESSAGE_SEQ.NEXTVAL, 
+			#{user_id}, 
+			TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS'),
+			#{msg_get},
+			#{msg_name},
+			#{msg_desc}
+		)
+	</insert>
+	
+	<insert id="MessageSendWriteSave" parameterType="com.flowershop.message.domain.MessageVo">
+		INSERT INTO MESSAGE(
+			MSG_NO, 
+			MSG_SEND, 
+			MSG_REGDATE, 
+			MSG_GET,
+			MSG_NAME,
+			MSG_DESC
+		) VALUES (
+			MESSAGE_SEQ.NEXTVAL, 
+			#{user_id}, 
+			TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS'),
+			#{msg_get},
+			#{msg_name},
+			#{msg_desc}
+		)
+	</insert>
+	
+	<select id="messageList" parameterType="com.flowershop.message.domain.MessageVo" resultType="com.flowershop.message.domain.MessageVo">
+	SELECT  MSG_NO, 
+			MSG_SEND, 
+			MSG_REGDATE, 
+			MSG_GET,
+			MSG_NAME,
+			MSG_DESC,
+			MSG_READYN
+    FROM MESSAGE
+            WHERE MSG_GETYN='Y' AND MSG_GET=#{user_id}
+           		ORDER BY MSG_NO DESC
+	</select>
+	
+	<select id="MessageSendList" parameterType="com.flowershop.message.domain.MessageVo" resultType="com.flowershop.message.domain.MessageVo">
+	SELECT  MSG_NO, 
+			MSG_SEND, 
+			MSG_REGDATE, 
+			MSG_GET,
+			MSG_NAME,
+			MSG_DESC,
+			MSG_READYN
+    FROM MESSAGE
+            WHERE MSG_SENDYN='Y' AND MSG_SEND=#{user_id}
+           		ORDER BY MSG_NO DESC
+	</select>
+	
+	<update id="MessageSendDelete" parameterType="com.flowershop.message.domain.MessageVo">
+			UPDATE MESSAGE
+				SET 
+					MSG_SENDYN = 'N'
+				WHERE MSG_NO = #{msg_no}
+	</update>
+	
+	<update id="MessageGetDelete" parameterType="com.flowershop.message.domain.MessageVo">
+			UPDATE MESSAGE
+				SET 
+					MSG_GETYN = 'N'
+				WHERE MSG_NO = #{msg_no}
+	</update>
+	
+	<select id="messageDetail" parameterType="com.flowershop.message.domain.MessageVo" resultType="com.flowershop.message.domain.MessageVo">
+	SELECT  MSG_NO, 
+			MSG_SEND, 
+			MSG_REGDATE, 
+			MSG_GET,
+			MSG_NAME,
+			MSG_DESC,
+			MSG_READYN
+    	FROM MESSAGE
+            WHERE MSG_NO=#{msg_no}
+	</select>
+	
+	<select id="MessageIdCheck" parameterType="String" resultType="int">
+	SELECT COUNT(*)
+			FROM USERS
+				WHERE user_id= #{idCheck}
+	</select>
+	
+	<select id="messageNewCount" parameterType="String" resultType="int">
+	 SELECT COUNT(*)
+			FROM MESSAGE
+				WHERE MSG_GET = #{user_id}
+				AND MSG_READYN = 'N'
+				
+	</select>
+	
+	<update id="messageReadYn" parameterType="com.flowershop.message.domain.MessageVo">
+			UPDATE MESSAGE
+				SET 
+					MSG_READYN = 'Y'
+				WHERE MSG_NO = #{msg_no}
+	</update>
+</mapper>

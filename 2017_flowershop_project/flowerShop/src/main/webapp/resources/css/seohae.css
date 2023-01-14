@@ -1,0 +1,40 @@
+.createHeader {
+	font-size: 19px;
+	line-height: 20px;
+	margin-bottom: 20px;
+}
+.subCreateHeader {
+	font-size: 11px;
+	line-height: 20px;
+}
+
+.btn-shop {
+    color: #fff;
+    background-color: #1abc9c;
+    border-color: #1abc9c;
+}
+
+.btn-blocksmall{
+	display: block;
+    width: 50%;
+}
+.afind{
+	text-align:right;
+}
+.afindFont{
+	color: #000000;
+}
+.freeReplTextarea{
+	height:100px !important;
+	max-height:100px;
+	overflow:scroll;
+	resize:none;
+}
+
+.centerBtn{
+	text-align:center;
+}
+
+.heart{
+	color: #ff0000;
+}

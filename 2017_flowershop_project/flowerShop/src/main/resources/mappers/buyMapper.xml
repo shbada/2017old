@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="buy">
+	<insert id="buyInsert" parameterType="buy">
+		insert into buy(buy_no, 
+						buy_totalPrice, 
+						buy_regdate, 
+						buy_name, 
+						buy_phone, 
+						buy_addr1, 
+						buy_addr2, 
+						buy_addr3, 
+						buy_addr4, 
+						buy_addpoint, 
+						buy_usepoint,
+						user_id)
+		values (buy_no_seq.nextval, 
+				#{buy_totalPrice},
+				to_char(sysdate, 'YYYY-MM-DD HH:MI'),
+				#{buy_name},
+				#{buy_phone},
+				#{buy_addr1},
+				#{buy_addr2},
+				#{buy_addr3},
+				#{buy_addr4},
+				#{buy_addPoint},
+				0,
+				#{user_id})
+	</insert>
+	
+	<select id="purchaseHistory" parameterType="String" resultType="com.flowershop.buy.domain.BuyVo">
+		select
+				B.buy_no, 
+				B.buy_totalPrice, 
+				B.buy_regdate, 
+				B.buy_name, 
+				B.buy_phone, 
+				B.buy_addr1, 
+				B.buy_addr2, 
+				B.buy_addr3, 
+				B.buy_addr4, 
+				B.buy_addpoint, 
+				B.buy_usepoint,
+				B.user_id,
+				I.product_no, 
+				I.product_amount, 
+				I.product_price,
+                P.product_name,
+                P.product_url
+			FROM BUY B JOIN BUY_INFO I ON B.buy_no = I.buy_no 
+                 JOIN PRODUCT P ON I.product_no = P.product_no AND B.user_id = #{user_id}
+			ORDER BY B.buy_no DESC
+	</select>
+	
+	<select id="buyDetail" parameterType="com.flowershop.buy.domain.BuyVo" resultType="com.flowershop.buy.domain.BuyVo">
+		select DISTINCT 
+				buy_no, 
+				buy_totalPrice, 
+				buy_regdate, 
+				buy_name, 
+				buy_phone, 
+				buy_addr1, 
+				buy_addr2, 
+				buy_addr3, 
+				buy_addr4, 
+				buy_addpoint, 
+				buy_usepoint,
+				user_id
+			FROM BUY WHERE buy_no = #{buy_no}
+			ORDER BY buy_no DESC
+	</select>
+	
+	<select id="cartList" parameterType="String" resultType="com.flowershop.cart.domain.CartVo">
+		select product_amount,
+			   product_no  
+			   from cart where cart_no = #{cart_no}	
+	</select>
+	
+	<select id="getBuy_no" parameterType="com.flowershop.cart.domain.CartVo" resultType="int">
+		select max(buy_no) from buy where user_id = #{user_id}
+	</select>
+	
+	<insert id="buyInfo_insert" parameterType="java.util.HashMap">
+		insert into buy_info (buy_no, 
+							  product_no, 
+							  product_amount, 
+							  product_price
+							  ) 
+		values (#{buy_no},
+				#{product_no},
+				#{product_amount},
+				(select product_price from product where product_no = #{product_no}) 
+				)
+	</insert>
+	
+	<delete id="delete_product" parameterType="String">
+		delete from cart where cart_no = #{cart_no}
+	</delete>
+	
+	<select id="getCartList" parameterType="String" resultType="com.flowershop.cart.domain.CartVo">
+		select c.cart_no,
+			   c.product_amount,
+			   c.user_id,
+			   c.product_no,
+			   p.product_name,
+			   p.product_url,
+			   p.product_price,
+			   p.product_saleyn   
+			   from cart c, product p 
+	     where c.cart_no = #{cart_no}
+	     and   p.product_no = (select product_no from cart where cart_no = #{cart_no}) 
+	</select>
+	
+	<select id="getPartSumMoney" parameterType="String" resultType="int">
+		SELECT NVL(SUM(P.PRODUCT_PRICE * C.PRODUCT_AMOUNT), 0) MONEY
+			FROM CART C, PRODUCT P
+				WHERE C.CART_NO = #{cart_no} 
+				AND P.PRODUCT_NO = (SELECT PRODUCT_NO FROM CART WHERE CART_NO = #{cart_no})
+	</select>
+	
+	<select id="getSalePrice" parameterType="int" resultType="int">
+		SELECT 
+			SALE_PRICE
+		FROM SALE
+			WHERE product_no = #{product_no}
+	</select>
+	
+	<update id="buyUsedPoint" parameterType="hashmap">
+		update buy set BUY_USEPOINT = #{usedPoint} where buy_no = #{buyNo}
+	</update>
+	
+</mapper>

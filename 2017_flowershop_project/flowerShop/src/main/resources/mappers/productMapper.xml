@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="product">
+    <select id="productList" resultType="com.flowershop.product.domain.ProductVo"> 
+        SELECT  
+        	A.product_no,
+			A.product_name,
+			A.product_price,
+			A.product_saleyn,
+			A.product_desc,
+			A.product_url,
+			B.sale_price,
+			B.sale_percent
+       FROM product A LEFT OUTER JOIN sale B
+          ON A.product_no = B.product_no
+                  ORDER BY product_no DESC
+    </select>
+    
+    <select id="productListCount" parameterType="com.flowershop.product.domain.ProductVo" resultType="int">
+		SELECT COUNT(product_no)
+			 FROM product
+	</select>
+	
+	<select id="selectSaleInfo" parameterType="com.flowershop.product.domain.ProductVo" resultType="com.flowershop.product.domain.SaleVo">
+		SELECT 
+			SALE_PRICE,
+			SALE_PERCENT
+		FROM SALE
+			WHERE product_no = #{product_no}
+	</select>
+    
+    <select id="productDetail" resultType="com.flowershop.product.domain.ProductVo">
+        SELECT 
+            product_no, 
+            product_name, 
+            product_price,
+            product_url,
+            product_desc,
+            product_saleyn
+        FROM PRODUCT 
+        	WHERE product_no = #{product_no}
+    </select>
+    
+    <insert id="insertProduct" parameterType="com.flowershop.product.domain.ProductVo">
+         <![CDATA[
+         INSERT 
+           INTO PRODUCT(
+           	product_no,
+			product_name,
+			product_price,
+			product_desc,
+			product_regdate,
+			product_url
+           ) VALUES (
+             seq_product.NEXTVAL
+            , #{product_name}
+            , #{product_price}
+            , #{product_desc}
+            , TO_CHAR(SYSDATE, 'YYYYMMDD')
+            , #{product_url}
+           )
+       ]]>
+    </insert>
+    
+    <update id="productUpdateSave" parameterType="com.flowershop.product.domain.ProductVo">
+		<![CDATA[
+			UPDATE product
+				SET 
+					PRODUCT_NAME = #{product_name},
+					PRODUCT_PRICE = #{product_price},
+					product_desc = #{product_desc},
+					PRODUCT_URL = #{product_url}
+				WHERE product_no = #{product_no}
+		]]>
+	</update>
+	
+    <delete id="productDelete" parameterType="int">
+        DELETE FROM product WHERE product_no = #{product_no}
+    </delete>
+	
+    <select id="fileInfo" resultType="String">
+        SELECT     
+        product_url
+       		FROM product
+       			WHERE product_no = #{product_no}
+    </select>
+ 	
+    <select id="viewLowPrice" resultType="com.flowershop.product.domain.ProductVo">
+       SELECT  
+        	A.product_no,
+			A.product_name,
+			A.product_price,
+			A.product_saleyn,
+			A.product_desc,
+			A.product_url,
+			B.sale_price,
+			B.sale_percent
+       FROM product A LEFT OUTER JOIN sale B
+          ON A.product_no = B.product_no
+                  ORDER BY sale_price, product_price ASC
+    </select>
+    
+    <select id="viewHighPrice" resultType="com.flowershop.product.domain.ProductVo">
+       SELECT  
+        	A.product_no,
+			A.product_name,
+			A.product_price,
+			A.product_saleyn,
+			A.product_desc,
+			A.product_url,
+			B.sale_price,
+			B.sale_percent
+       FROM product A LEFT OUTER JOIN sale B
+          ON A.product_no = B.product_no
+                  ORDER BY sale_price, product_price DESC
+    </select>
+    
+    <select id="viewName" resultType="com.flowershop.product.domain.ProductVo">
+        SELECT  
+        	A.product_no,
+			A.product_name,
+			A.product_price,
+			A.product_saleyn,
+			A.product_desc,
+			A.product_url,
+			B.sale_price,
+			B.sale_percent
+       FROM product A LEFT OUTER JOIN sale B
+          ON A.product_no = B.product_no
+                  ORDER BY product_name
+    </select>
+    
+    <insert id="saleWriteSave" parameterType="com.flowershop.product.domain.SaleVo">
+         <![CDATA[
+         INSERT 
+           INTO SALE(
+           	product_no,
+			sale_price,
+			sale_percent
+           ) VALUES (
+            #{product_no}
+            , #{sale_price}
+            , #{sale_percent}
+           )
+       ]]>
+    </insert>
+    
+    <update id="updateSaleYn" parameterType="com.flowershop.product.domain.SaleVo">
+		<![CDATA[
+			UPDATE PRODUCT
+				SET 
+					PRODUCT_SALEYN = 'Y'
+				WHERE product_no = #{product_no}
+		]]>
+	</update>
+	
+	<select id="productSaleList" resultType="com.flowershop.product.domain.ProductVo"> 
+        SELECT  
+        	A.product_no,
+			A.product_name,
+			A.product_price,
+			A.product_saleyn,
+			A.product_desc,
+			A.product_url,
+			B.sale_price,
+			B.sale_percent
+       FROM product A, sale B
+             WHERE A.product_saleyn = 'Y' AND
+                   A.product_no = B.product_no 
+                  ORDER BY product_no DESC
+    </select>
+    
+    <update id="productSaleDelete" parameterType="com.flowershop.product.domain.SaleVo">
+		<![CDATA[
+			UPDATE PRODUCT
+				SET 
+					PRODUCT_SALEYN = 'N'
+				WHERE product_no = #{product_no}
+		]]>
+	</update>
+	
+	<delete id="saleDelete" parameterType="int">
+        DELETE FROM sale WHERE product_no = #{product_no}
+    </delete>
+</mapper>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="reply">
+	
+	<sql id="paging_header">
+		SELECT *
+			FROM (
+				SELECT ROWNUM RNUM, S.*
+					FROM(
+	</sql>
+	
+	<sql id="paging_footer">
+				)S
+			)A
+		WHERE RNUM BETWEEN #{startRowNo} AND #{endRowNo}
+	</sql>
+
+	<insert id="afterReplyWrite" parameterType="com.flowershop.afterReply.domain.AfterReplyVo">
+		<![CDATA[
+         INSERT 
+           INTO AFTER_REPLY
+                (
+                    PRODUCT_NO,
+					AFTER_NO,
+					AFTER_LEVEL,
+					AFTER_CONTENT,
+					USER_ID
+                ) VALUES (
+                     #{product_no},
+                     after_reply_seq.nextval,
+                     #{after_level},
+                     #{after_content},
+                     #{user_id}
+                )
+          ]]>
+	</insert>
+	
+	<delete id="AfterReplyDelete" parameterType="int">
+			DELETE FROM AFTER_REPLY WHERE AFTER_NO = #{after_no}
+	</delete>
+	
+	<update id="AfterReplyUpdate" parameterType="com.flowershop.afterReply.domain.AfterReplyVo">
+			UPDATE AFTER_REPLY
+				SET 
+					AFTER_CONTENT = #{after_content}
+						WHERE AFTER_NO = #{after_no}
+	</update>
+	
+	<select id="afterReplyCount" parameterType="com.flowershop.afterReply.domain.AfterReplyVo" resultType="int">
+		  SELECT COUNT(after_no)
+			 FROM after_reply
+		WHERE product_no = #{product_no}
+	</select> 
+	
+	<select id="afterReplyList" parameterType="com.flowershop.afterReply.domain.AfterReplyVo" resultType="com.flowershop.afterReply.domain.AfterReplyVo">
+		 <include refid="paging_header" />
+		  SELECT
+					R.AFTER_NO,
+					R.AFTER_LEVEL,
+					R.AFTER_CONTENT,
+					R.USER_ID
+            FROM after_reply R, product p
+            WHERE R.product_no = p.product_no
+            	AND R.product_no = #{product_no}
+            ORDER BY after_no
+            
+          <include refid="paging_footer" />
+	</select>
+</mapper>
